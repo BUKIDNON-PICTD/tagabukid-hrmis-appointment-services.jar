@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointment_signatorygrouping">
+		<field name="objid" primary="true" prefix="SG" searchable="false" />
+		<field name="state" required="true" visible="true" searchable="false" caption="STATE"/>
+		<field name="code" required="true" visible="false" searchable="false" />
+		<field name="signatorygroupname" required="true" visible="true" searchable="false" caption="Group Name"/>
+		<field name="remarks" required="true" visible="false" searchable="false"/>
+		<field name="signatorytype" required="true" visible="true" searchable="false" caption="Type"/>
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_dateupdated" required="false" visible="false" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false"/>
+
+		<complex name="signatoryGroupItems" ref="hrmis_appointment_signatorygroupingitems" jointype="one-to-many">
+			<key field="objid" target="parentid" /> 		
+		</complex>
+
+	</element>
+</schema>
