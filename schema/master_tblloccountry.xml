@@ -1,0 +1,15 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblloccountry">
+		<field name="objid" primary="true" prefix="TLC" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Country Name" required="false" />
+		<field name="twodigitcode" caption="Two Digit Code" required="false" />
+		<field name="codeiso3" caption="Code ISO 3" required="false" />
+		<field name="numericcode" caption="Numeric Code" required="false" />
+		<field name="recordlog_datecreated" visible="false" required="false" />
+		<field name="recordlog_createdbyuserid" visible="false" required="false" />
+		<field name="recordlog_createdbyuser" visible="false" required="false" />
+		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />
+	</element>
+</schema>

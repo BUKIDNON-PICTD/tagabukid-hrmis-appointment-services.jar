@@ -1,0 +1,14 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblpaygradeandstepincrement">
+		<field name="objid" primary="true" visible="false" prefix="PSI" searchable="false" required="true" />
+		<field name="grade" caption="Grade" required="true" />
+		<field name="step" caption="Step" required="true" />
+		<field name="recordlog_datecreated" visible="false" required="false" />
+		<field name="recordlog_createdbyuserid" visible="false" required="false" />
+		<field name="recordlog_createdbyuser" visible="false" required="false" />
+		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />	
+		<field name="oldid" visible="false" required="false" />		
+	</element>
+</schema>

@@ -1,0 +1,23 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblorganizationunit">
+		<field name="orgunitid" primary="true" prefix="TOU" visible="false" searchable="false" />
+		<field name="name" caption="Organization Name" required="false" />
+		<field name="description" caption="Description" required="false" />
+		<field name="code" caption="Code" required="false" />
+		<field name="parentorgunitid" visible="false" required="false" />
+		<field name="organizationunittypeid" visible="false" required="true" />
+		<field name="position1" visible="false" required="true" />
+		<field name="left" visible="false" required="true" />
+		<field name="right" visible="false" required="true" />
+		<field name="position" visible="false" required="true" />
+		<field name="level" visible="false" required="true" />
+		<field name="type" visible="false" required="false" />
+		<field name="addrcitymunid" visible="false" required="false" />
+		<field name="addrbarangayid" visible="false" required="false" />
+		<field name="addressdetails" visible="false" caption="Address Details" required="false" />
+		<field name="contacts_landline" visible="false" caption="Landline" required="false" />
+		<field name="contacts_mobile" visible="false" caption="Mobile" required="false" />
+		<field name="contacts_email" visible="false" caption="Email" required="false" />
+		<field name="contacts_fax" visible="false" caption="Fax" required="false" />
+	</element>
+</schema>

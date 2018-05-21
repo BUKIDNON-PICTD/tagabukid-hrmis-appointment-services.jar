@@ -1,0 +1,7 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblorganizationunittype">
+		<field name="orgunittypeid" primary="true" prefix="OUT" searchable="false" />
+		<field name="description" caption="Description" required="false" />
+		<field name="comment" caption="Comment" required="false" />
+	</element>
+</schema>

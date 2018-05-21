@@ -1,0 +1,14 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblunitofmeasure">
+		<field name="objid" primary="true" prefix="UOM" searchable="false" />
+		<field name="name" caption="Name" required="false" searchable="false" />
+		<field name="description" caption="Description" required="false" searchable="false" />
+		<field name="code" caption="Code" required="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+	</element>
+</schema>

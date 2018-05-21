@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tbljobposition">
+		<field name="objid" primary="true" prefix="TJP" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Position Name" required="false" />
+		<field name="description" visible="false" required="false" />
+		<field name="code" visible="false" required="false" />
+		<field name="state" visible="false" required="true" />
+		<field name="trainingqualifications" caption="Training Qualification" required="false" />
+		<field name="workexperiencequalifications" caption="Work Experience Qualification" required="false" />
+		<field name="educationqualifications" caption="Education Qualification" required="false" />
+		<field name="eligibilityqualifications" caption="Eligibility Qualification" required="false" />
+		<field name="paygradeid" visible="false" required="false" />
+		<field name="recordlog_datecreated" visible="false" required="false" />
+		<field name="recordlog_createdbyuserid" visible="false" required="false" />
+		<field name="recordlog_createdbyuser" visible="false" required="false" />
+		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />
+		<field name="oldid" visible="false" required="false" />
+	</element>
+</schema>

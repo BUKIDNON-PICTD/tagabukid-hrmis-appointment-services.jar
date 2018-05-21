@@ -1,0 +1,10 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblkinship">
+		<field name="objid" primary="true" prefix="TKN" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Name" required="false" />
+		<field name="description" caption="Description" required="false" />
+		<field name="code" caption="Code" required="false" />
+		<field name="kinshipenum" caption="Kinship Enum???" required="true" />
+		<field name="gender" caption="Gender" required="true" />
+	</element>
+</schema>

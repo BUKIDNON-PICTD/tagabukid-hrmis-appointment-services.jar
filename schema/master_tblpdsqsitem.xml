@@ -1,0 +1,8 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblpdsqsitem">
+		<field name="objid" primary="true" visible="false" prefix="PQI" searchable="false" required="true" />
+		<field name="item" caption="Item" required="false" />
+		<field name="position" caption="Position"  required="true" />
+		<field name="oldid" visible="false" required="false" />
+	</element>
+</schema>

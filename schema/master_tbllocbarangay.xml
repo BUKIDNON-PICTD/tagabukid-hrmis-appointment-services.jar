@@ -1,0 +1,17 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tbllocbarangay">
+		<field name="objid" primary="true" prefix="TLB" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Name" required="false" />
+		<field name="description" caption="Description" required="false" />
+		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" />
+		<field name="psgccode" visible="false" required="false" />
+		<field name="pinno" visible="false" required="false" />
+		<field name="citymunicipalityid" visible="false" required="true" />
+		<field name="recordlog_datecreated" visible="false" required="false" />
+		<field name="recordlog_createdbyuserid" visible="false" required="false" />
+		<field name="recordlog_createdbyuser" visible="false" required="false" />
+		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
+		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />
+	</element>
+</schema>
