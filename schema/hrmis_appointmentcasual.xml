@@ -1,0 +1,25 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentcasual">
+		<field name="objid" primary="true" visible="false" searchable="false"/>
+		<field name="appointmentgroupname" required="true" caption="Appointement Group Name" visible="true" searchable="true"/>
+		<field name="status" required="true" caption="Status" visible="true" searchable="false"/>
+		<field name="effectivefrom" required="true" caption="Effective From" visible="false" searchable="false"/>
+		<field name="effectiveuntil" required="true" caption="Effective Until" visible="false" searchable="false"/>
+		<field name="natureofappointment_objid" required="true" caption="Nature of Appointment" visible="false" searchable="false"/>
+		<field name="dateissued" required="true" caption="Date Issued" visible="false" searchable="false"/>
+		<field name="org_orgunitid" required="true" caption="Org Id" visible="false" searchable="false"/>
+		<field name="currentsalarystep_objid" visible="false" caption="Current Salary Step" searchable="false"/>
+		<field name="compensation" required="false" caption="Compensation" visible="false" searchable="false"/>
+		<field name="remarks" required="false" caption="Remarks" visible="false" searchable="false"/>
+		<field name="signatorygroupid" required="false" visible="false" searchable="false"/>
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_dateupdated" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false"/>
+		<complex name="appointmentitems" ref="hrmis_appointmentcasualitems" jointype="one-to-many">
+			<key field="objid" target="parentid" /> 		
+		</complex>
+	</element>
+</schema>
