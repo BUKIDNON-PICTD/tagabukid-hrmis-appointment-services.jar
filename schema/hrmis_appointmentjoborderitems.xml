@@ -1,9 +1,18 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_appointmentjoborderitems">
-		<field name= "objid" primary="true" visible="false" searchable="false"/>
-		<field name= "parentid" required="true" visible="false" searchable="false"/>
-		<field name= "entityid" required="true" visible="true" searchable="true"/>
-		<field name= "position" required="true" visible="true" searchable="true"/>
-		<field name= "salary" required="true" visible="true" searchable="true"/>
+		<field name="objid" primary="true" visible="false" searchable="false"/>
+		<field name="parentid" required="true" visible="false" searchable="false"/>
+		<field name="entityid" required="true" visible="true" searchable="true"/>
+		<field name="positionid" required="true" visible="true" searchable="true"/>
+		<field name="fundid" required="true" visible="false" />
+		<field name="accountid" required="true" visible="false" />
+		<field name="dailysalary" required="true" visible="true" searchable="true"/>
+		<field name="lastemploymentfrom" visible="true" searchable="true"/>
+		<field name="lastemploymentuntil" visible="true" searchable="true"/>
+
+		<complex name="parent" ref="hrmis_appointmentjoborder" jointype="many-to-one" includefields="objid,appointmentgroupname,state,natureofappointment,signatorygroupid,recordlog_datecreated,recordlog_createdbyuserid,recordlog_createdbyuser" required="false">
+			<key field="parentid" target="objid" />
+		</complex>
+
 	</element>
 </schema>
