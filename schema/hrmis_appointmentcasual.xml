@@ -11,7 +11,7 @@
 		<field name="currentsalarystep_objid" visible="false" caption="Current Salary Step" searchable="false"/>
 		<field name="compensation" required="false" caption="Compensation" visible="false" searchable="false"/>
 		<field name="remarks" required="false" caption="Remarks" visible="false" searchable="false"/>
-		<field name="signatorygroupid" required="false" visible="false" searchable="false"/>
+		<field name="signatorygroup_objid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false"/>
