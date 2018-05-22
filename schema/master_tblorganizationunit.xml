@@ -19,5 +19,12 @@
 		<field name="contacts_mobile" visible="false" caption="Mobile" required="false" />
 		<field name="contacts_email" visible="false" caption="Email" required="false" />
 		<field name="contacts_fax" visible="false" caption="Fax" required="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
 </schema>
