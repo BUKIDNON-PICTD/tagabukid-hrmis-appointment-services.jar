@@ -6,11 +6,11 @@
 		<field name="code" caption="Code" required="false" />
 		<field name="parentorgunitid" visible="false" required="false" />
 		<field name="organizationunittypeid" visible="false" required="true" />
-		<field name="position1" visible="false" required="true" />
-		<field name="left" visible="false" required="true" />
-		<field name="right" visible="false" required="true" />
-		<field name="position" visible="false" required="true" />
-		<field name="level" visible="false" required="true" />
+		<field name="position1" visible="false" required="true"/>
+		<field name="left" visible="false" required="true"/>
+		<field name="right" visible="false" required="true"/>
+		<field name="position" visible="false" required="true"/>
+		<field name="level" visible="false" required="true"/>
 		<field name="type" visible="false" required="false" />
 		<field name="addrcitymunid" visible="false" required="false" />
 		<field name="addrbarangayid" visible="false" required="false" />
@@ -19,5 +19,12 @@
 		<field name="contacts_mobile" visible="false" caption="Mobile" required="false" />
 		<field name="contacts_email" visible="false" caption="Email" required="false" />
 		<field name="contacts_fax" visible="false" caption="Fax" required="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
 </schema>

@@ -5,6 +5,7 @@
 		<field name="description" caption="Description" required="false" />
 		<field name="code" caption="Code" required="false" />
 		<field name="trainingcategoryid" visible="false" required="true" />
+		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" visible="false" required="false" />
 		<field name="recordlog_createdbyuserid" visible="false" required="false" />
 		<field name="recordlog_createdbyuser" visible="false" required="false" />

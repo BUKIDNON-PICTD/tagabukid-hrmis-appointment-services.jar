@@ -5,11 +5,12 @@
 		<field name="twodigitcode" caption="Two Digit Code" required="false" />
 		<field name="codeiso3" caption="Code ISO 3" required="false" />
 		<field name="numericcode" caption="Numeric Code" required="false" />
-		<field name="recordlog_datecreated" visible="false" required="false" />
-		<field name="recordlog_createdbyuserid" visible="false" required="false" />
-		<field name="recordlog_createdbyuser" visible="false" required="false" />
-		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
-		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
-		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
 </schema>
