@@ -1,0 +1,27 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.services.extended.*;
+
+public class AppointmentSignatoryService extends ActiveCrudListService
+{
+	@ActiveDB(value='hrmis_appointment_signatorygrouping', em='tagabukid_hrmis')
+	def em;
+
+
+	@ProxyMethod
+	public def getSigType( o ) {
+		//beforeUpdate(o)
+		//tp.updatestate(o);
+
+		println o
+
+		o.searchtext+='%'
+
+		return em.getSigType( o );
+
+		
+        	
+	}
+
+}
+	

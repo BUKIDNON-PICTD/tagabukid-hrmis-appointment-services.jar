@@ -1,0 +1,20 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_tblpayrollsalarytranche">
+        <field name="objid" primary="true"/>
+        <field name="name" required="false"/>
+        <field name="description" required="false"/>
+        <field name="acronymabbreviation" required="false"/>
+        <field name="effectivefromdate" required="false"/>
+        <field name="effectivetodate" required="false"/>
+        <field name="isapproved" required="false"/>
+        <field name="recordlog_datecreated" required="false"/>
+        <field name="recordlog_createdbyuserid" required="false"/>
+        <field name="recordlog_createdbyuser" required="false"/>
+        <field name="recordlog_dateoflastupdate" required="false"/>
+        <field name="recordlog_lastupdatebyuserid" required="false"/>
+        <field name="recordlog_lastupdatebyuser" required="false"/>
+        <field name="circular_name" required="false"/>
+        <field name="circular_description" required="false"/>
+        <field name="circular_acronymabbreviation" required="false"/>
+    </element>
+</schema>

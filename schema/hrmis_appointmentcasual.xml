@@ -1,0 +1,38 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentcasual">
+		<field name="objid" primary="true" searchable="false"/>
+		<field name="state" required="true" caption="State" searchable="false"/>
+		<field name="status" required="true" caption="Status" searchable="false"/>
+		<field name="appointmentgroupname" required="true" caption="Appointement Group Name" searchable="true"/>
+		<field name="effectivefrom" required="true" caption="Effective From" searchable="false"/>
+		<field name="effectiveuntil" required="true" caption="Effective Until" searchable="false"/>
+		<field name="natureofappointment_objid" required="true" caption="Nature of Appointment" searchable="false"/>
+		<field name="dateissued" required="true" caption="Date Issued" searchable="false"/>
+		<field name="org_orgunitid" required="true" caption="Org Id" searchable="false"/>
+		<field name="currentsalarystep_objid" required="false" caption="Current Salary Step" searchable="false"/>
+		<field name="compensation" required="false" caption="Compensation" searchable="false"/>
+		<field name="remarks" required="false" caption="Remarks" searchable="false"/>
+		<field name="signatorygroup_objid" required="false" searchable="false"/>
+		<field name="recordlog_datecreated" required="true" searchable="false"/>
+		<field name="recordlog_createdbyuserid" required="true" searchable="false"/>
+		<field name="recordlog_createdbyuser" required="true" searchable="false"/>
+		<field name="recordlog_dateupdated" required="true" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuserid" required="true" searchable="false"/>
+		<field name="recordlog_lastupdatedbyuser" required="true" searchable="false"/>
+		<complex name="appointmentitems" ref="hrmis_appointmentcasualitems" jointype="one-to-many" required="false">
+			<key field="objid" target="parentid" /> 		
+		</complex>
+		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="one-to-one" required="false">
+			<key field="signatorygroup_objid" target="objid" /> 		
+		</complex>
+		<complex name="natureofappointment" ref="references_tblappointmententrycode" jointype="one-to-one" required="false">
+			<key field="natureofappointment_objid" target="objid" />
+		</complex>
+		<complex name="org" ref="master_tblorganizationunit" jointype="one-to-one" required="false">
+			<key field="org_orgunitid" target="orgunitid" />
+		</complex>
+		<complex name="currentsalarystep" ref="hrmis_payrollsalarytranche" jointype="one-to-one" required="false">
+			<key field="currentsalarystep_objid" target="objid" />
+		</complex>
+	</element>
+</schema>

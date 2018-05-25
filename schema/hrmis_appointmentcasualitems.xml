@@ -1,0 +1,12 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentcasualitems">
+		<field name= "objid" primary="true" visible="false" searchable="false"/>
+		<field name= "parentid" required="true" visible="false" searchable="false"/>
+		<field name= "personnel_objid" required="true" visible="true" searchable="true"/>
+		<field name= "plantilla_Id" required="true" visible="true" searchable="true"/>
+		<field name= "dailywage" required="true" visible="true" searchable="true"/>
+		<complex name="parent" ref="hrmis_appointmentcasual" jointype="many-to-one" includefields="objid,icrno" required="false">
+			<key field="parentid" target="objid" />
+		</complex>
+	</element>
+</schema>

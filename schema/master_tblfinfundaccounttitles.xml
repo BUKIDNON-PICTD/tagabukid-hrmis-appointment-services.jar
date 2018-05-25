@@ -1,0 +1,14 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblfinfundaccounttitles">
+		<field name="objid" primary="true" visible="false" prefix="FAT" searchable="false" required="true"/>
+		<field name="accounttitleid" visible="false" caption="Account Title ID" required="false" />
+		<field name="fundid" visible="false" caption="Fund ID" required="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+	</element>
+</schema>
