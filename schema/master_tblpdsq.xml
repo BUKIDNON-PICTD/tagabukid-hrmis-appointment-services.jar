@@ -1,0 +1,16 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblpdsq">
+		<field name="objid" primary="true" visible="false" prefix="TPQ" searchable="false" required="true" />
+		<field name="question" caption="Question" required="false" />
+			<field name="position" caption="Position" required="true" />
+			<field name="pdsqsitemid" visible="false" required="true" />
+			<field name="oldid" visible="false" required="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+	</element>
+</schema>
