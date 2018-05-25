@@ -11,15 +11,24 @@
 		<field name="currentsalarystep_objid" visible="false" caption="Current Salary Step" searchable="false"/>
 		<field name="compensation" required="false" caption="Compensation" visible="false" searchable="false"/>
 		<field name="remarks" required="false" caption="Remarks" visible="false" searchable="false"/>
-		<field name="signatorygroup_objid" required="false" visible="false" searchable="false"/>
+		<field name="signatorygroupid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_dateupdated" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false"/>
-		<complex name="appointmentitems" ref="hrmis_appointmentcasualitems" jointype="one-to-many">
+		<complex name="appointmentitems" ref="hrmis_appointmentcasualitems" jointype="one-to-many" required="false">
 			<key field="objid" target="parentid" /> 		
+		</complex>
+		<complex name="natureofappointment" ref="references_tblappointmententrycode" jointype="one-to-one" required="false">
+			<key field="natureofappointment_objid" target="objid" />
+		</complex>
+		<complex name="org" ref="master_tblorganizationunit" jointype="one-to-one" required="false">
+			<key field="org_orgunitid" target="orgunitid" />
+		</complex>
+		<complex name="currentsalarystep" ref="hrmis_payrollsalarytranche" jointype="one-to-one" required="false">
+			<key field="currentsalarystep_objid" target="objid" />
 		</complex>
 	</element>
 </schema>
