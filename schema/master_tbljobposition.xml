@@ -25,3 +25,4 @@
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
+</schema>
