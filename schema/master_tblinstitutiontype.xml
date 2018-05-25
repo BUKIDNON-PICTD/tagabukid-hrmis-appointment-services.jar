@@ -1,0 +1,16 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblinstitutiontype">
+		<field name="objid" primary="true" prefix="INT" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Institution Name" required="false" />
+		<field name="description" caption="Description" visible="false" required="false" />
+		<field name="code" caption="Code" visible="false" required="false" />
+		<field name="sectorid" visible="false" required="true" />
+		<field name="state" visible="false" required="true" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+	</element>
+</schema>
