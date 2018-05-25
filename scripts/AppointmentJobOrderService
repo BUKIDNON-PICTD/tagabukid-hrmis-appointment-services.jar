@@ -18,9 +18,6 @@ public class AppointmentJobOrderService extends ActiveCrudListService
 		o.searchtext+='%'
 
 		return em.getGroupName( o );
-
-		
-        	
 	}
 
 }

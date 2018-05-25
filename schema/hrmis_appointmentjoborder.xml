@@ -3,12 +3,12 @@
 		<field name="objid" primary="true" visible="false" searchable="false" prefix="JO"/>
 		<field name="state" required="true" visible="true" searchable="true" caption="STATE"/>
 		<field name="appointmentgroupname" required="true" visible="true" searchable="true" caption="Group Name"/>
-		<field name="status" required="true" visible="false" searchable="false"/>
+		<field name="status" required="false" visible="false" searchable="false"/>
 		<field name="effectivefrom" required="true" visible="false" searchable="false"/>
-		<field name="effectiveuntil" required="true" visible="false" searchable="false"/>
+		<field name="effectiveuntil" required="true" visible="true" searchable="false" caption="Valid Until"/>
 		<field name="natureofappointmentid" required="true" visible="false" searchable="false"/>
 		<field name="dateissued" required="true" visible="false" searchable="false"/>
-		<field name="dateapproved" required="true" visible="false" searchable="false"/>
+		<field name="dateapproved" required="false" visible="false" searchable="false"/>
 		<field name="org_objid" required="true" visible="false" searchable="false"/>
 		<field name="currentsalarystep" required="false" visible="false" searchable="false"/>
 		<field name="compensation" required="false" visible="false" searchable="false"/>
