@@ -2,15 +2,11 @@
 	<element tablename="hrmis_appointment_signatorygroupingitems">
 		<field name="objid" primary="true" prefix="SGI" searchable="false" />
 		<field name="parentid" required="true" searchable="false" />
-		<field name="signatoryname" required="true" visible="true" searchable="false" caption="Signatory Name"/>
-		<field name="signatorytitle" required="true" visible="false" searchable="false" />
-		<field name="signatoryheading" required="true" visible="false" searchable="false" />
-		<field name="remarks" visible="false" searchable="false"/>
-		<field name="level" required="true" visible="false" searchable="false"/>
-		<field name="org" required="true" visible="false" searchable="false"/>
-
-		<complex name="parent" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" includefields="objid,signatorygroupname,remarks,state,recordlog_datecreated,recordlog_createdbyuserid,recordlog_createdbyuser" required="false">
-			<key field="parentid" target="objid" />
-		</complex>
+		<field name="signatoryname" required="true" searchable="false" caption="Signatory Name"/>
+		<field name="signatorytitle" required="true" searchable="false" />
+		<field name="signatoryheading" required="true" searchable="false" />
+		<field name="remarks" searchable="false"/>
+		<field name="level" required="true" searchable="false"/>
+		<field name="org" required="true" searchable="false"/>
 	</element>
 </schema>
