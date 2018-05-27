@@ -43,6 +43,7 @@ class HRMISAppointmentCasualService
 		
 		def entity = [:];
 		entity.objid = 'AC' + new java.rmi.server.UID()
+		entity.state = "DRAFT"
 		entity.status = "CASUAL"
 		entity.recordlog = [:]
 		entity.recordlog.datecreated = dtSvc.serverDate

@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblappointmententrycode">
 		<field name="objid" primary="true" visible="false" searchable="false" prefix="NA"/>
-		<field name="name" />
+		<field name="name" caption="Nature of Appointment" />
 		<field name="description" />
 		<field name="code" />
 		<field name="pastverb" />
