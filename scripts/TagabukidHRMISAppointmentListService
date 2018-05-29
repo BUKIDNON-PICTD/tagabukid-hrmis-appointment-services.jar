@@ -5,7 +5,7 @@ import java.rmi.server.*;
 
 class TagabukidHRMISAppointmentListService extends ActiveCrudListService  {
 
-	@ActiveDB(value='hrmis_appointment_list', em='tagabukid_hrmis')
+	@ActiveDB(value='appointmentdocument', em='tagabukid_hrmis')
 	def em
 
 	@Service("TagabukidSubayTransactionService")
