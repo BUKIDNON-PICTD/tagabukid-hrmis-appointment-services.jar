@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import com.rameses.annotations.*;
 import com.rameses.common.*;
 import com.rameses.services.extended.*;
@@ -25,29 +24,3 @@ public class AppointmentJobOrderService extends ActiveCrudListService
 	}
 
 }
-=======
-import com.rameses.annotations.*;
-import com.rameses.common.*;
-import com.rameses.services.extended.*;
-
-public class AppointmentJobOrderService extends ActiveCrudListService
-{
-	@ActiveDB(value='hrmis_appointmentjoborder', em='tagabukid_hrmis')
-	def em;
-
-
-	@ProxyMethod
-	public def getGroupName( o ) {
-		//beforeUpdate(o)
-		//tp.updatestate(o);
-
-		//println o
-
-		o.searchtext+='%'
-
-		return em.getGroupName( o );
-	}
-
-}
->>>>>>> ec054f5d6371edf58f11dcb3cb69bc11d5619c2b
-	
