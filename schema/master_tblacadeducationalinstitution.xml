@@ -1,11 +1,8 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="references_tblemptincrementtype">
-		<field name="objid" primary="true" prefix="EIT" searchable="false" />
-		<field name="name" caption="Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="code" caption="Code" required="false" />
-		<field name="yearsdue" visible="false" required="true" />
-		<field name="stepinterval" visible="false" required="true" />
+	<element tablename="references_tblacadeducationalinstitution">
+		<field name="objid" primary="true" prefix="AEI" searchable="false" />
+		<field name="schoolid" caption="School ID" required="false" />
+		<field name="level" caption="Level" required="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
