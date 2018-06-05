@@ -1,0 +1,29 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblacadeducationalinstitutionback">
+		<field name="objid" primary="true" prefix="EIB" searchable="false" />
+		<field name="schoolid" visible="false" required="false" />
+		<field name="name" caption="Name" required="false" />
+		<field name="description" caption="Description" required="false" />
+		<field name="code" caption="Code" required="false" />
+		<field name="dateestablished" required="false" visible="false" />
+		<field name="dateclosed" required="false" visible="false" />
+		<field name="level" required="false" visible="false" />
+		<field name="barangayid" required="false" visible="false" />
+		<field name="citymunid" required="false" visible="false" />
+		<field name="address_addressdetails" required="false" visible="false" />
+		<field name="address_zipcode" required="false" visible="false" />
+		<field name="contacts_landline" required="false" visible="false" />
+		<field name="contacts_mobile" required="false" visible="false" />
+		<field name="contacts_email" required="false" visible="false" />
+		<field name="contacts_fax" required="false" visible="false" />
+		<field name="parentid" required="false" visible="false" />
+		<field name="sdf" required="false" visible="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+	</element>
+</schema>
