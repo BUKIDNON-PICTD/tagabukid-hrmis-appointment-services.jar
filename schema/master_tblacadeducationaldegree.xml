@@ -1,6 +1,6 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblacadeducationaldegree">
-		<field name="objid" primary="true" visible="false" prefix="PSC" searchable="false" required="true"/>
+		<field name="objid" primary="true" visible="false" prefix="AED" searchable="false" required="true"/>
 		<field name="name" caption="Name" required="false" />
 		<field name="description" caption="Description" required="false" />
 		<field name="code" caption="Code" required="false" />

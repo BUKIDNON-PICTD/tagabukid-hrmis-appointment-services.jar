@@ -1,6 +1,6 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblacadeducationalinstitutionback">
-		<field name="objid" primary="true" prefix="AEL" searchable="false" />
+		<field name="objid" primary="true" prefix="EIB" searchable="false" />
 		<field name="schoolid" visible="false" required="false" />
 		<field name="name" caption="Name" required="false" />
 		<field name="description" caption="Description" required="false" />
@@ -25,6 +25,5 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
-		<field name="group" required="false" visible="false" searchable="false" />
 	</element>
 </schema>
