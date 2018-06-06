@@ -6,7 +6,7 @@
 		<field name="code" caption="Code" required="false" />
 		<field name="parentaccountid" visible="false" required="false" />
 		<field name="fundid" required="true" visible="false" searchable="false" />
-		<field name="position" caption="Position" required="true" />
+		<field name="position" caption="Position" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
