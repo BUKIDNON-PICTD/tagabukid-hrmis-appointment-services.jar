@@ -1,13 +1,13 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblloccitymunicipality">
 		<field name="objid" primary="true" prefix="LCM" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" />
+		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" searchable="true" />
 		<field name="psgccode" visible="false" required="false" />
 		<field name="pinno" visible="false" required="false" />
 		<field name="provinceid" visible="false" required="true" />
-		<field name="congressionaldistrictid" visible="false" required="false" />
+		<field name="congressionaldistrictid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />

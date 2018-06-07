@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_hrmis_status">
 		<field name="status_code" primary="true" searchable="false" visible="false"/>
-		<field name="status" caption="Status" required="true" />
+		<field name="status" caption="Status" required="true" searchable="true" />
 		<field name="plantilla_flag" required="true" visible="false" searchable="false"/>
 		<field name="leave_flag" required="true" visible="false" searchable="false"/>
 		<field name="leave_earning" required="true" visible="false" searchable="false"/>
