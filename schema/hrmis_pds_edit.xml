@@ -1,9 +1,10 @@
-
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds">
-		<field name="objid" primary="true" prefix="PDL" visible="true" searchable="false"/>
-		<field name="entityid" caption="" required="true" visible="false" searchable="false"/>
-		<field name="versionid" caption="Current Version" required="true" visible="true" searchable="true"/>
+	<element tablename="hrmis_pds_edit">
+		<field name="objid" primary="true" prefix="PDV" searchable="false" />
+		<field name="skillid" required="false" searchable="false" />
+		<field name="recognitionid" required="false" searchable="false" />
+		<field name="organizationasoociationid" required="false" searchable="false" />
+		<field name="voluntaryworkid" required="false" searchable="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -11,7 +12,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="voluntarywork" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="true">
+			<key field="voluntaryworkid" target="objid" /> 		
+		</complex>
 	</element>
-
-
 </schema>
