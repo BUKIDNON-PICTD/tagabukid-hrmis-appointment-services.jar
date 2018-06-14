@@ -1,9 +1,9 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbljobposition">
 		<field name="objid" primary="true" prefix="TJP" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Position Name" required="false" />
-		<field name="description" visible="false" required="false" />
-		<field name="code" visible="false" required="false" />
+		<field name="name" caption="Position Name" required="false" searchable="true" />
+		<field name="description" visible="false" required="false" searchable="true" />
+		<field name="code" visible="false" required="false" searchable="true" />
 		<field name="state" visible="false" required="true" />
 		<field name="trainingqualifications" caption="Training Qualification" required="false" />
 		<field name="workexperiencequalifications" caption="Work Experience Qualification" required="false" />
