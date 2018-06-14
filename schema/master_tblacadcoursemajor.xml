@@ -1,0 +1,18 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblacadcoursemajor">
+		<field name="objid" primary="true" visible="false" prefix="ACM" searchable="false" required="true"/>
+
+		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="code" caption="Code" required="false" searchable="true" />
+
+		<field name="courseid" visible="false" required="true" searchable="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>

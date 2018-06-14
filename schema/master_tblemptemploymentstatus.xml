@@ -1,0 +1,31 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblemptemploymentstatus">
+		<field name="objid" primary="true" prefix="EST" searchable="false" />
+		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="code" caption="Code" required="false" searchable="true" />
+		<field name="istenure" visible="false" required="true" />
+
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<field name="oldid" required="false" visible="false" searchable="false" />
+		<field name="isapplicableforplantillaposition" required="false" visible="false" searchable="false" />
+		<field name="hasleave" required="false" visible="false" searchable="false" />
+		<field name="leaveearning" required="false" visible="false" searchable="false" />
+		<field name="hasstepincrement" required="false" visible="false" searchable="false" />
+		<field name="isgovernmentservice" required="false" visible="false" searchable="false" />
+		<field name="compensationtype" required="false" visible="false" searchable="false" />
+		<field name="compensationearning" required="false" visible="false" searchable="false" />
+		<field name="stepincrementyearsmultiplicity" required="false" visible="false" searchable="false" />
+		<field name="appointmentreportdoc" required="true" visible="false" searchable="false" />
+		<field name="isapplicableforsalaryscheduleadjustment" required="false" visible="false" searchable="false" />
+		<field name="plantillatype" required="false" visible="false" searchable="false" />
+		<field name="sortposition" required="false" visible="false" searchable="false" />
+	</element>
+</schema>

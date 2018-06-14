@@ -1,11 +1,9 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="references_tblinstitutiontype">
-		<field name="objid" primary="true" prefix="INT" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Institution Name" required="false"  searchable="true"/>
-		<field name="description" caption="Description" visible="false" required="false"  searchable="true"/>
-		<field name="code" caption="Code" visible="false" required="false"  searchable="true"/>
-		<field name="sectorid" visible="false" required="true" />
-		<field name="state" visible="false" required="true" />
+	<element tablename="hrmis_pds_version">
+		<field name="objid" primary="true" prefix="PDV" searchable="false" />
+		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="editid" required="true" searchable="false" />
+		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />

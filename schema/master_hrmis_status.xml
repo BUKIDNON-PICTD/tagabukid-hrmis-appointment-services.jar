@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_hrmis_status">
+		<field name="status_code" primary="true" searchable="false" visible="false"/>
+
+		<field name="status" caption="Status" required="true" searchable="true" />
+		<field name="plantilla_flag" required="true" visible="false" searchable="false"/>
+		<field name="leave_flag" required="true" visible="false" searchable="false"/>
+		<field name="leave_earning" required="true" visible="false" searchable="false"/>
+		<field name="step_flag" required="true"  visible="false" searchable="false"/>
+		<field name="career_noncareer_flg" required="true" visible="false" searchable="false"/>
+		<field name="govt_service" required="true"  visible="false" searchable="false"/>
+		<field name="tenure" required="true" visible="false" searchable="false"/>
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>

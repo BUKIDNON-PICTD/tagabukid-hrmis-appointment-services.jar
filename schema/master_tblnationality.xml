@@ -1,8 +1,8 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblnationality">
 		<field name="objid" primary="true" prefix="NAT" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" />
-		<field name="description" caption="Description" required="false" />
+		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="countryid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />

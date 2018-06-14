@@ -1,11 +1,11 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblkinship">
 		<field name="objid" primary="true" prefix="TKN" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="code" caption="Code" required="false" />
-		<field name="kinshipenum" caption="Kinship Enum???" required="true" />
-		<field name="gender" caption="Gender" required="true" />
+		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="code" caption="Code" required="false" searchable="true" />
+		<field name="kinshipenum" visible="false" caption="Kinship Enum???" required="true" />
+		<field name="gender" visible="false" caption="Gender" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />

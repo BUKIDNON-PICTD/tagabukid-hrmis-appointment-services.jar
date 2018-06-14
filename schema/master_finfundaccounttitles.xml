@@ -1,7 +1,0 @@
-<schema adapter="tagabukid_hrmis">
-	<element tablename="references_tblfinfundaccounttitles">
-		<field name="objid" primary="true" searchable="false" />
-		<field name="accounttitleid" required="true" />
-		<field name="fundid" required="true" />
-	</element>
-</schema>
