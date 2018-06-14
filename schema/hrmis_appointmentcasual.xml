@@ -25,7 +25,7 @@
 		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" required="false">
 			<key field="signatorygroup_objid" target="objid" /> 		
 		</complex>
-		<complex name="natureofappointment" ref="references_tblappointmententrycode" jointype="many-to-one" required="false">
+		<complex name="natureofappointment" ref="master_tblappointmententrycode" jointype="many-to-one" required="false">
 			<key field="natureofappointment_objid" target="objid" />
 		</complex>
 		<complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
