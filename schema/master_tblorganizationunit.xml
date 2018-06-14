@@ -1,9 +1,9 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblorganizationunit">
 		<field name="orgunitid" primary="true" prefix="TOU" visible="false" searchable="false" />
-		<field name="name" caption="Organization Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="code" caption="Code" required="false" />
+		<field name="name" caption="Organization Name" required="false" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="parentorgunitid" visible="false" required="false" />
 		<field name="organizationunittypeid" visible="false" required="true" />
 		<field name="position1" visible="false" required="true"/>

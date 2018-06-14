@@ -5,6 +5,7 @@
 		<field name= "personnel_objid" required="true" visible="true" searchable="true"/>
 		<field name= "plantilla_Id" required="true" visible="true" searchable="true"/>
 		<field name= "dailywage" required="true" visible="true" searchable="true"/>
+		<field name= "monthlywage" required="false" visible="true" searchable="true"/>
 		<complex name="parent" ref="hrmis_appointmentcasual" jointype="many-to-one" includefields="objid,icrno" required="false">
 			<key field="parentid" target="objid" />
 		</complex>

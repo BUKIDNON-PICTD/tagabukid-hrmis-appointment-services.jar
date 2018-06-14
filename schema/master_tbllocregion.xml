@@ -1,9 +1,9 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbllocregion">
 		<field name="objid" primary="true" prefix="TLR" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Region Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" />
+		<field name="name" caption="Region Name" required="true" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" searchable="true" />
 		<field name="psgccode" visible="false" required="false" />
 		<field name="pinno" visible="false" required="false" />
 		<field name="countryid" visible="false" required="true" />

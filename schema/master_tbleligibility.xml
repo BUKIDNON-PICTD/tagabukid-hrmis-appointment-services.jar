@@ -1,10 +1,10 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbleligibility">
 		<field name="objid" primary="true" prefix="ELT" searchable="false" />
-		<field name="name" caption="Name" required="false" />
-		<field name="description" caption="Description" required="false" />
-		<field name="code" caption="Code" required="false" />
-		<field name="eligibilitytypeid" required="true" visible="false" searchable="false" />
+		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="code" caption="Code" required="false" searchable="true" />
+		<field name="eligibilitytypeid" visible="false" required="true" searchable="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />

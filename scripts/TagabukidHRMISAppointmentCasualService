@@ -3,7 +3,7 @@ import com.rameses.common.*;
 import com.rameses.services.extended.*;
 
 
-class HRMISAppointmentCasualService
+class TagabukidHRMISAppointmentCasualService
 {
 	
 	@ActiveDB(value='hrmis_appointmentcasual', em='tagabukid_hrmis')
@@ -42,7 +42,7 @@ class HRMISAppointmentCasualService
 	def initCreate(){
 		
 		def entity = [:];
-		entity.objid = 'AC' + new java.rmi.server.UID()
+		entity.objid = 'AC' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year
 		entity.state = "DRAFT"
 		entity.status = "CASUAL"
 		entity.recordlog = [:]
@@ -54,6 +54,36 @@ class HRMISAppointmentCasualService
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
         
      	entity.appointmentitems = []
+        return entity;
+
+	}
+
+	@ProxyMethod
+	def initRenew(o){
+		
+		def entity = [:];
+		entity = o
+		entity.objid = 'AC' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year
+		entity.state = "DRAFT"
+		entity.status = "CASUAL"
+		entity.effectivefrom = null
+		entity.effectiveuntil = null
+		entity.natureofappointment = null
+		entity.dateissued = null
+		entity.remraks = null
+		
+		entity.appointmentitems.each{
+			it.objid = 'ACI' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year
+		}
+
+		entity.recordlog = [:]
+		entity.recordlog.datecreated = dtSvc.serverDate
+        entity.recordlog.createdbyuserid = env.USERID
+        entity.recordlog.createdbyuser = env.FULLNAME
+        entity.recordlog.dateupdated =  dtSvc.serverDate
+        entity.recordlog.lastupdatedbyuserid = env.USERID
+        entity.recordlog.lastupdatedbyuser = env.FULLNAME
+        
         return entity;
 
 	}
