@@ -1,10 +1,12 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblacadeducationalinstitutionback">
+
 		<field name="objid" primary="true" prefix="AIB" searchable="false" />
 		<field name="schoolid" visible="false" required="false" searchable="true" />
 		<field name="name" caption="Name" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
+
 		<field name="dateestablished" required="false" visible="false" />
 		<field name="dateclosed" required="false" visible="false" />
 		<field name="level" required="false" visible="false" />

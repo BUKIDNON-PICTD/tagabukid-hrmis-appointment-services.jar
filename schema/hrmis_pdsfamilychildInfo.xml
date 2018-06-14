@@ -1,0 +1,7 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds_familybackground_children">
+		<field name="objid" primary="true" searchable="false" visible="false"/>
+		<field name="Name" primary="false" searchable="true" visible="true">
+		<field name="Birthdate" primary="false" searchable="true" visible="true">
+	</element>
+</schema>
