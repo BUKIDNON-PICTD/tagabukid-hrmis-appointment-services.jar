@@ -1,5 +1,0 @@
-<schema adapter="tagabukid_hrmis">
-	<element tablename="references_tblhealthmedicalinstitution">
-		<field name="objid" primary="true" searchable="false" />
-	</element>
-</schema>

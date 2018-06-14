@@ -1,0 +1,5 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds">
+		<field name="objid"/>
+	</element>
+</schema>
