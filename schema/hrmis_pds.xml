@@ -1,5 +1,16 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_pds">
-		<field name="objid" visible="true" searchable="false"/>
+		<field name="objid" primary="true" prefix="PDL" visible="true" searchable="false"/>
+		<field name="entityid" caption="" required="true" visible="false" searchable="false"/>
+		<field name="versionid" caption="Current Version" required="true" visible="true" searchable="true"/>
+		<field name="state" required="true" visible="false" searchable="false" />
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
+
+	
 </schema>
