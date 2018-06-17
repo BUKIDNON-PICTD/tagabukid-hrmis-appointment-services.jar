@@ -9,7 +9,7 @@
 		<field name="natureofappointment_objid" required="true" caption="Nature of Appointment" searchable="false"/>
 		<field name="dateissued" required="true" caption="Date Issued" searchable="false"/>
 		<field name="org_orgunitid" required="true" caption="Org Id" searchable="false"/>
-		<field name="currentsalarystep_objid" required="false" caption="Current Salary Step" searchable="false"/>
+		<field name="currentsalarystep_objid" required="true" caption="Current Salary Step" searchable="false"/>
 		<field name="compensation" required="false" caption="Compensation" searchable="false"/>
 		<field name="remarks" required="false" caption="Remarks" searchable="false"/>
 		<field name="signatorygroup_objid" required="false" searchable="false"/>
