@@ -12,9 +12,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
-
+<!-- 
 		<complex name="voluntarywork" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="true">
 			<key field="voluntaryworkid" target="objid" /> 		
-		</complex>
+		</complex> -->
 	</element>
 </schema>

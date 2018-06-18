@@ -10,8 +10,5 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
-		<!-- <complex name="personalinfo" ref="hrmis_pds_version_personalinfo" jointype="one-to-many" required="false">
-			<key field="objid" target="versionid" /> 		
-		</complex> -->
 	</element>
 </schema>

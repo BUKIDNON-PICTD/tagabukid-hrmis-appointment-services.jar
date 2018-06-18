@@ -1,0 +1,19 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds_version_voluntarywork">
+		<field name="objid" primary="true" prefix="VWK" searchable="false" />
+		<field name="versionid" required="true" visible="false" />
+		<field name="orgid" required="true" visible="false" searchable="false"/>
+		<field name="name" required="true" searchable="true"/>
+		<field name="from" required="true" searchable="false"/>
+		<field name="to" required="true" searchable="false"/>
+		<field name="hours" required="false" searchable="true"/>
+		<field name="natureofwork" required="false" searchable="true"/>
+		<field name="state" required="true" searchable="false" caption="STATE"/>
+		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
+		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
+		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
+		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+	</element>
+</schema>
