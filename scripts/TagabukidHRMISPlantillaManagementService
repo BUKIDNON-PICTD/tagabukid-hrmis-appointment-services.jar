@@ -13,6 +13,9 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	@Env
 	def env;
 
+	@Service('DateService')
+	def dtSvc 
+
 
     // void addNode(parent){
     // 	em.changeNodeRight([myRight:parent.rgt]);
@@ -35,6 +38,22 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	// 	o.rgt = parent.lft + 2;
 
     // }
+	@ProxyMethod
+	def initCreate(){
+		
+		def entity = [:];
+		entity.objid = 'PM' + new java.rmi.server.UID()
+		entity.recordlog = [:]
+		entity.recordlog.datecreated = dtSvc.serverDate
+        entity.recordlog.createdbyuserid = env.USERID
+        entity.recordlog.createdbyuser = env.FULLNAME
+        entity.recordlog.dateoflastupdate =  dtSvc.serverDate
+        entity.recordlog.lastupdatebyuserid = env.USERID
+        entity.recordlog.lastupdatebyuser = env.FULLNAME
+        entity.previtemnos = []
+        return entity;
+
+	}
 
 	public void afterNode( def selectedNode, def list ) {
 		// def orgid = dtsSvc.getUserOrg(env.USERID).org.objid
@@ -57,13 +76,13 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	public def getColumns( def o ) {
 		def cols = [
 			[name:'itemno', caption:'Item No.' ],
-			[name:'jobposition', caption:'Job Position' ],
-			[name:'fund', caption:'Fund' ],
-			[name:'accounttitle', caption:'Account Title' ],
-			[name:'isfunded', caption:'Funded' ],
-			[name:'incrementtype', caption:'Increment Type' ],
-			[name:'positionserviceclassification', caption:'Position Service Classification' ],
-			[name:'positionservicesubclassification', caption:'Position Service Sub Classification' ],
+			[name:'jobposition.name', caption:'Job Position' ],
+			[name:'fund.name', caption:'Fund' ],
+			[name:'accounttitle.name', caption:'Account Title' ],
+			[name:'isfunded.name', caption:'Funded' ],
+			[name:'incrementtype.name', caption:'Increment Type' ],
+			[name:'positionserviceclassification.name', caption:'Position Service Classification' ],
+			[name:'positionservicesubclassification.name', caption:'Position Service Sub Classification' ],
 		];
 		return cols;
 	}

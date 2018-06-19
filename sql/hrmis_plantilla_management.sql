@@ -11,21 +11,21 @@ SELECT
 xx.`objid`,
 xx.`itemno`,
 xx.`isfunded`,
-j.`name` AS jobposition,
-f.`name` AS fund,
-a.`name` AS accounttitle,
-i.`name` AS incrementtype,
-c.`name` AS positionserviceclassification,
-cs.`name` AS positionservicesubclassification
+j.`name` AS jobposition_name,
+f.`name` AS fund_name,
+a.`name` AS accounttitle_name,
+i.`name` AS incrementtype_name,
+c.`name` AS positionserviceclassification_name,
+cs.`name` AS positionservicesubclassification_name
 FROM hrmis_tblemploymentplantilla xx
-INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`organizationunitid`
-INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobpositionid`
-INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtypeid`
-INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fundid`
-INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitleid`
-INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassificationid`
-INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassificationid`
-WHERE xx.`organizationunitid` = $P{orgunitid}
+INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`org_orgunitid`
+INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobposition_objid`
+INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
+INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fund_objid`
+INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitle_objid`
+INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
+INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
+WHERE xx.`org_orgunitid` = $P{orgunitid}
 
 [getListDetails]
 SELECT DISTINCT a.* FROM 
@@ -45,20 +45,20 @@ SELECT
 xx.`objid`,
 xx.`itemno`,
 xx.`isfunded`,
-j.`name` AS jobposition,
-f.`name` AS fund,
-a.`name` AS accounttitle,
-i.`name` AS incrementtype,
-c.`name` AS positionserviceclassification,
-cs.`name` AS positionservicesubclassification
+j.`name` AS jobposition_name,
+f.`name` AS fund_name,
+a.`name` AS accounttitle_name,
+i.`name` AS incrementtype_name,
+c.`name` AS positionserviceclassification_name,
+cs.`name` AS positionservicesubclassification_name
 FROM hrmis_tblemploymentplantilla xx
-INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`organizationunitid`
-INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobpositionid`
-INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtypeid`
-INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fundid`
-INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitleid`
-INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassificationid`
-INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassificationid`
+INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`org_orgunitid`
+INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobposition_objid`
+INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
+INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fund_objid`
+INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitle_objid`
+INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
+INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
 WHERE j.name LIKE $P{searchtext}
 
 [findInfo]

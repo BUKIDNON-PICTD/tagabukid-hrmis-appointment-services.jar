@@ -1,0 +1,47 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_tblemploymentplantilla">
+		<field name="objid" primary="true" prefix="PM" searchable="false"/>
+        <field name="org_orgunitid" required="true"/>
+        <field name="jobposition_objid" required="true"/>
+        <field name="itemno" required="true"/>
+        <field name="isfunded" required="true"/>
+        <field name="incrementtype_objid" required="true"/>
+        <field name="fund_objid" required="true"/>
+        <field name="accounttitle_objid" required="true"/>
+        <field name="positionserviceclassification_objid" required="false"/>
+        <field name="positionservicesubclassification_objid" required="false"/>
+        <field name="recordlog_datecreated" required="true"/>
+        <field name="recordlog_createdbyuserid" required="true"/>
+        <field name="recordlog_createdbyuser" required="true"/>
+        <field name="recordlog_dateoflastupdate" required="true"/>
+        <field name="recordlog_lastupdatebyuserid" required="true"/>
+        <field name="recordlog_lastupdatebyuser" required="true"/>
+        <field name="type" required="true"/>
+
+        <complex name="previtemnos" ref="hrmis_tblemploymentplantilla_previous" jointype="one-to-many" required="false">
+			<key field="parentid" target="objid" />
+		</complex>
+
+        <complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
+			<key field="org_orgunitid" target="orgunitid" />
+		</complex>
+        <complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
+			<key field="jobposition_objid" target="objid" />
+		</complex>
+         <complex name="incrementtype" ref="master_tblemptincrementtype" jointype="many-to-one" required="false">
+			<key field="incrementtype_objid" target="objid" />
+		</complex>
+        <complex name="fund" ref="master_tblfinfund" jointype="many-to-one" required="false">
+			<key field="fund_objid" target="objid" />
+		</complex>
+		<complex name="accounttitle" ref="master_tblfinaccounttitle" jointype="many-to-one" required="false">
+			<key field="accounttitle_objid" target="objid" />
+		</complex>
+		<complex name="positionserviceclassification" ref="master_tblemptpositionserviceclassification" jointype="many-to-one" required="false">
+			<key field="positionserviceclassification_objid" target="objid" />
+		</complex>
+        <complex name="positionservicesubclassification" ref="master_tblemptpositionservicesubclassification" jointype="many-to-one" required="false">
+			<key field="positionservicesubclassification_objid" target="objid" />
+		</complex>
+	</element>
+</schema>

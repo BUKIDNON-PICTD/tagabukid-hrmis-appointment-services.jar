@@ -1,0 +1,10 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_tblemploymentplantilla_previous">
+		<field name="objid" primary="true" prefix="PMI" searchable="false"/>
+        <field name="parentid" required="true"/>
+        <field name="itemno" required="true"/>
+        <field name="recordlog_datecreated" required="true"/>
+        <field name="recordlog_createdbyuserid" required="true"/>
+        <field name="recordlog_createdbyuser" required="true"/>
+	</element>
+</schema>
