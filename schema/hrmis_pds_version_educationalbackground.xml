@@ -1,5 +1,5 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_educationalbackground">
+	<element tablename="hrmis_pds_version_educationalbackground">
 		<field name="objid" primary="true" searchable="false" visible="false"/>
 		<field name="varchar" required="true" searchable="false" visible="false"/>
 		<field name="level" required="true" visible="true"/>

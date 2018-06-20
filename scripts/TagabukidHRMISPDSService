@@ -55,6 +55,11 @@ class TagabukidHRMISPDSService
            //ug uban pa nga section
         ]
         entity.version.personalinfo =  initPersonalInfo(entity.version)
+        entity.version.voluntarywork = initVoluntaryWork(entity.version)
+        entity.version.training = initTraining(entity.version)
+        entity.version.skill = initSkill(entity.version)
+        entity.version.references = initReferences(entity.version)
+        entity.version.govid = initGovId(entity.version)
         entity.currentversionid = entity.version.objid
         return entity;
 
@@ -62,9 +67,43 @@ class TagabukidHRMISPDSService
 
     def initPersonalInfo(o){
         return [
-            versionid:o.objid
+            versionid	: o.objid
         ]
     }
+
+    def initVoluntaryWork(o){
+    	return [
+    		versionid	: o.objid
+    	]
+    }
+
+    def initTraining(o){
+    	return [
+    		versionid	: o.objid
+    	]
+    }
+
+
+    def initSkill(o){
+    	return [
+    		versionid 	: o.objid
+    	]
+    }
+
+
+    def initReferences(o){
+    	return [
+    		versionid 	: o.objid
+    	]
+    }
+
+    def initGovId(o){
+    	return [
+    		versionid	: o.objid
+    	]
+    }
+
+
 
     @ProxyMethod
     public def getPDSNo(){

@@ -6,7 +6,7 @@
 		<field name="person_name" requied="true" visible="false" caption="" searchable="true" />
 		<field name="person_lastname" requied="true" visible="false" caption="" searchable="true" />
 		<field name="person_firstname" requied="true" visible="false" caption="" searchable="true" />
-		<field name="person_middlename" requied="true" visible="false" caption="" searchable="true" />
+		<field name="person_middlename" requied="false" visible="false" caption="" searchable="true" />
 		<field name="person_nameextension" requied="true" visible="false" caption="" searchable="true" />
 		<field name="person_birthdate" requied="true" visible="false" caption="" searchable="true" />
 		<field name="person_birthplace" requied="true" visible="false" caption="" searchable="true" />
