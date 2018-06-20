@@ -32,7 +32,10 @@ class TagabukidHRMISPDSService
 	// 	beforeList(params)
 	// 	return em.getList(params)
 	// } 
-
+	@ProxyMethod
+	def readall(){
+		return persistenceSvc.read([_schemaname:'hrmis_pds',objid:'xxxx'])
+	}
 	@ProxyMethod
 	def initCreate(){
 		
@@ -46,29 +49,37 @@ class TagabukidHRMISPDSService
         entity.recordlog.dateoflastupdate =  dtSvc.serverDate
         entity.recordlog.lastupdatedbyuserid = env.USERID
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
-        // entity.versions = []
-     	entity.version = [
+		entity.versions = []
+		entity.skills = []
+     	def version = [
             objid       : 'PDV' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year +"-N",
             state       : "DRAFT",
             pdsid       : entity.objid,
             recordlog   : entity.recordlog,
+            personalinfo: [:]
            //ug uban pa nga section
         ]
-        entity.version.personalinfo =  initPersonalInfo(entity.version)
-        entity.version.voluntarywork = initVoluntaryWork(entity.version)
-        entity.version.training = initTraining(entity.version)
-        entity.version.skill = initSkill(entity.version)
-        entity.version.references = initReferences(entity.version)
-        entity.version.govid = initGovId(entity.version)
-        entity.currentversionid = entity.version.objid
+		version.personalinfo.objid = version.objid
+		entity.currentversionid = version.objid
 		
-		entity.version.educationalinfoitems = []
+		entity.versions.add(version);
+
+        // entity.version.personalinfo =  initPersonalInfo(entity.version)
+        // entity.version.voluntarywork = initVoluntaryWork(entity.version)
+        // entity.version.training = initTraining(entity.version)
+        // entity.version.skill = initSkill(entity.version)
+        // entity.version.references = initReferences(entity.version)
+        // entity.version.govid = initGovId(entity.version)
+        // entity.currentversionid = entity.version.objid
+		// entity.voluntarywork = []
+		// entity.version.educationalinfoitems = []
         return entity;
 
 	}
 
     def initPersonalInfo(o){
         return [
+			objid       : 'PDPI' + new java.rmi.server.UID(),
             versionid	: o.objid
         ]
     }

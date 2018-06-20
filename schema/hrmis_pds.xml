@@ -13,5 +13,8 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
+		<complex name="versions" ref="hrmis_pds_version" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
 	</element>
 </schema>

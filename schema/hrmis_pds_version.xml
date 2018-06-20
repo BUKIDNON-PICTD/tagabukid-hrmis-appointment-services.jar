@@ -10,11 +10,20 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
-		<complex name="voluntarywork" ref="hrmis_pds_version_voluntarywork" jointype="one-to-many" required="false">
+		<!-- <complex name="personalinfo" ref="hrmis_pds_version_personalinfo" jointype="one-to-one" required="false">
+			<key field="objid" target="objid" /> 		
+		</complex> -->
+		<!-- <complex name="educationalinfoitems" ref="hrmis_pds_version_skill" jointype="one-to-many" required="false">
+			<key field="objid" target="versionid" /> 		
+		</complex> -->
+		<complex name="skills" ref="hrmis_pds_version_skill" jointype="one-to-many" required="false">
+			<key field="objid" target="versionid" /> 		
+		</complex>
+		<!-- <complex name="voluntarywork" ref="hrmis_pds_version_voluntarywork" jointype="one-to-many" required="false">
 			<key field="objid" target="versionid" /> 		
 		</complex>
 		<complex name="personalinfo" ref="hrmis_pds_version_personalinfo" jointype="one-to-many" required="false">
 			<key field="objid" target="versionid" /> 		
-		</complex>
+		</complex> -->
 	</element>
 </schema>
