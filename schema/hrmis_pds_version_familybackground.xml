@@ -1,0 +1,28 @@
+<schema adapter="tagabukid_hrmis">
+    <element tablename="hrmis_pds_version_familybackground">
+        <field name="objid" primary="true" prefix="VF" />
+        <field name="versionid" required="true" visible="false" />
+
+        <field name="father_name" requied="" visible="" caption="" searchable="true" />
+        <field name="father_lastname" requied="" visible="" caption="" searchable="true" />
+        <field name="father_firstname" requied="" visible="" caption="" searchable="true" />
+        <field name="father_middlename" requied="" visible="" caption="" searchable="true" />
+        <field name="father_nameextension" requied="" visible="" caption="" searchable="true" />
+
+        <!-- <field name="mother_name" requied="" visible="" caption="" searchable="true" />
+        <field name="mother_maidenname" requied="" visible="" caption="" searchable="true" />
+        <field name="mother_lastname" requied="" visible="" caption="" searchable="true" />
+        <field name="mother_firstname" requied="" visible="" caption="" searchable="true" />
+        <field name="mother_middlename" requied="" visible="" caption="" searchable="true" />
+
+        <field name="spouse_name" requied="" visible="" caption="" searchable="true" />
+        <field name="spouse_lastname" requied="" visible="" caption="" searchable="true" />
+        <field name="spouse_firstname" requied="" visible="" caption="" searchable="true" />
+        <field name="spouse_middlename" requied="" visible="" caption="" searchable="true" />
+        <field name="spouse_nameextension" requied="" visible="" caption="" searchable="true" />
+        
+        <field name="occupation" requied="" visible="" caption="" searchable="true" />
+        <field name="businessadd_text" requied="" visible="" caption="" searchable="true" />
+        <field name="phoneno" requied="" visible="" caption="" searchable="true" /> -->
+    </element>
+</schema>

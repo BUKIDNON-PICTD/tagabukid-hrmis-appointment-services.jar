@@ -12,12 +12,10 @@
 		<field name="person_birthplace" requied="true" visible="false" caption="" searchable="true" />
 		<field name="residentialaddress_text" requied="true" visible="false" caption="" searchable="true" />
 		<complex name="residentialaddress" serializer="default" />
-    	<!-- <field name="name" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="extensionname" requied="true" visible="false" caption="" searchable="true" /> -->
-    	<!-- <field name="birthdate" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="birthplace_text" requied="true" visible="false" caption="" searchable="true" /> -->
-    	<!-- <field name="gender" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="civilstatus" requied="true" visible="false" caption="" searchable="true" />
+        <field name="residentialaddress_text" requied="true" visible="false" caption="" searchable="true" />
+        <field name="person_gendername" requied="true" visible="false" caption="" searchable="true" />
+    	<field name="person_civilstatus" requied="true" visible="false" caption="" searchable="true" />
+
     	<field name="height" requied="true" visible="false" caption="" searchable="true" />
     	<field name="weight" requied="true" visible="false" caption="" searchable="true" />
     	<field name="bloodtype" requied="true" visible="false" caption="" searchable="true" />
@@ -26,12 +24,13 @@
     	<field name="philhealth" requied="true" visible="false" caption="" searchable="true" />
     	<field name="sss" requied="true" visible="false" caption="" searchable="true" />
     	<field name="tin" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="angencyemployeeno" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="citizenship" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="residentialaddress_text" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="permanentaddress_text" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="telno" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="mobileno" requied="true" visible="false" caption="" searchable="true" />
-    	<field name="emailadd" requied="true" visible="false" caption="" searchable="true" /> -->
+    	<field name="employeeno" requied="true" visible="false" caption="" searchable="true" />
+    	
+        <field name="person_citizenship" requied="true" visible="false" caption="" searchable="true" />
+        <field name="permanentaddress_text" requied="true" visible="false" caption="" searchable="true" />
+        <complex name="permanentaddress" serializer="default" />
+    	<field name="person_phoneno" requied="true" visible="false" caption="" searchable="true" />
+    	<field name="person_mobileno" requied="true" visible="false" caption="" searchable="true" />
+    	<field name="person_email" requied="true" visible="false" caption="" searchable="true" />
 	</element>
 </schema>
