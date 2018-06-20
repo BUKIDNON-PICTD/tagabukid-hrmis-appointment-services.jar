@@ -61,6 +61,8 @@ class TagabukidHRMISPDSService
         entity.version.references = initReferences(entity.version)
         entity.version.govid = initGovId(entity.version)
         entity.currentversionid = entity.version.objid
+		
+		entity.version.educationalinfoitems = []
         return entity;
 
 	}
