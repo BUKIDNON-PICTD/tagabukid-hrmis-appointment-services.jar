@@ -12,7 +12,7 @@
 		<field name="recordlog_dateupdated" required="false" searchable="false"/>
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false"/>
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false"/>
-		<complex name="signatorygroupitems" ref="hrmis_appointment_signatorygroupingitems" jointype="one-to-many" required="true">
+		<complex name="signatoryGroupItems" ref="hrmis_appointment_signatorygroupingitems" jointype="one-to-many" required="true">
 			<key field="objid" target="parentid" /> 		
 		</complex>
 	</element>
