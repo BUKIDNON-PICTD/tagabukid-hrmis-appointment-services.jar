@@ -7,6 +7,9 @@ public class AppointmentJobOrderService extends ActiveCrudListService
 	@ActiveDB(value='hrmis_appointmentjoborder', em='tagabukid_hrmis')
 	def em;
 
+	@Service('DateService')
+	def dtSvc 
+
 
 	@ProxyMethod
 	public def getGroupName( o ) {
@@ -22,5 +25,36 @@ public class AppointmentJobOrderService extends ActiveCrudListService
 		
         	
 	}
+
+	@ProxyMethod
+	def initRenew(o){
+		
+		def entity = [:];
+		entity = o
+		entity.objid = 'JO' + new java.rmi.server.UID() +"-"+ dtSvc.getServerYear()
+		entity.state = "DRAFT"
+		entity.status = "JO"
+		entity.effectivefrom = null
+		entity.effectiveuntil = null
+		entity.natureofappointment = null
+		entity.dateissued = null
+		entity.remarks = null
+		
+		entity.appointmentMemberItems.each{
+			it.objid = 'JOI' + new java.rmi.server.UID() +"-"+ dtSvc.getServerYear()
+		}
+
+		//entity.recordlog = [:]
+		//entity.recordlog.datecreated = dtSvc.serverDate
+        //entity.recordlog.createdbyuserid = env.USERID
+        //entity.recordlog.createdbyuser = env.FULLNAME
+        //entity.recordlog.dateupdated =  dtSvc.serverDate
+        //entity.recordlog.lastupdatedbyuserid = env.USERID
+        //entity.recordlog.lastupdatedbyuser = env.FULLNAME
+        
+        return entity;
+
+	}
+
 
 }

@@ -5,14 +5,14 @@
 		<field name="appointmentgroupname" required="true" visible="true" searchable="true" caption="Group Name"/>
 		<field name="status" required="false" visible="false" searchable="false"/>
 		<field name="effectivefrom" required="true" visible="false" searchable="false"/>
-		<field name="effectiveuntil" required="true" visible="false" searchable="false"/>
-		<field name="natureofappointmentid" required="true" visible="false" searchable="false"/>
+		<field name="effectiveuntil" required="true" visible="true" searchable="false" caption="Effective Until"/>
+		<field name="natureofappointment_objid" required="true" visible="false" searchable="false"/>
 		<field name="dateissued" required="true" visible="false" searchable="false"/>
 		<field name="dateapproved" required="false" visible="false" searchable="false"/>
-		<field name="org_objid" required="true" visible="false" searchable="false"/>
+		<field name="org_orgunitid" required="true" visible="false" searchable="false"/>
 		<field name="currentsalarystep" required="false" visible="false" searchable="false"/>
 		<field name="compensation" required="false" visible="false" searchable="false"/>
-		<field name="remarks" required="true" visible="false" searchable="false"/>
+		<field name="remarks" required="false" visible="false" searchable="false"/>
 		<field name="signatorygroup_objid" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false"/>
@@ -23,6 +23,15 @@
 
 		<complex name="appointmentMemberItems" ref="hrmis_appointmentjoborderitems" jointype="one-to-many">
 			<key field="objid" target="parentid" /> 		
+		</complex>
+		<complex name="natureofappointment" ref="master_tblappointmententrycode" jointype="many-to-one" required="false">
+			<key field="natureofappointment_objid" target="objid" />
+		</complex>
+		<complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
+			<key field="org_orgunitid" target="orgunitid" />
+		</complex>
+		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" required="false">
+			<key field="signatorygroup_objid" target="objid" /> 		
 		</complex>
 
 	</element>
