@@ -1,0 +1,118 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.services.extended.*;
+
+
+class TagabukidHRMISPDSService
+{
+	
+	@ActiveDB(value='hrmis_pds', em='tagabukid_hrmis')
+	def em;
+
+	@Env
+	def env;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Service("SequenceService")
+	def seqSvc;
+
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@ProxyMethod
+	def initCreate(){
+		
+		def entity = [:];
+		entity.objid = 'PDV' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year +"-N"
+		entity.state = "DRAFT"
+		entity.height = 0
+		entity.weight = 0
+		entity.recordlog = [:]
+		entity.recordlog.datecreated = dtSvc.serverDate
+        entity.recordlog.createdbyuserid = env.USERID
+        entity.recordlog.createdbyuser = env.FULLNAME
+        entity.recordlog.dateoflastupdate =  dtSvc.serverDate
+        entity.recordlog.lastupdatedbyuserid = env.USERID
+        entity.recordlog.lastupdatedbyuser = env.FULLNAME
+		entity.person = [:]
+
+		//skills section
+		entity.skills = []
+
+        // entity.version.personalinfo =  initPersonalInfo(entity.version)
+        // entity.version.voluntarywork = initVoluntaryWork(entity.version)
+        // entity.version.training = initTraining(entity.version)
+        // entity.version.skill = initSkill(entity.version)
+        // entity.version.references = initReferences(entity.version)
+        // entity.version.govid = initGovId(entity.version)
+        // entity.currentversionid = entity.version.objid
+		// entity.voluntarywork = []
+		// entity.version.educationalinfoitems = []
+        return entity;
+
+	}
+
+    // def initPersonalInfo(o){
+    //     return [
+	// 		objid       : 'PDPI' + new java.rmi.server.UID(),
+    //         versionid	: o.objid
+    //     ]
+    // }
+
+    // def initVoluntaryWork(o){
+    // 	return [
+    // 		versionid	: o.objid
+    // 	]
+    // }
+
+    // def initTraining(o){
+    // 	return [
+    // 		versionid	: o.objid
+    // 	]
+    // }
+
+
+    // def initSkill(o){
+    // 	return [
+    // 		versionid 	: o.objid
+    // 	]
+    // }
+
+
+    // def initReferences(o){
+    // 	return [
+    // 		versionid 	: o.objid
+    // 	]
+    // }
+
+    // def initGovId(o){
+    // 	return [
+    // 		versionid	: o.objid
+    // 	]
+    // }
+
+
+
+    @ProxyMethod
+    public def getPDSNo(){
+		def appcode = "PDS"
+		def yr      = dtSvc.serverYear;
+		// def mnth    = dtSvc.serverMonth;
+		// def smon    = ( mnth < 10 ) ? "0"+mnth : mnth+"";
+		def prefix  = appcode+yr;
+		return prefix+seqSvc.getNextFormattedSeries(prefix);
+    }
+
+    @ProxyMethod
+    public def getVersionNo(){
+		def appcode = "V"
+		def yr      = dtSvc.serverYear;
+		// def mnth    = dtSvc.serverMonth;
+		// def smon    = ( mnth < 10 ) ? "0"+mnth : mnth+"";
+		def prefix  = appcode+yr;
+		return prefix+seqSvc.getNextFormattedSeries(prefix);
+    }
+
+}

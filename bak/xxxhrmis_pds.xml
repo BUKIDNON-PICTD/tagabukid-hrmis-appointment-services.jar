@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds">
+		<field name="objid" primary="true" prefix="PDL" visible="false" searchable="false"/>
+		<field name="pdsno" caption="PDS No." required="true" visible="true" searchable="true"/>
+		<field name="entityid" required="true" visible="false" searchable="false"/>
+		<field name="name" caption="Name" required="true" visible="true" searchable="true"/>
+		<field name="currentversionid" caption="Current Version" required="true" visible="false" searchable="false"/>
+		<field name="currentversionno" caption="Current Version" required="true" visible="true" searchable="true"/>
+		<field name="currentstate" caption="Current State" required="true" visible="true" searchable="true"/>
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="versions" ref="hrmis_pds_version_personalinfo" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+	</element>
+</schema>

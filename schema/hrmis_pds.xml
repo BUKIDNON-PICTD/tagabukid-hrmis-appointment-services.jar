@@ -1,17 +1,52 @@
-
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_pds">
-		<field name="objid" primary="true" prefix="PDL" visible="true" searchable="false"/>
-		<field name="entityid" caption="" required="true" visible="false" searchable="false"/>
-		<field name="versionid" caption="Current Version" required="true" visible="true" searchable="true"/>
-		<field name="state" required="true" visible="false" searchable="false" />
-		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
-		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
-		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
-		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
-		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
-		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+    	<field name="objid" primary="true"/>
+		<field name="state" required="true" visible="false" searchable="true" />
+		<field name="pdsno" caption="PDS No." required="true" visible="true" searchable="true"/>
+		<field name="versionno" required="true" searchable="true" />
+		<field name="person_objid" requied="true" visible="false" caption="" searchable="true" />
+		<field name="person_name" requied="true" visible="false" caption="" searchable="true" />
+		<field name="person_lastname" requied="trure" visible="false" caption="" searchable="true" />
+		<field name="person_firstname" requied="true" visible="false" caption="" searchable="true" />
+		<field name="person_middlename" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+		<field name="person_birthdate" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+		<field name="person_birthplace" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+  		<field name="person_gender" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+    	<field name="person_civilstatus" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+		<field name="person_citizenship" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
+		<field name="person_phoneno" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="person_mobileno" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="person_email" requied="false" visible="false" caption="" searchable="true" />
+
+		<field name="nameextension" requied="false" visible="false" caption="" searchable="true" />
+		<field name="prenametitle" requied="false" visible="false" caption="" searchable="true" />
+		<field name="postnametitle" requied="false" visible="false" caption="" searchable="true" />
+		
+		
+		<complex name="residentialaddress" required="true" serializer="default" />
+        <field name="residentialaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
+        <complex name="permanentaddress" required="true" serializer="default" />
+		<field name="permanentaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
+		<!-- physical -->
+    	<field name="height" requied="true" defaultValue="0" visible="false" caption="" searchable="true" />
+    	<field name="weight" requied="true" defaultValue="0" visible="false" caption="" searchable="true" />
+    	<field name="bloodtype" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
+    	<field name="gsisid" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="pagibigid" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="philhealth" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="sss" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="tin" requied="false" visible="false" caption="" searchable="true" />
+    	<field name="employeeno" requied="false" visible="false" caption="" searchable="true" />
+    
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+		
+		<complex name="skills" ref="hrmis_pds_skill" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
 	</element>
-
-
 </schema>

@@ -1,8 +1,13 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_version">
-		<field name="objid" primary="true" prefix="PDV" searchable="false" />
-		<field name="name" caption="Name" required="false" searchable="true" />
-		<field name="editid" required="true" searchable="false" />
+	<element tablename="hrmis_pds_version_training">
+		<field name="objid" primary="true" prefix="CVS" searchable="false" />
+		<field name="versionid" required="true" searchable="false" />
+		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="from" required="false" searchable="true" />
+		<field name="to" required="false" searchable="true" />
+		<field name="hours" required="false" searchable="false" />
+		<field name="trainingcategoryid" required="false" searchable="false" />
+		<field name="sponsor" required="false" searchable="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -11,4 +16,5 @@
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 	</element>
+
 </schema>
