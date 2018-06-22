@@ -88,6 +88,12 @@ class TagabukidHRMISAppointmentCasualService
 
 	}
 
+	@ProxyMethod
+    public def getDailyWageByTranch(o,x) {
+		println o
+		println x
+    	return em.findDailyWageByTranch([trancheid:o.objid,plantillaid:x.objid]);
+    }
 	// @ProxyMethod
  //    public void beforeOpen(o) {
  //    	println getSubSchemaName()

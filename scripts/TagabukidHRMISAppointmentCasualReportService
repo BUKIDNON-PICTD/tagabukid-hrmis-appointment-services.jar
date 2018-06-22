@@ -29,8 +29,8 @@ class TagabukidHRMISAppointmentCasualReportService
 		def appointment = persistenceSvc.read(params)
 		appointment.appointmentitems.each{
 			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
-        	it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
-			it.plantilla.Id = it.plantilla.Id.toString()
+        	it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
+			// it.plantilla.Id = it.plantilla.Id.toString()
 		}
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		// println appointment
