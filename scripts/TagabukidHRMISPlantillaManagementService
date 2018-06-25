@@ -17,27 +17,6 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	def dtSvc 
 
 
-    // void addNode(parent){
-    // 	em.changeNodeRight([myRight:parent.rgt]);
-	// 	em.changeNodeLeft([myRight:parent.rgt]);
-    // }
-
-    // @ProxyMethod
-	// void addChild(parent){
-    // 	em.changeParentRight([myLeft:parent.lft]);
-	// 	em.changeParentLeft([myLeft:parent.lft]);
-    // }
-
-    // public void beforeCreate(o){
-    	
-    // 	def parent = em.findParent(o);
-    	
-    // 	addChild(parent);
-
-    // 	o.lft = parent.lft + 1;
-	// 	o.rgt = parent.lft + 2;
-
-    // }
 	@ProxyMethod
 	def initCreate(){
 		
@@ -59,6 +38,7 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 		// def orgid = dtsSvc.getUserOrg(env.USERID).org.objid
 		// list.removeAll( list.findAll{it.orgid != orgid && it.orgid != 'ROOT'} );
 		list.each { 
+			it.allowSearch = true;
 			it.caption = it.name;
 			it.filetype = "pm";
 			it.children = [  
@@ -83,6 +63,7 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 			[name:'incrementtype.name', caption:'Increment Type' ],
 			[name:'positionserviceclassification.name', caption:'Position Service Classification' ],
 			[name:'positionservicesubclassification.name', caption:'Position Service Sub Classification' ],
+			[name:'type', caption:'Type' ],
 		];
 		return cols;
 	}
@@ -90,8 +71,10 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	// public def open(o) {
 	// 	return em.findInfo(o);
 	// }
-
+	
 	public void beforeList( def p ) {
+		println p
+
 		if(p.name == "search") {
 			p._listMethod = "getSearch";
 		}
@@ -110,16 +93,6 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 		}
 	}
 	
-    @ProxyMethod
-    public def getSubAccounts(o) {
-    	return em.getSubAccounts( o );
-    }
-    
-  	@ProxyMethod
-    public def saveSubAccount(o) {
-    	return em.save( o );
-    }
-
 	@ProxyMethod
     public def changeParent(o) {
     	

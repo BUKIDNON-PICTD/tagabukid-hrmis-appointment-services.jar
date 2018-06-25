@@ -16,16 +16,17 @@ f.`name` AS fund_name,
 a.`name` AS accounttitle_name,
 i.`name` AS incrementtype_name,
 c.`name` AS positionserviceclassification_name,
-cs.`name` AS positionservicesubclassification_name
+cs.`name` AS positionservicesubclassification_name,
+xx.type
 FROM hrmis_tblemploymentplantilla xx
 INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`org_orgunitid`
 INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobposition_objid`
-INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
+LEFT JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
 INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fund_objid`
 INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitle_objid`
-INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
-INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
-WHERE xx.`org_orgunitid` = $P{orgunitid}
+LEFT JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
+LEFT JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
+WHERE xx.`org_orgunitid` = $P{orgunitid} AND xx.type LIKE $P{type} AND j.name LIKE $P{searchtext}
 
 [getListDetails]
 SELECT DISTINCT a.* FROM 
@@ -50,16 +51,19 @@ f.`name` AS fund_name,
 a.`name` AS accounttitle_name,
 i.`name` AS incrementtype_name,
 c.`name` AS positionserviceclassification_name,
-cs.`name` AS positionservicesubclassification_name
+cs.`name` AS positionservicesubclassification_name,
+xx.type
 FROM hrmis_tblemploymentplantilla xx
 INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`org_orgunitid`
 INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobposition_objid`
-INNER JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
+LEFT JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
 INNER JOIN references_tblfinfund f ON f.`objid` = xx.`fund_objid`
 INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitle_objid`
-INNER JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
-INNER JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
-WHERE j.name LIKE $P{searchtext}
+LEFT JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
+LEFT JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
+WHERE j.name LIKE $P{searchtext} AND xx.type LIKE $P{type}
+
+
 
 [findInfo]
 SELECT a.*, p.code AS parent_code, p.title AS parent_title 

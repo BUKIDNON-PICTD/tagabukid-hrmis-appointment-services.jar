@@ -45,6 +45,29 @@ class TagabukidHRMISAppointmentCasualReportService
 
 	}
 
+	@ProxyMethod
+	public def getAppointmentCasualRaiById(params){
+		def data = [:]
+	//    println params.signatorygroup
+		def appointment = persistenceSvc.read(params)
+		appointment.appointmentitems.each{
+			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
+        	it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
+			// it.plantilla.Id = it.plantilla.Id.toString()
+		}
+		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
+		// println appointment
+		data.reportdata = appointment;
+		data.parameters = [
+			LGUNAME  :"PG-BUKIDNON, REGION 10",
+			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
+			TITLE :"REPORT ON APPOINTMENT ISSUED (RAI)",
+		]
+		return data
+
+
+	}
+
 	
 
 
