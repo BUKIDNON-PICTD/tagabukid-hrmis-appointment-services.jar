@@ -45,8 +45,33 @@
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
 		
+
+		<complex name="voluntaryworks" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="trainings" ref="hrmis_pds_training" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+		
 		<complex name="skills" ref="hrmis_pds_skill" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
+		
+		<complex name="recognitions" ref="hrmis_pds_recognition" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+		
+		<complex name="organizations" ref="hrmis_pds_organizationorassociation" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+		
+		<complex name="references" ref="hrmis_pds_reference" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex><!-- 
+		
+		<complex name="govids" ref="hrmis_pds_govid" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex> -->
 	</element>
 </schema>
