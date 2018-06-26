@@ -1,17 +1,16 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_version_govid">
+	<element tablename="hrmis_pds_govid">
 		<field name="objid" primary="true" prefix="GID" searchable="false" />
-		<field name="versionid" required="true" visible="false" />
-		<field name="name" required="false" searchable="true"/>
-		<field name="idno" required="false" searchable="false"/>
-		<field name="dateofissuance" required="false" searchable="true"/>
-		<field name="placeofissuance" required="false" searchable="true"/>
-		<field name="state" required="true" searchable="false" caption="STATE"/>
+		<field name="pdsid" required="true" visible="false" />
+		<field name="idtype" required="true" searchable="true"/>
+		<field name="idno" required="true" searchable="false"/>
+		<field name="issuance" required="false" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
-		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />		
+		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
 	</element>
 </schema>
+<!-- ok -->

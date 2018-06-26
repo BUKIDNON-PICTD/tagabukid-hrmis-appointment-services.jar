@@ -39,7 +39,14 @@ class TagabukidHRMISPDSService
 		entity.person = [:]
 
 		//skills section
-		entity.skills = []
+        entity.voluntaryworks = []
+        entity.trainings = []
+        entity.skills = []
+        entity.recognitions = []
+        entity.organizations = []
+        //questions section PENDING
+        entity.references = []
+        entity.govids = []
 
         // entity.version.personalinfo =  initPersonalInfo(entity.version)
         // entity.version.voluntarywork = initVoluntaryWork(entity.version)

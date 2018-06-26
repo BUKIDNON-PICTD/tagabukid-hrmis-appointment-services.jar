@@ -1,16 +1,16 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_version_references">
+	<element tablename="hrmis_pds_reference">
 		<field name="objid" primary="true" prefix="REF" searchable="false" />
-		<field name="versionid" required="true" visible="false" />
-		<field name="name" required="false" searchable="true"/>
-		<field name="address" required="false" searchable="false"/>
-		<field name="contact" required="false" searchable="false"/>
-		<field name="state" required="true" searchable="false" caption="STATE"/>
+		<field name="pdsid" required="true" visible="false" />
+		<field name="name" required="true" searchable="true"/>
+		<field name="address" required="true" searchable="false"/>
+		<field name="contact" required="true" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
-		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />		
+		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
 	</element>
 </schema>
+<!-- OK -->
