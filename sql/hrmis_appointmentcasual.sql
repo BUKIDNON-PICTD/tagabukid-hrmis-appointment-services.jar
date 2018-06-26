@@ -11,3 +11,8 @@ INNER JOIN hrmis_tblpayrollsalaryscheduleitem si ON si.`paygradeandstepincrement
 WHERE si.salarytrancheid = $P{trancheid}
 AND p.objid = $P{plantillaid};
 
+[findPersonnelHasActiveAppointment]
+SELECT * FROM hrmis_appointmentcasualitems xx
+inner join hrmis_appointmentcasual xxx
+WHERE xx.`personnel_objid` = $P{personnelid}
+AND $P{effectivefrom} BETWEEN xxx.`effectivefrom` ANd xxx.`effectiveuntil`

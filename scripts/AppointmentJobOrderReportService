@@ -34,7 +34,7 @@ class AppointmentJobOrderReportService
 			it.position = persistenceSvc.read( [_schemaname:'master_tbljobposition', objid:it.positionid] );
 			it.fund = persistenceSvc.read( [_schemaname:'master_tblfinfund', objid:it.fundid] );
             it.account = persistenceSvc.read( [_schemaname:'master_tblfinaccounttitle', objid:it.accountid] );
-		}
+		}.sort{it.personnel.lastname}
 		//appointment.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:appointment.org.objid] );
 		//appointment.natureofappointment = persistenceSvc.read( [_schemaname:'master_tblappointmententrycode', objid:appointment.natureofappointmentid] );
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
