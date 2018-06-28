@@ -1,9 +1,9 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_skill">
-		<field name="objid" primary="true" prefix="SKL" searchable="false" />
+	<element tablename="hrmis_pds_recognition">
+		<field name="objid" primary="true" prefix="REC" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
 		<field name="name" caption="Name" required="true" searchable="true" />
-		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="recognitioncategoryid" required="false" searchable="true" />
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />

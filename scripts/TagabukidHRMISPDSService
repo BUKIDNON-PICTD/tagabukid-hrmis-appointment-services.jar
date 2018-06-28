@@ -38,6 +38,7 @@ class TagabukidHRMISPDSService
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
 		entity.person = [:]
 
+
          //spouse info
         entity.familyspouseInfos = []
 
@@ -59,8 +60,18 @@ class TagabukidHRMISPDSService
         //work experience section
         entity.workexperienceInfos = []
 
-        //skills section
-		entity.skills = []
+        
+		//skills section
+        entity.voluntaryworks = []
+
+        entity.trainings = []
+        entity.skills = []
+        entity.recognitions = []
+        entity.organizations = []
+        //questions section PENDING
+        entity.references = []
+        entity.govids = []
+
 
 
         // entity.version.personalinfo =  initPersonalInfo(entity.version)

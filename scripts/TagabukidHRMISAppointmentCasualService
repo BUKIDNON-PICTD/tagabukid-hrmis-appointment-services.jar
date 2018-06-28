@@ -68,7 +68,8 @@ class TagabukidHRMISAppointmentCasualService
 		entity.status = "CASUAL"
 		entity.effectivefrom = null
 		entity.effectiveuntil = null
-		entity.natureofappointment = null
+		entity.currentsalarystep = [:]
+		entity.natureofappointment = [:]
 		entity.dateissued = null
 		entity.remraks = null
 		
@@ -88,6 +89,15 @@ class TagabukidHRMISAppointmentCasualService
 
 	}
 
+	@ProxyMethod
+    public def getDailyWageByTranch(o,x) {
+    	return em.findDailyWageByTranch([trancheid:o.objid,plantillaid:x.objid]);
+    }
+
+	@ProxyMethod
+    public def findPersonnelHasActiveAppointment(o,effectivefrom) {
+    	return em.findPersonnelHasActiveAppointment([personnelid:o.objid,effectivefrom:effectivefrom]);
+    }
 	// @ProxyMethod
  //    public void beforeOpen(o) {
  //    	println getSubSchemaName()

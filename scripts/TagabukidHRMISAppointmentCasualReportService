@@ -29,9 +29,9 @@ class TagabukidHRMISAppointmentCasualReportService
 		def appointment = persistenceSvc.read(params)
 		appointment.appointmentitems.each{
 			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
-        	it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
-			it.plantilla.Id = it.plantilla.Id.toString()
-		}
+        	it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
+			// it.plantilla.Id = it.plantilla.Id.toString()
+		}.sort{it.personnel.lastname}
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		// println appointment
 		data.reportdata = appointment;
@@ -39,6 +39,29 @@ class TagabukidHRMISAppointmentCasualReportService
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
 			TITLE :"PLANTILLA OF CASUAL APPOINTMENTS",
+		]
+		return data
+
+
+	}
+
+	@ProxyMethod
+	public def getAppointmentCasualRaiById(params){
+		def data = [:]
+	//    println params.signatorygroup
+		def appointment = persistenceSvc.read(params)
+		appointment.appointmentitems.each{
+			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
+        	it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
+			// it.plantilla.Id = it.plantilla.Id.toString()
+		}.sort{it.personnel.lastname}
+		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
+		// println appointment
+		data.reportdata = appointment;
+		data.parameters = [
+			LGUNAME  :"PG-BUKIDNON, REGION 10",
+			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
+			TITLE :"REPORT ON APPOINTMENT ISSUED (RAI)",
 		]
 		return data
 

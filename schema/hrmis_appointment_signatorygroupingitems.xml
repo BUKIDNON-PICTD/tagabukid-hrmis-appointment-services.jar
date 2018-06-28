@@ -8,5 +8,10 @@
 		<field name="remarks" searchable="false"/>
 		<field name="level" required="true" searchable="false"/>
 		<field name="org" required="true" searchable="false"/>
+
+		<complex name="parent" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" includefields="objid,signatorygroupname,state,signatorytype" required="false">
+			<key field="parentid" target="objid" />
+		</complex>
+
 	</element>
 </schema>

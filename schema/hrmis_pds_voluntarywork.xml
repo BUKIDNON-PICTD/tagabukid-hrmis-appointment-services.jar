@@ -1,14 +1,12 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_version_voluntarywork">
+	<element tablename="hrmis_pds_voluntarywork">
 		<field name="objid" primary="true" prefix="VWK" searchable="false" />
-		<field name="versionid" required="true" visible="false" />
-		<field name="orgid" required="false" visible="false" searchable="false"/>
+		<field name="pdsid" required="true" visible="false" />
 		<field name="name" required="false" searchable="true"/>
 		<field name="from" required="false" searchable="false"/>
 		<field name="to" required="false" searchable="false"/>
 		<field name="hours" required="false" searchable="true"/>
 		<field name="natureofwork" required="false" searchable="true"/>
-		<field name="state" required="true" searchable="false" caption="STATE"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
@@ -17,3 +15,4 @@
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
 	</element>
 </schema>
+<!-- OK  -->
