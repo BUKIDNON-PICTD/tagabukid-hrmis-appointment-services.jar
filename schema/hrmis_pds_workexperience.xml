@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds_workexperience">
+		<field name="objid" primary="true" searchable="false" visible="false"/>
+		<field name="pdsid" required="false" searchable="false" visible="true" />
+		<field name="from" required="false" searchable="false" visible="true" />
+		<field name="to" required="false" searchable="false" visible="true" />
+		<field name="position" required="false" searchable="false" visible="true" />
+		<field name="departmentagencyofficecompany" required="false" searchable="false" visible="true" />
+		<field name="monthlysalary" required="false" searchable="false" visible="true" />
+		<field name="salatystep" required="false" searchable="false" visible="true" />
+		<field name="appointmentstatus" required="false" searchable="false" visible="true" />
+		<field name="govservice" required="false" searchable="false" visible="true" />
+
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>
