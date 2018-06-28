@@ -5,7 +5,7 @@
 		<field name="pdsno" caption="PDS No." required="true" visible="true" searchable="true"/>
 		<field name="versionno" required="true" searchable="true" />
 		<field name="person_objid" requied="true" visible="false" caption="" searchable="true" />
-		<field name="person_name" requied="true" visible="false" caption="" searchable="true" />
+		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
 		<field name="person_lastname" requied="trure" visible="false" caption="" searchable="true" />
 		<field name="person_firstname" requied="true" visible="false" caption="" searchable="true" />
 		<field name="person_middlename" requied="true" defaultValue=""  visible="false" caption="" searchable="true" />
@@ -24,7 +24,7 @@
 		
 		
 		<complex name="residentialaddress" required="true" serializer="default" />
-        <field name="residentialaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
+        <field name="residentialaddress_text" required="true" defaultValue="" visible="true" caption="Address" searchable="true" />
         <complex name="permanentaddress" required="true" serializer="default" />
 		<field name="permanentaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
 		<!-- physical -->
@@ -68,10 +68,10 @@
 		
 		<complex name="references" ref="hrmis_pds_reference" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
-		</complex><!-- 
+		</complex> 
 		
 		<complex name="govids" ref="hrmis_pds_govid" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
-		</complex> -->
+		</complex>
 	</element>
 </schema>
