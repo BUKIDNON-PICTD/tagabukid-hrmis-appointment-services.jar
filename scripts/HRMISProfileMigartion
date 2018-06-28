@@ -126,9 +126,12 @@ class HRMISProfileMigartion {
 		    [
 		        info:[
 		        		
-		                lastname   :it.Name.LastName + (it.Name.NameExtension!= "" ? ", " + it.Name.NameExtension : ""),
+		                lastname   :it.Name.LastName,
 		                firstname  :it.Name.FirstName,
 		                middlename :it.Name.MiddleName,
+						nameextension : it.Name.NameExtension,
+						prenametitle :it.Name.PreNameTitle,
+						postnametitle : it.Name.PostNameTitle,
 		                birthdate  :it.Birthday,
 		                birthpalce :it.birthplace,
 		                citizenship:it.nationality,
@@ -140,11 +143,11 @@ class HRMISProfileMigartion {
 		                height     :it.WeightKg,
 		                Wight      :it.HeightMeters
 		            ],
-	            name          :it.Name.LastName + ", " + (it.Name.NameExtension != "" ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + (it.Name.MiddleName != "" ? it.Name.MiddleName.substring(0,1) : "")  + ". ",
+	            name          :it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
 	            address_text  : null,
 	            mailingaddress: null,
 	            entitytype    :'INDIVIDUAL',
-	            entityname    :it.Name.LastName + ", " + (it.Name.NameExtension != "" ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + (it.Name.MiddleName != "" ? it.Name.MiddleName.substring(0,1) : "")  + ". ",
+	            entityname    :it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
 	            entityaddress : null,
 	            street        :it.PermanentAddress.AddressDetails,
 	            barangayname  :it.barangay,
@@ -388,10 +391,13 @@ INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
         persistenceService.create( entityindividual );
        
        	emhrmis.sqlContext.createExecutor('''
-			INSERT INTO hrmis_entity (objid,profileid) VALUES ($P{objid},$P{profileid});
+			INSERT INTO hrmis_entity (objid,profileid,nameextension,prenametitle,postnametitle) VALUES ($P{objid},$P{profileid},$P{nameextension},$P{prenametitle},$P{postnametitle});
 		''')
 		.setParameter('objid', entityindividual.objid)
 		.setParameter('profileid', entity.profileid)
+		.setParameter('nameextension', entity.info.nameextension)
+		.setParameter('prenametitle', entity.info.prenametitle)
+		.setParameter('postnametitle', entity.info.postnametitle)
 		.execute();
 
 		// println entity.profileid
