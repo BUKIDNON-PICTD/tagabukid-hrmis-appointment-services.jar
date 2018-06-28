@@ -73,5 +73,9 @@
 		<complex name="govids" ref="hrmis_pds_govid" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex> -->
+		
+		<complex name="pdsqs" ref="hrmis_pds_question" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
 	</element>
 </schema>

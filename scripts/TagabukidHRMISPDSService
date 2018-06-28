@@ -47,6 +47,7 @@ class TagabukidHRMISPDSService
         //questions section PENDING
         entity.references = []
         entity.govids = []
+        entity.pdsqs = []
 
         // entity.version.personalinfo =  initPersonalInfo(entity.version)
         // entity.version.voluntarywork = initVoluntaryWork(entity.version)
