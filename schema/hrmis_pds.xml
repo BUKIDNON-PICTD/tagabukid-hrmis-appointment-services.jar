@@ -22,7 +22,6 @@
 		<field name="prenametitle" requied="false" visible="false" caption="" searchable="true" />
 		<field name="postnametitle" requied="false" visible="false" caption="" searchable="true" />
 		
-		
 		<complex name="residentialaddress" required="true" serializer="default" />
         <field name="residentialaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
         <complex name="permanentaddress" required="true" serializer="default" />
@@ -44,6 +43,36 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+
+		<complex name="familyspouseInfos" ref="hrmis_pds_familybackground_spousename" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="familymotherInfos" ref="hrmis_pds_familybackground_mothername" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="familychildInfos" ref="hrmis_pds_familybackground_children" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="educationalInfos" ref="hrmis_pds_educationalinfo" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="civilserviceInfos" ref="hrmis_pds_civilservice" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="workexperienceInfos" ref="hrmis_pds_workexperience" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
 		
 
 		<complex name="voluntaryworks" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="false">
