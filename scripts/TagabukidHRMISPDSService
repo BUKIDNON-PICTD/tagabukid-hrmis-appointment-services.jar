@@ -38,16 +38,41 @@ class TagabukidHRMISPDSService
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
 		entity.person = [:]
 
+
+         //spouse info
+        entity.familyspouseInfos = []
+
+         //mother name
+        entity.familymotherInfos = []
+
+         //father name
+        entity.familyfatherInfos = []
+
+         //child info
+        entity.familychildInfos = []
+
+        //education section
+        entity.educationalInfos = []
+
+        //civilservice section
+        entity.civilserviceInfos = []
+
+        //work experience section
+        entity.workexperienceInfos = []
+
+        
 		//skills section
         entity.voluntaryworks = []
+
         entity.trainings = []
         entity.skills = []
         entity.recognitions = []
         entity.organizations = []
-        //questions section PENDING
         entity.references = []
         entity.govids = []
         entity.pdsqs = []
+
+
 
         // entity.version.personalinfo =  initPersonalInfo(entity.version)
         // entity.version.voluntarywork = initVoluntaryWork(entity.version)
@@ -121,6 +146,18 @@ class TagabukidHRMISPDSService
 		// def smon    = ( mnth < 10 ) ? "0"+mnth : mnth+"";
 		def prefix  = appcode+yr;
 		return prefix+seqSvc.getNextFormattedSeries(prefix);
+    }    
+
+    @ProxyMethod
+    public def getList( params ) {
+        beforeList(params)
+        return em.getList(params)
+    } 
+
+    @ProxyMethod
+    public def getCountry( o ) {
+        o.searchtext+='%'
+        return em.getCountry( o );
     }
 
 }
