@@ -2,11 +2,11 @@
     <element tablename="hrmis_pds_familybackground_spousename">
         <field name="objid" primary="true" searchable="false" />
         <field name="pdsid" required="false" searchable="true" visible="false" /> 
-        <field name="name" required="false" searchable="true" visible="false" /> 
-        <field name="lastname" required="false" searchable="true" visible="false" /> 
-        <field name="firstname" required="false" searchable="true" visible="false" /> 
-        <field name="middlename" required="false" searchable="true" visible="false" /> 
-        <field name="nameextension" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_name" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_lastname" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_firstname" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_middlename" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_nameextension" required="false" searchable="true" visible="false" /> 
         <field name="occupation" required="false" searchable="true" visible="false" /> 
         <field name="businessadd" required="false" searchable="true" visible="false" /> 
         <field name="phoneno" required="false" searchable="true" visible="false" /> 
