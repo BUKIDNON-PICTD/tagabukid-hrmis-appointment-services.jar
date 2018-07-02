@@ -68,8 +68,7 @@ class TagabukidHRMISAppointmentCasualService
 		entity.status = "CASUAL"
 		entity.effectivefrom = null
 		entity.effectiveuntil = null
-		entity.currentsalarystep = [:]
-		entity.natureofappointment = [:]
+	
 		entity.dateissued = null
 		entity.remraks = null
 		
