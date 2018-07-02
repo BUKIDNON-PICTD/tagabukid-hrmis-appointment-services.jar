@@ -38,15 +38,14 @@ class TagabukidHRMISPDSService
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
 		entity.person = [:]
 
-
-         //spouse info
-        entity.familyspouseInfos = []
-
-         //mother name
+        //father name
+        entity.familyfatherInfos = []
+        
+        //mother name
         entity.familymotherInfos = []
 
-         //father name
-        entity.familyfatherInfos = []
+        //spouse info
+        entity.familyspouseInfos = []
 
          //child info
         entity.familychildInfos = []
