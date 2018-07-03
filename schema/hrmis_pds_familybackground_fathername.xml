@@ -1,11 +1,8 @@
 <schema adapter="tagabukid_hrmis">
     <element tablename="hrmis_pds_familybackground_fathername">
-        <field name="objid" primary="true" searchable="false" />
-        <field name="pdsid" required="false" searchable="true" visible="false" />
-        <field name="name" required="false" searchable="true" visible="false" />
-        <field name="lastname" required="false" searchable="true" visible="false" />
-        <field name="firstname" required="false" searchable="true" visible="false" />
-        <field name="middlename" required="false" searchable="true" visible="false" />
+        <field name="objid" primary="true" searchable="false" prefix="FAMF" />
+        <field name="pdsid" required="true" searchable="true" visible="false" />
+        <field name="father_objid" required="true" searchable="true" visible="false" />
         <field name="nameextension" required="false" searchable="true" visible="false" />
         
         <field name="recordlog_datecreated" required="false" searchable="true" visible="false" />

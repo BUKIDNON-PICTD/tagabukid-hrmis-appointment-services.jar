@@ -44,8 +44,8 @@
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
 
-
-		<complex name="familyspouseInfos" ref="hrmis_pds_familybackground_spousename" jointype="one-to-many" required="false">
+		
+		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
@@ -53,13 +53,14 @@
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
+		<complex name="familyspouseInfos" ref="hrmis_pds_familybackground_spousename" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
 		<complex name="familychildInfos" ref="hrmis_pds_familybackground_children" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
-		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
-			<key field="objid" target="pdsid" /> 		
-		</complex>
 
 		<complex name="educationalInfos" ref="hrmis_pds_educationalinfo" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
@@ -73,15 +74,13 @@
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
-		
-
 		<complex name="voluntaryworks" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
 		<complex name="trainings" ref="hrmis_pds_training" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
-		</complex>
+		</complex> --> -->
 		
 		<complex name="skills" ref="hrmis_pds_skill" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
