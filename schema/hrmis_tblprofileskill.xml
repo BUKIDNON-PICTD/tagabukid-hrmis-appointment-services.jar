@@ -3,8 +3,8 @@
 		<field name="objid" primary="true" prefix="PSK" searchable="false" />
 		<field name="personid" required="false" visible="false" />
 		<field name="name" required="true" searchable="true"/>
-		<field name="skillcategoryid" required="false" searchable="false"/>
-		<field name="skillcompetencylevelid" required="false" searchable="false"/>
+		<field name="skillcategory_objid" required="false" searchable="false"/>
+		<field name="skillcompetencylevel_objid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
@@ -12,5 +12,13 @@
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
 		<field name="oldid" required="false" searchable="false"/>
+
+		<complex name="skillcategory" ref="master_tblskillcategory" jointype="many-to-one" required="false">
+			<key field="skillcategory_objid" target="objid" />
+		</complex>
+
+		<complex name="skillcompetencylevel" ref="master_tblskillcompetencylevel" jointype="many-to-one" required="false">
+			<key field="skillcompetencylevel_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
