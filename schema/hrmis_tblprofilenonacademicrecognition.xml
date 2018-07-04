@@ -1,19 +1,15 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_voluntarywork">
-		<field name="objid" primary="true" prefix="VWK" searchable="false" />
-		<field name="pdsid" required="true" visible="false" />
-		<field name="voluntarywork_objid" required="false" searchable="true"/>
-
-		<field name="natureofwork" required="false" searchable="true"/>
+	<element tablename="hrmis_tblprofilenonacademicrecognition">
+		<field name="objid" primary="true" prefix="NAR" searchable="false" />
+		<field name="personid" required="false" visible="false" />
+		<field name="recognition" required="true" searchable="true"/>
+		<field name="recognitioncategoryid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
-		
-		<complex name="voluntarywork" ref="hrmis_tblprofilevoluntarywork" jointype="many-to-one" required="false">
-			<key field="voluntarywork_objid" target="objid" />
-		</complex>
 	</element>
 </schema>
+<!-- OK  -->

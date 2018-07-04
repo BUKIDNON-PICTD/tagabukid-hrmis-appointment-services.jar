@@ -1,0 +1,16 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_tblprofileskill">
+		<field name="objid" primary="true" prefix="PSK" searchable="false" />
+		<field name="personid" required="false" visible="false" />
+		<field name="name" required="true" searchable="true"/>
+		<field name="skillcategoryid" required="false" searchable="false"/>
+		<field name="skillcompetencylevelid" required="false" searchable="false"/>
+		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
+		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
+		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
+		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
+		<field name="oldid" required="false" searchable="false"/>
+	</element>
+</schema>

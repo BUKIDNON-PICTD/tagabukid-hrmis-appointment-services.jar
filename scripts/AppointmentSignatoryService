@@ -7,6 +7,9 @@ public class AppointmentSignatoryService extends ActiveCrudListService
 	@ActiveDB(value='hrmis_appointment_signatorygrouping', em='tagabukid_hrmis')
 	def em;
 
+	@Service('DateService')
+    def dtSvc
+
 
 	@ProxyMethod
 	public def getSigType( o ) {
@@ -21,6 +24,37 @@ public class AppointmentSignatoryService extends ActiveCrudListService
 
 		
         	
+	}
+
+	@ProxyMethod
+	def initCopy(o){
+
+		println o
+		def entity = [:];
+		entity = o
+		entity.objid = 'SG' + new java.rmi.server.UID() +"-"+ dtSvc.getServerYear()
+		entity.state = "DRAFT"
+		//entity.status = "JO"
+		//entity.effectivefrom = null
+		//entity.effectiveuntil = null
+		//entity.natureofappointment = null
+		entity.signatorygroupname = null
+		entity.remarks = null
+		
+		entity.signatoryGroupItems.each{
+			it.objid = 'SGI' + new java.rmi.server.UID() +"-"+ dtSvc.getServerYear()
+		}
+
+		//entity.recordlog = [:]
+		//entity.recordlog.datecreated = dtSvc.serverDate
+        //entity.recordlog.createdbyuserid = env.USERID
+        //entity.recordlog.createdbyuser = env.FULLNAME
+        //entity.recordlog.dateupdated =  dtSvc.serverDate
+        //entity.recordlog.lastupdatedbyuserid = env.USERID
+        //entity.recordlog.lastupdatedbyuser = env.FULLNAME
+        
+        return entity;
+
 	}
 
 }
