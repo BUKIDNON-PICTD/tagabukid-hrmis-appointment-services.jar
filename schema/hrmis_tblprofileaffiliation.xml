@@ -2,9 +2,9 @@
 	<element tablename="hrmis_tblprofileaffiliation">
 		<field name="objid" primary="true" prefix="AFF" searchable="false" />
 		<field name="personid" required="true" visible="false" />
-		<field name="recognition" required="false" searchable="true"/>
+<!-- 		<field name="recognition" required="false" searchable="true"/>
 		<field name="recognitioncategoryid" required="false" searchable="false"/>
-		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
+		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/> -->
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
