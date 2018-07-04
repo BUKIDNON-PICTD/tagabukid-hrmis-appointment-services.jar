@@ -7,7 +7,7 @@
 		<field name="position" required="false" searchable="false" visible="true" />
 		<field name="departmentagencyofficecompany" required="false" searchable="false" visible="true" />
 		<field name="monthlysalary" required="false" searchable="false" visible="true" />
-		<field name="salatystep" required="false" searchable="false" visible="true" />
+		<field name="salarystep" required="false" searchable="false" visible="true" />
 		<field name="appointmentstatus" required="false" searchable="false" visible="true" />
 		<field name="govservice" required="false" searchable="false" visible="true" />
 

@@ -44,8 +44,8 @@
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
 
-
-		<complex name="familyspouseInfos" ref="hrmis_pds_familybackground_spousename" jointype="one-to-many" required="false">
+		
+		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
@@ -53,13 +53,14 @@
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
+		<complex name="familyspouseInfos" ref="hrmis_pds_familybackground_spousename" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
 		<complex name="familychildInfos" ref="hrmis_pds_familybackground_children" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
-		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
-			<key field="objid" target="pdsid" /> 		
-		</complex>
 
 		<complex name="educationalInfos" ref="hrmis_pds_educationalinfo" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
@@ -72,8 +73,6 @@
 		<complex name="workexperienceInfos" ref="hrmis_pds_workexperience" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
-
-		
 
 		<complex name="voluntaryworks" ref="hrmis_pds_voluntarywork" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
@@ -100,7 +99,11 @@
 		</complex> 
 		
 		<complex name="govids" ref="hrmis_pds_govid" jointype="one-to-many" required="false">
-			<key field="objid" target="pdsid" /> 		
+			<key field="objid" target="pdsid" /> 	
+		</complex>
+		
+		<complex name="pdsqs" ref="hrmis_pds_question" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" />
 		</complex>
 	</element>
 </schema>

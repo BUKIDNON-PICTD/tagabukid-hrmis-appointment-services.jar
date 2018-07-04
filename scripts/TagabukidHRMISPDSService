@@ -38,15 +38,14 @@ class TagabukidHRMISPDSService
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
 		entity.person = [:]
 
-
-         //spouse info
-        entity.familyspouseInfos = []
-
-         //mother name
+        //father name
+        entity.familyfatherInfos = []
+        
+        //mother name
         entity.familymotherInfos = []
 
-         //father name
-        entity.familyfatherInfos = []
+        //spouse info
+        entity.familyspouseInfos = []
 
          //child info
         entity.familychildInfos = []
@@ -68,9 +67,9 @@ class TagabukidHRMISPDSService
         entity.skills = []
         entity.recognitions = []
         entity.organizations = []
-        //questions section PENDING
         entity.references = []
         entity.govids = []
+        entity.pdsqs = []
 
 
 
@@ -146,6 +145,18 @@ class TagabukidHRMISPDSService
 		// def smon    = ( mnth < 10 ) ? "0"+mnth : mnth+"";
 		def prefix  = appcode+yr;
 		return prefix+seqSvc.getNextFormattedSeries(prefix);
+    }    
+
+    @ProxyMethod
+    public def getList( params ) {
+        beforeList(params)
+        return em.getList(params)
+    } 
+
+    @ProxyMethod
+    public def getCountry( o ) {
+        o.searchtext+='%'
+        return em.getCountry( o );
     }
 
 }
