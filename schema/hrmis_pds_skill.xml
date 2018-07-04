@@ -2,14 +2,18 @@
 	<element tablename="hrmis_pds_skill">
 		<field name="objid" primary="true" prefix="SKL" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
-		<field name="name" caption="Name" required="true" searchable="true" />
-		<field name="description" caption="Description" required="false" searchable="true" />
+		<field name="skill_objid" caption="Name" required="true" searchable="true" />
+		<!-- <field name="description" caption="Description" required="false" searchable="true" /> -->
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="skill" ref="hrmis_tblprofileskill" jointype="many-to-one" required="false">
+			<key field="skill_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- OK -->

@@ -1,15 +1,15 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_tblprofiletrainingprogramattended">
 		<field name="objid" primary="true" prefix="PTP" searchable="false" />
-		<field name="personid" required="true" visible="false" />
-		<field name="trainingtitle" required="false" searchable="false"/>
-		<field name="trainingsubcategoryid" required="false" searchable="false"/>
-		<field name="attendancefrom" required="true" searchable="false"/>
-		<field name="attendanceto" required="true" searchable="false"/>
-		<field name="numberofhours" required="true" searchable="false"/>
-		<field name="sponsorinstitutiontypeid" required="false" searchable="false"/>
-		<field name="trainingcomprehensivenessid" required="false" searchable="false"/>
-		<field name="sponsor" required="false" searchable="false"/>
+		<field name="personid" required="false" visible="false" />
+		<field name="trainingtitle" required="false" searchable="true"/>
+		<field name="trainingsubcategoryid" required="false" visible="false" searchable="false"/>
+		<field name="attendancefrom" required="true" searchable="true"/>
+		<field name="attendanceto" required="true" searchable="true"/>
+		<field name="numberofhours" required="true" searchable="true"/>
+		<field name="sponsorinstitutiontypeid" required="false" visible="false" searchable="false"/>
+		<field name="trainingcomprehensivenessid" required="false" visible="false" searchable="false"/>
+		<field name="sponsor" required="false" searchable="true"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
