@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_pds_workexperience">
-		<field name="objid" primary="true" searchable="false" visible="false"/>
-		<field name="pdsid" required="false" searchable="false" visible="true" />
+		<field name="objid" primary="true" prefix="WE" searchable="false"/>
+		<field name="pdsid" required="true" searchable="false" visible="true" />
 		<field name="from" required="false" searchable="false" visible="true" />
 		<field name="to" required="false" searchable="false" visible="true" />
 		<field name="position" required="false" searchable="false" visible="true" />

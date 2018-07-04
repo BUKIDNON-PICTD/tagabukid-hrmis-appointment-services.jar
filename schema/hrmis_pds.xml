@@ -80,7 +80,7 @@
 
 		<complex name="trainings" ref="hrmis_pds_training" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
-		</complex> --> -->
+		</complex>
 		
 		<complex name="skills" ref="hrmis_pds_skill" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
