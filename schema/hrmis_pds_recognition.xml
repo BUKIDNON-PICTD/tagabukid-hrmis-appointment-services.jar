@@ -3,13 +3,16 @@
 		<field name="objid" primary="true" prefix="REC" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
 		<field name="name" caption="Name" required="true" searchable="true" />
-		<field name="recognitioncategoryid" required="false" searchable="true" />
+		<field name="recognitioncategory_objid" required="false" searchable="true" />
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+		<complex name="recognitioncategory" ref="master_tblrecognitioncategory" jointype="many-to-one" required="false">
+			<key field="recognitioncategory_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- OK -->
