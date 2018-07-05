@@ -70,6 +70,7 @@ class TagabukidHRMISPDSService
         entity.references = []
         entity.govids = []
         entity.pdsqs = []
+        // entity.questions = []
 
 
 
