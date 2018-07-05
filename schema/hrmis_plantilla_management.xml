@@ -5,7 +5,7 @@
         <field name="jobposition_objid" required="true"/>
         <field name="itemno" required="true"/>
         <field name="isfunded" required="true"/>
-        <field name="incrementtype_objid" required="true"/>
+        <field name="incrementtype_objid" required="false"/>
         <field name="fund_objid" required="true"/>
         <field name="accounttitle_objid" required="true"/>
         <field name="positionserviceclassification_objid" required="false"/>

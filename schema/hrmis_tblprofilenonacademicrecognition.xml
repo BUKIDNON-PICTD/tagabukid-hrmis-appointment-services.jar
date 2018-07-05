@@ -1,15 +1,19 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_tblprofilenonacademicrecognition">
 		<field name="objid" primary="true" prefix="NAR" searchable="false" />
-		<field name="personid" required="true" visible="false" />
-		<field name="recognition" required="false" searchable="true"/>
-		<field name="recognitioncategoryid" required="false" searchable="false"/>
+		<field name="personid" required="false" visible="false" />
+		<field name="recognition" required="true" searchable="true"/>
+		<field name="recognitioncategory_objid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+
+		<complex name="recognitioncategory" ref="master_tblrecognitioncategory" jointype="many-to-one" required="false">
+			<key field="recognitioncategory_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- OK  -->

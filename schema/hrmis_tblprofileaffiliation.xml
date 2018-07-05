@@ -1,15 +1,19 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_tblprofileaffiliation">
 		<field name="objid" primary="true" prefix="AFF" searchable="false" />
-		<field name="personid" required="true" visible="false" />
-		<field name="recognition" required="false" searchable="true"/>
-		<field name="recognitioncategoryid" required="false" searchable="false"/>
-		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
+		<field name="personid" required="false" visible="false" />
+		<field name="name" required="true" searchable="true"/>
+		<field name="professionalorganizationorassociationcategory_objid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+		<field name="oldid" required="false" visible="false" />
+		
+		<complex name="professionalorganizationorassociationcategory" ref="master_tblprofessionalorganizationorassociationcategory" jointype="many-to-one" required="false">
+			<key field="professionalorganizationorassociationcategory_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- OK  -->
