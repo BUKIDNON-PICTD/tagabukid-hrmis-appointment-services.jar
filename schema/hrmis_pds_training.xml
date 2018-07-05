@@ -2,18 +2,20 @@
 	<element tablename="hrmis_pds_training">
 		<field name="objid" primary="true" prefix="PTR" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
-		<field name="name" caption="Name" required="true" searchable="true" />
-		<field name="from" required="true" searchable="true" />
-		<field name="to" required="true" searchable="true" />
-		<field name="hours" required="true" searchable="false" />
-		<field name="trainingcategory_objid" required="true" searchable="false" />
-		<field name="sponsor" required="true" searchable="true" />
+		<field name="training_objid" caption="Name" required="true" searchable="true" />
+		<field name="trainingcategory_objid" required="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
+		
+
+		<complex name="training" ref="hrmis_tblprofiletrainingprogramattended" jointype="many-to-one" required="false">
+			<key field="training_objid" target="objid" />
+		</complex>
+
 		<complex name="trainingcategory" ref="master_tbltrainingcategory" jointype="many-to-one" required="false">
 			<key field="trainingcategory_objid" target="objid" />
 		</complex>

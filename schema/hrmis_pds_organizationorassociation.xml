@@ -2,7 +2,7 @@
 	<element tablename="hrmis_pds_organizationorassociation">
 		<field name="objid" primary="true" prefix="ORG" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
-		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="affiliation_objid" caption="Name" required="true" searchable="true" />
 		<!-- <field name="recognitioncategoryid" required="false" searchable="true" /> -->
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
@@ -10,6 +10,10 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="affiliation" ref="hrmis_tblprofileaffiliation" jointype="many-to-one" required="false">
+			<key field="affiliation_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- OK -->
