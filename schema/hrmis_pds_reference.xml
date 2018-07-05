@@ -2,15 +2,21 @@
 	<element tablename="hrmis_pds_reference">
 		<field name="objid" primary="true" prefix="REF" searchable="false" />
 		<field name="pdsid" required="true" visible="false" />
-		<field name="name" required="true" searchable="true"/>
-		<field name="address" required="true" searchable="false"/>
-		<field name="contact" required="true" searchable="false"/>
+		<field name="reference_objid" required="true" searchable="true"/>
+		<!-- <field name="address" required="true" searchable="false"/> -->
+		<field name="contact" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+
+<!-- 
+		
+		<complex name="reference" ref="entityindividual" jointype="many-to-one" required="false">
+			<key field="reference_objid" target="objid" /> 		
+		</complex>  -->
 	</element>
 </schema>
 <!-- OK -->

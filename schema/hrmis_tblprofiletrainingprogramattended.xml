@@ -2,14 +2,14 @@
 	<element tablename="hrmis_tblprofiletrainingprogramattended">
 		<field name="objid" primary="true" prefix="PTP" searchable="false" />
 		<field name="personid" required="false" visible="false" />
-		<field name="trainingtitle" required="false" searchable="true"/>
+		<field name="trainingtitle" required="false" caption="Training Title" searchable="true"/>
 		<field name="trainingsubcategory_objid" required="false" visible="false" searchable="false"/>
-		<field name="attendancefrom" required="true" searchable="true"/>
-		<field name="attendanceto" required="true" searchable="true"/>
-		<field name="numberofhours" required="true" searchable="true"/>
+		<field name="attendancefrom" required="true" caption="From" searchable="true"/>
+		<field name="attendanceto" required="true" caption="To" searchable="true"/>
+		<field name="numberofhours" required="true" caption="Hours" searchable="true"/>
 		<field name="sponsorinstitutiontype_objid" required="false" visible="false" searchable="false"/>
 		<field name="trainingcomprehensiveness_objid" required="false" visible="false" searchable="false"/>
-		<field name="sponsor" required="false" searchable="true"/>
+		<field name="sponsor" required="false" caption="Sponsor" searchable="true"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />

@@ -2,13 +2,13 @@
 	<element tablename="hrmis_tblprofilevoluntarywork">
 		<field name="objid" primary="true" prefix="PVW" searchable="false" />
 		<field name="personid" required="false" visible="false" />
-		<field name="organizationname" required="false" searchable="false"/>
+		<field name="organizationname" required="false" caption="Name" searchable="false"/>
 		<field name="institutiontypeid" required="false" visible="false" searchable="false"/>
 		<field name="muncityaddrid" required="false" visible="false" searchable="false"/>
 		<field name="addressdetails" required="false" searchable="false"/>
-		<field name="datefrom" required="true" searchable="false"/>
-		<field name="dateto" required="true" searchable="false"/>
-		<field name="numberofhours" required="true" searchable="false"/>
+		<field name="datefrom" required="true" caption="From" searchable="false"/>
+		<field name="dateto" required="true" caption="To" searchable="false"/>
+		<field name="numberofhours" required="true" caption="Hours" searchable="false"/>
 		<field name="positionornatureofwork" required="false" visible="false" searchable="false"/>
 		<field name="positionornatureofworkcategoryid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
