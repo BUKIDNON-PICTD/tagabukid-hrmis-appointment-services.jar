@@ -56,5 +56,11 @@ public class AppointmentJobOrderService extends ActiveCrudListService
 
 	}
 
+	@ProxyMethod
+    public def getDailyWageByTranch(o,x) {
+    	return em.findDailyWageByTranch([trancheid:o.objid,jobpositionid:x.objid]);
+    }
+
+
 
 }

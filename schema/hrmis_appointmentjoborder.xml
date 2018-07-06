@@ -10,7 +10,7 @@
 		<field name="dateissued" required="true" visible="false" searchable="false"/>
 		<field name="dateapproved" required="false" visible="false" searchable="false"/>
 		<field name="org_orgunitid" required="true" visible="false" searchable="false"/>
-		<field name="currentsalarystep" required="false" visible="false" searchable="false"/>
+		<field name="currentsalarystep_objid" required="true" visible="false" searchable="false"/>
 		<field name="compensation" required="false" visible="false" searchable="false"/>
 		<field name="remarks" required="false" visible="false" searchable="false"/>
 		<field name="signatorygroup_objid" required="true" visible="false" searchable="false"/>
@@ -32,6 +32,9 @@
 		</complex>
 		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" required="false">
 			<key field="signatorygroup_objid" target="objid" /> 		
+		</complex>
+		<complex name="currentsalarystep" ref="hrmis_payrollsalarytranche" jointype="many-to-one" required="false">
+			<key field="currentsalarystep_objid" target="objid" />
 		</complex>
 
 	</element>
