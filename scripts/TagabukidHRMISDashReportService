@@ -2,7 +2,7 @@ import com.rameses.annotations.*
 import com.rameses.common.*
 import com.rameses.services.extended.*;
 
-class TagabukidHRMISAppointmentCasualReportService 
+class TagabukidHRMISDashReportService 
 {
 	@Service("PersistenceService")
     def persistenceSvc;
@@ -19,29 +19,24 @@ class TagabukidHRMISAppointmentCasualReportService
 	@Service('RPTUtil')
 	def util
 
+    @PersistenceContext("tagabukid_hrmis")
+	def empx; 
+
+    @ActiveDB(value='hrmis_appointmentdash', em='tagabukid_hrmis')
+	def em;
+
 	@Env
 	def env;
 
 	@ProxyMethod
-	public def getAppointmentCasualById(params){
-		def data = [:]
-	   
-		def appointment = persistenceSvc.read(params)
-	
-		appointment.appointmentitems.each{
-			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
-        	it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
-			// it.plantilla.Id = it.plantilla.Id.toString()
-		}.sort{it.personnel.lastname}
-		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
-		println appointment
-		data.reportdata = appointment;
-		data.parameters = [
-			LGUNAME  :"PG-BUKIDNON, REGION 10",
-			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
-			TITLE :"PLANTILLA OF CASUAL APPOINTMENTS",
-		]
-		return data
+	public def getCountByQuery(params){
+        def dashtiles = em.getTiles()
+        dashtiles.each{
+			if(it.query){
+            	it.data = empx.sqlContext.createQuery(it.query).singleResult;
+			}
+        }
+		return dashtiles
 
 
 	}

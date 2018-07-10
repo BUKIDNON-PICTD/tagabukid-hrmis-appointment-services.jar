@@ -10,5 +10,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+
+		<complex name="recognitioncategory" ref="master_tblrecognitioncategory" jointype="many-to-one" required="false">
+			<key field="recognitioncategory_objid" target="objid" />
+		</complex>
 	</element>
 </schema>

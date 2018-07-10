@@ -1,0 +1,60 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+class TagabukidAppointmentReportService 
+{
+    @ActiveDB(value='hrmis_appointment_report', em='tagabukid_hrmis')
+	def em;
+
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Service('TagabukidLookupService')
+    def tgbkdSvc
+
+	@Service('NumberService')
+	def numSvc
+
+	@Service('RPTUtil')
+	def util
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getActiveAppointmentByGender(params){
+		def data = [:]
+	    def list = []
+
+        if(params.gender == "Male"){
+            params.filter = "UPPER(ei.`gender`) IN ('MALE','M') "
+        }else{
+            params.filter = "UPPER(ei.`gender`) IN ('FEMALE','F') "
+        }
+        
+        if(params.status == "Casual"){
+            list = em.getActiveAppointmentByGenderCasual(params)
+        }else{
+            list = em.getActiveAppointmentByGenderJobOrder(params)
+        }
+         
+      
+		
+		data.reportdata = list;
+		data.parameters = [
+		TIVE APPOINTMENT (" + params.gender.toUpperCase() + ") "  + params.status.toUpperCase() ,
+		]	LGUNAME  :"PG-BUKIDNON, REGION 10",
+			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
+			TITLE :"AC
+		return data
+
+
+	}
+
+
+
+}
