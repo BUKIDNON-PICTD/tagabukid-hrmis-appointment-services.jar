@@ -1,7 +1,6 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_tblprofileskill">
+	<element tablename="references_tblskill">
 		<field name="objid" primary="true" prefix="PSK" searchable="false" />
-		<field name="personid" required="false" visible="false" />
 		<field name="name" required="true" searchable="true"/>
 		<field name="skillcategory_objid" required="false" searchable="false"/>
 		<field name="skillcompetencylevel_objid" required="false" searchable="false"/>
