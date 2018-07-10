@@ -1,15 +1,15 @@
 <schema adapter="tagabukid_hrmis">
     <element tablename="hrmis_pds_familybackground_fathername">
-        <field name="objid" primary="true" searchable="false" prefix="FAMF" />
+        <field name="objid" primary="true" searchable="false" prefix="FAMF-" />
         <field name="pdsid" required="true" searchable="true" visible="false" />
         <field name="father_objid" required="true" searchable="true" visible="false" />
         <field name="nameextension" required="false" searchable="true" visible="false" />
         
-        <field name="recordlog_datecreated" required="false" searchable="true" visible="false" />
-        <field name="recordlog_createdbyuserid" required="false" searchable="true" visible="false" />
-        <field name="recordlog_createdbyuser" required="false" searchable="true" visible="false" />
-        <field name="recordlog_dateoflastupdate" required="false" searchable="true" visible="false" />
-        <field name="recordlog_lastupdatedbyuserid" required="false" searchable="true" visible="false" />
-        <field name="recordlog_lastupdatedbyuser" required="false" searchable="true" visible="false" />
+        <field name="recordlog_datecreated" required="true" searchable="true" visible="false" />
+        <field name="recordlog_createdbyuserid" required="true" searchable="true" visible="false" />
+        <field name="recordlog_createdbyuser" required="true" searchable="true" visible="false" />
+        <field name="recordlog_dateoflastupdate" required="true" searchable="true" visible="false" />
+        <field name="recordlog_lastupdatedbyuserid" required="true" searchable="true" visible="false" />
+        <field name="recordlog_lastupdatedbyuser" required="true" searchable="true" visible="false" />
     </element>
 </schema>

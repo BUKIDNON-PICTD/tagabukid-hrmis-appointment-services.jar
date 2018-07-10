@@ -3,7 +3,7 @@
 		<field name="objid" primary="true" prefix="NAR" searchable="false" />
 		<field name="personid" required="false" visible="false" />
 		<field name="recognition" required="true" searchable="true"/>
-		<field name="recognitioncategoryid" required="false" searchable="false"/>
+		<field name="recognitioncategory_objid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
@@ -12,4 +12,3 @@
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
 	</element>
 </schema>
-<!-- OK  -->

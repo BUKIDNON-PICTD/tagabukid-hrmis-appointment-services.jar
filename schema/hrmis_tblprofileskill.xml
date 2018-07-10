@@ -3,8 +3,8 @@
 		<field name="objid" primary="true" prefix="PSK" searchable="false" />
 		<field name="personid" required="false" visible="false" />
 		<field name="name" required="true" searchable="true"/>
-		<field name="skillcategoryid" required="false" searchable="false"/>
-		<field name="skillcompetencylevelid" required="false" searchable="false"/>
+		<field name="skillcategory_objid" required="false" searchable="false"/>
+		<field name="skillcompetencylevel_objid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
