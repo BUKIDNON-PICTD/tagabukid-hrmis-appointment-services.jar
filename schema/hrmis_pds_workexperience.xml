@@ -1,15 +1,15 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_pds_workexperience">
-		<field name="objid" primary="true" prefix="WE" searchable="false"/>
+		<field name="objid" primary="true" prefix="WE-" searchable="false"/>
 		<field name="pdsid" required="true" searchable="false" visible="true" />
-		<field name="from" required="false" searchable="false" visible="true" />
-		<field name="to" required="false" searchable="false" visible="true" />
-		<field name="position" required="false" searchable="false" visible="true" />
-		<field name="departmentagencyofficecompany" required="false" searchable="false" visible="true" />
-		<field name="monthlysalary" required="false" searchable="false" visible="true" />
-		<field name="salarystep" required="false" searchable="false" visible="true" />
-		<field name="appointmentstatus" required="false" searchable="false" visible="true" />
-		<field name="govservice" required="false" searchable="false" visible="true" />
+		<field name="from" required="true" searchable="false" visible="true" />
+		<field name="to" required="true" searchable="false" visible="true" />
+		<field name="position" required="true" searchable="false" visible="true" />
+		<field name="departmentagencyofficecompany" required="true" searchable="false" visible="true" />
+		<field name="monthlysalary" required="true" searchable="false" visible="true" />
+		<field name="salarystep" required="true" searchable="false" visible="true" />
+		<field name="appointmentstatus" required="true" searchable="false" visible="true" />
+		<field name="govservice" required="true" searchable="false" visible="true" />
 
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
