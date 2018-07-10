@@ -6,12 +6,8 @@
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="parentorgunitid" visible="false" required="false" />
 		<field name="organizationunittypeid" visible="false" required="true" />
-		<field name="position1" visible="false" required="true"/>
-		<field name="left" visible="false" required="true"/>
-		<field name="right" visible="false" required="true"/>
-		<field name="position" visible="false" required="true"/>
-		<field name="level" visible="false" required="true"/>
-		<field name="type" visible="false" required="false" />
+		<field name="lft" visible="false" required="true"/>
+		<field name="rgt" visible="false" required="true"/>
 		<field name="addrcitymunid" visible="false" required="false" />
 		<field name="addrbarangayid" visible="false" required="false" />
 		<field name="addressdetails" visible="false" caption="Address Details" required="false" />
