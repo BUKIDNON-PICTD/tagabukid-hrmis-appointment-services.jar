@@ -13,9 +13,6 @@ class TagabukidAppointmentReportService
 	@Service('DateService')
 	def dtSvc 
 
-	@Service('TagabukidLookupService')
-    def tgbkdSvc
-
 	@Service('NumberService')
 	def numSvc
 
@@ -49,7 +46,8 @@ class TagabukidAppointmentReportService
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
 			TITLE :"ACTIVE APPOINTMENT (" + params.gender.toUpperCase() + ") "  + params.status.toUpperCase() ,
-		]
+
+			]
 		return data
 
 
