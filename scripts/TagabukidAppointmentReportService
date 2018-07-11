@@ -46,10 +46,10 @@ class TagabukidAppointmentReportService
 		
 		data.reportdata = list;
 		data.parameters = [
-		TIVE APPOINTMENT (" + params.gender.toUpperCase() + ") "  + params.status.toUpperCase() ,
-		]	LGUNAME  :"PG-BUKIDNON, REGION 10",
+			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
-			TITLE :"AC
+			TITLE :"ACTIVE APPOINTMENT (" + params.gender.toUpperCase() + ") "  + params.status.toUpperCase() ,
+		]
 		return data
 
 
