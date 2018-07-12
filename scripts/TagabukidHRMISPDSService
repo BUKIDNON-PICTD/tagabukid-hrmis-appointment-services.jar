@@ -69,7 +69,7 @@ class TagabukidHRMISPDSService
         entity.organizations = []
         entity.references = []
         entity.govids = []
-        entity.pdsqs = []
+        entity.pdsquestions = []
         // entity.questions = []
 
 
@@ -159,5 +159,11 @@ class TagabukidHRMISPDSService
         o.searchtext+='%'
         return em.getCountry( o );
     }
+
+    @ProxyMethod
+    public def loadQuestions( o ) {
+        return em.getQuestions();
+    }
+
 
 }

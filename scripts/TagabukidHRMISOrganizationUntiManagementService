@@ -30,7 +30,7 @@ class TagabukidHRMISOrganizationUntiManagementService extends ActiveCrudNodeServ
 
 	@ProxyMethod
     public def manageLftRgt(o){
-    	println o
+    	
     	def parent = em.findParent(o);
     	addChild(parent);
     	o.lft = parent.lft + 1;
