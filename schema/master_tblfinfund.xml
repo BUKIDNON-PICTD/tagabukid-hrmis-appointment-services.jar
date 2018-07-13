@@ -12,7 +12,9 @@
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
-		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />	
+		<field name="lft" visible="false" required="false" />
+		<field name="rgt" visible="false" required="false" />
 <!-- 
 		<complex name="parentfund" ref="master_tblfinfund" jointype="many-to-one" required="false">
 			<key field="parentfund_objid" target="objid" />
