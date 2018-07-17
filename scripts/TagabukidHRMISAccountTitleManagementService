@@ -1,0 +1,109 @@
+import com.rameses.annotations.*;
+import com.rameses.util.*;
+import java.rmi.server.*;
+import com.rameses.common.*
+
+import com.rameses.services.extended.*
+
+class TagabukidHRMISAccountTitleManagementService extends ActiveCrudNodeService {
+
+	@ActiveDB(value='hrmis_accounttitle_management', em='tagabukid_hrmis')
+	def em;
+
+	@Env
+	def env;
+
+	@Service('DateService')
+	def dtSvc 
+	
+
+	void addNode(parent){
+    	em.changeNodeRight([myRight:parent.rgt]);
+		em.changeNodeLeft([myRight:parent.rgt]);
+    }
+
+    @ProxyMethod
+	void addChild(parent){
+    	em.changeParentRight([myLeft:parent.lft]);
+		em.changeParentLeft([myLeft:parent.lft]);
+    }
+
+	@ProxyMethod
+    public def manageLftRgt(o){
+    	println o
+    	def parent = em.findParent(o);
+    	addChild(parent);
+    	o.lft = parent.lft + 1;
+		o.rgt = parent.lft + 2;
+		return o
+    }
+
+	public void afterNode( def selectedNode, def list ) {
+		// def orgid = dtsSvc.getUserOrg(env.USERID).org.objid
+		// list.removeAll( list.findAll{it.orgid != orgid && it.orgid != 'ROOT'} );
+		list.each { 
+			it.allowSearch = true;
+			it.caption = it.name;
+			it.filetype = "hrmisaccounttitle";
+			it.children = [  
+				[caption:'Account Title', filetype: 'hrmisaccounttitle'],
+			]
+		}
+
+		// if(selectedNode.root == true) {
+		// 	list.add(0, [name:'folder', caption:'Details', leaf:true, allowSearch:true]);
+		// }	
+	}
+
+	@ProxyMethod
+	public def getColumns( def o ) {
+		def cols = [
+			[name:'code', caption:'Code' ],
+			[name:'name', caption:'Name' ],
+			[name:'description', caption:'Description' ],
+		
+		];
+		return cols;
+	}
+	
+	public void beforeList( def p ) {
+		
+		if(p.name == "search") {
+			p._listMethod = "getSearch";
+		}
+	
+	}
+	
+	// public void afterList( def p, def list ) {
+	// 	list.each { 
+	// 		it.filetype = 'pm';
+	// 	}
+	// }
+	
+	@ProxyMethod
+    public def changeParent(o) {
+    	
+		def parent = em.findParent(o);
+		addChild(parent);
+    	o.lft = parent.lft + 1;
+		o.rgt = parent.lft + 2;
+    	return em.changeParent( o );
+    }
+
+    // @ProxyMethod 
+    // public void syncFromCloud() {
+    // 	def list = []
+    // 	def start = 0
+    // 	while(true){
+    // 		list = acctSvc.getList([searchtext: '%', _start:start, _limit: 25]);
+    // 		if(! list ) break;
+
+    // 		list.each { 
+    // 			em.save(it);
+    // 		}
+    // 		start += 25
+    // 	}
+    // }
+
+
+}

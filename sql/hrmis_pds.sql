@@ -9,3 +9,5 @@ from references_tblloccountry
 where name like $P{searchtext}
 order by name asc
 
+[getQuestions]
+SELECT * FROM references_tblpdsq ORDER BY position;

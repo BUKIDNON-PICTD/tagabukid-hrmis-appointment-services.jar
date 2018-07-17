@@ -5,8 +5,8 @@
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="parentaccountid" visible="false" required="false" />
-		<field name="fundid" visible="false" required="true" searchable="false" />
-		<field name="position" caption="Position" visible="false" required="true" />
+		<field name="fund_objid" visible="false" required="true" searchable="false" />
+		<field name="position" caption="Position" visible="false" required="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -15,5 +15,15 @@
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 		<field name="account_id" visible="false" required="false" />
+		<field name="lft" visible="false" required="false" />
+		<field name="rgt" visible="false" required="false" />
+
+		<!-- <complex name="parentaccount" ref="master_tblfinaccount" jointype="many-to-one" required="false">
+			<key field="parentaccount_objid" target="objid" />
+		</complex> -->
+
+		<complex name="fund" ref="master_tblfinfund" jointype="many-to-one" required="false">
+			<key field="fund_objid" target="objid" />
+		</complex>
 	</element>
 </schema>

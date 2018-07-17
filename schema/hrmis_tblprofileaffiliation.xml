@@ -1,7 +1,6 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_tblprofileaffiliation">
+	<element tablename="references_tblaffiliation">
 		<field name="objid" primary="true" prefix="AFF" searchable="false" />
-		<field name="personid" required="false" visible="false" />
 		<field name="name" required="true" searchable="true"/>
 		<field name="professionalorganizationorassociationcategory_objid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />

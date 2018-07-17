@@ -1,7 +1,6 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_tblprofiletrainingprogramattended">
+	<element tablename="references_tbltrainingprogramattended">
 		<field name="objid" primary="true" prefix="PTP" searchable="false" />
-		<field name="personid" required="false" visible="false" />
 		<field name="trainingtitle" required="false" caption="Training Title" searchable="true"/>
 		<field name="trainingsubcategory_objid" required="false" visible="false" searchable="false"/>
 		<field name="attendancefrom" required="true" caption="From" searchable="true"/>
