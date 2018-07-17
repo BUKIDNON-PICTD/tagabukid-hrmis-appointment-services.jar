@@ -1,0 +1,54 @@
+import com.rameses.annotations.*
+import com.rameses.common.*;
+import com.rameses.services.extended.*;
+
+class GenderCountReportService
+{
+    @ActiveDB(value='gendercountreports', em='tagabukid_hrmis')
+    def em
+
+    @Service('NumberService')
+    def numberSvc
+
+    @Env 
+    def env 
+
+    @ProxyMethod
+    public def getGenderCountByOffice(params) {
+
+        
+
+        println params
+        def office = (params.orgoffice ? params.orgoffice.orgunitid : '%')
+        println office
+        //println "*****"
+        //println accountid
+        
+
+        def list = em.getGenderCountReport([office:office, datefrom:params.effectivefrom, dateto:params.effectiveuntil])
+        println list
+        if (!list) throw new Exception('There are no records found.')
+      
+        def p = [
+            TITLE    : 'Gender Count By Office',
+            //SUBTITLE : subtitle,
+            DATEFROM : (params.effectivefrom),
+            DATETO : (params.effectiveuntil),  
+            OFFICE :(params.orgoffice ?  params.orgoffice : "ALL")
+            
+        ]
+
+        return [
+            parameters  : p,
+            reportdata  : list
+        ]
+    }
+
+
+    @ProxyMethod
+    public def getOrgOffice(o) {
+        return em.getOrgOffice();
+
+    }
+
+}
