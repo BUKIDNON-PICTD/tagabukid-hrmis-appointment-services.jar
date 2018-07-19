@@ -4,11 +4,11 @@ xx.orgunitid,
 xx.name,
 xx.effectivefrom,
 xx.effectiveuntil, 
-COUNT(xx.objid), 
-SUM(IF((xx.gender = "MALE" OR xx.gender = "M") AND xx.status = "JO", 1, 0)) AS JOMale, 
-SUM(IF((xx.gender = "FEMALE" OR xx.gender = "F") AND xx.status = "JO", 1, 0)) AS JOFemale,
-SUM(IF((xx.gender = "MALE" OR xx.gender = "M") AND xx.status = "CASUAL", 1, 0)) AS CASUALMale, 
-SUM(IF((xx.gender = "FEMALE" OR xx.gender = "F") AND xx.status = "CASUAL", 1, 0)) AS CASUALFemale  
+COUNT(xx.objid) as subtotal, 
+CAST(SUM(IF((xx.gender = "MALE" OR xx.gender = "M") AND xx.status = "JO", 1, 0)) AS SIGNED) AS jom, 
+CAST(SUM(IF((xx.gender = "FEMALE" OR xx.gender = "F") AND xx.status = "JO", 1, 0))AS SIGNED) AS jof,
+CAST(SUM(IF((xx.gender = "MALE" OR xx.gender = "M") AND xx.status = "CASUAL", 1, 0)) AS SIGNED) AS cam, 
+CAST(SUM(IF((xx.gender = "FEMALE" OR xx.gender = "F") AND xx.status = "CASUAL", 1, 0)) AS SIGNED) AS caf    
 FROM
 (SELECT org.`orgunitid`, org.name, ji.`objid`, ei.`gender`, j.`status`, j.`effectivefrom` as effectivefrom, j.`effectiveuntil` AS effectiveuntil, j.`dateissued`
 FROM tagabukid_hrmis.`hrmis_appointmentjoborderitems` ji
