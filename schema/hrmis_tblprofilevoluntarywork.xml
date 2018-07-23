@@ -1,7 +1,6 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_tblprofilevoluntarywork">
+	<element tablename="references_tblvoluntarywork">
 		<field name="objid" primary="true" prefix="PVW" searchable="false" />
-		<field name="personid" required="false" visible="false" />
 		<field name="organizationname" required="false" caption="Name" searchable="false"/>
 		<field name="institutiontypeid" required="false" visible="false" searchable="false"/>
 		<field name="muncityaddrid" required="false" visible="false" searchable="false"/>
@@ -9,8 +8,6 @@
 		<field name="datefrom" required="true" caption="From" searchable="false"/>
 		<field name="dateto" required="true" caption="To" searchable="false"/>
 		<field name="numberofhours" required="true" caption="Hours" searchable="false"/>
-		<field name="positionornatureofwork" required="false" visible="false" searchable="false"/>
-		<field name="positionornatureofworkcategoryid" required="false" visible="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />

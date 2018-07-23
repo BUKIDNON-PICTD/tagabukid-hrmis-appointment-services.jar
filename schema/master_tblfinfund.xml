@@ -5,18 +5,20 @@
 		<field name="description" caption="Description" required="false" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="parentfund_objid" visible="false" required="false" />
-		<field name="position" caption="Position" visible="false" required="false" />
+		<field name="position" required="false" caption="Position" visible="false"/>
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
-		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
-
+		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />	
+		<field name="lft" visible="false" required="false" />
+		<field name="rgt" visible="false" required="false" />
+<!-- 
 		<complex name="parentfund" ref="master_tblfinfund" jointype="many-to-one" required="false">
 			<key field="parentfund_objid" target="objid" />
-		</complex>
+		</complex> -->
 
 	</element>
 </schema>
