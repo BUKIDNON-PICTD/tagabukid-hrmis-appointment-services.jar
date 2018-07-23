@@ -2,9 +2,21 @@
 	<element tablename="hrmis_pds_voluntarywork">
 		<field name="objid" primary="true" prefix="VWK" searchable="false" />
 		<field name="pdsid" required="true" visible="false" />
-		<field name="voluntarywork_objid" required="false" searchable="true"/>
+		<!-- <field name="voluntarywork_objid" required="false" searchable="true"/>
 
-		<field name="natureofwork" required="false" searchable="true"/>
+		<field name="natureofwork" required="false" searchable="true"/> -->
+		<!-- mao ni bago -->
+		<field name="voluntarywork_objid" required="false" searchable="true"/>
+		<field name="institutiontype_objid" required="false" searchable="true"/>
+		<field name="organization_address" required="false" searchable="true"/>
+		<field name="organization_address_text" required="false" searchable="true"/>
+		<field name="datefrom" required="false" searchable="true"/>
+		<field name="dateto" required="false" searchable="true"/>
+		<field name="numberofhours" required="false" searchable="true"/>
+		<field name="positionornatureofwork" required="false" searchable="true"/>
+		<field name="positionornatureofworkcategory_objid" required="false" searchable="true"/>
+		<!-- kutob diri -->
+
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />

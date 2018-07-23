@@ -4,7 +4,16 @@
         <field name="pdsid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
         <field name="nameextension" required="false" searchable="true" visible="false" /> 
+        <!-- nara gi add -->
+        <field name="prenametitle" required="false" searchable="true" visible="false" /> 
+        <field name="postnametitle" required="false" searchable="true" visible="false" /> 
+       <!-- kutob diri -->
+
+
         <field name="occupation" required="false" searchable="true" visible="false" /> 
+        <!-- bago pud ni -->
+        <field name="businessname" required="false" searchable="true" visible="false" /> 
+        <!-- kutob diri -->
         <field name="businessadd" required="false" searchable="true" visible="false" /> 
         <field name="phoneno" required="false" searchable="true" visible="false" /> 
         

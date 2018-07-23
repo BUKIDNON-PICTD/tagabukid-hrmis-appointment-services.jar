@@ -1,8 +1,7 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_tblprofilenonacademicrecognition">
+	<element tablename="references_tblnonacademicrecognition">
 		<field name="objid" primary="true" prefix="NAR" searchable="false" />
-		<field name="personid" required="false" visible="false" />
-		<field name="recognition" required="true" searchable="true"/>
+		<field name="name" required="true" searchable="true"/>
 		<field name="recognitioncategory_objid" required="false" searchable="false"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />

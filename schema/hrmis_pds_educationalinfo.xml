@@ -4,7 +4,10 @@
 		<field name="pdsid" required="true" searchable="false" visible="false"/>
 		<field name="level" required="true" visible="true"/>
 		<field name="school_objid" required="true" searchable="true" visible="true"/>
-		<field name="degree" required="false" searchable="true" prefix="EDU"/>
+		<!-- kani gi wala nako ang degree pulihan master file -->
+		<field name="course_objid" required="false" searchable="true" prefix="EDU"/>
+		<field name="coursemajor_objid" required="false" searchable="true" prefix="EDU"/>
+		<!-- kutob diri -->
 		<field name="from" required="true" searchable="false" visible="true"/>
 		<field name="to" required="true" searchable="false" visible="true"/>
 		<field name="levelunitearned" required="false" visible="true"/>
@@ -17,5 +20,13 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<!-- kani complex para fetch sa master file -->
+		<complex name="course" ref="master_tblacadcourse" jointype="many-to-one" required="false">
+			<key field="course_objid" target="objid" />
+		</complex>
+		<complex name="coursemajor" ref="master_tblacadcoursemajor" jointype="many-to-one" required="false">
+			<key field="coursemajor_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
