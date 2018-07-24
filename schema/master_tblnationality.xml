@@ -3,7 +3,7 @@
 		<field name="objid" primary="true" prefix="NAT" visible="false" searchable="false" required="true"/>
 		<field name="name" caption="Name" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
-		<field name="countryid" visible="false" required="true" />
+		<field name="country_objid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -11,5 +11,10 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+		
+		
+		<complex name="country" ref="master_tblloccountry" jointype="many-to-one" required="false">
+			<key field="country_objid" target="objid" />
+		</complex>
 	</element>
 </schema>

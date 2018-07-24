@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblvoluntarywork">
 		<field name="objid" primary="true" prefix="PVW" searchable="false" />
-		<field name="organizationname" required="false" caption="Name" searchable="false"/>
+		<field name="organizationname" required="true" caption="Name" searchable="false"/>
 		<field name="institutiontypeid" required="false" visible="false" searchable="false"/>
 		<field name="muncityaddrid" required="false" visible="false" searchable="false"/>
 		<field name="addressdetails" required="false" searchable="false"/>
