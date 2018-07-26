@@ -10,8 +10,7 @@
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
-		<field name="oldid" required="false" searchable="false"/>
-
+	
 		<complex name="skillcategory" ref="master_tblskillcategory" jointype="many-to-one" required="false">
 			<key field="skillcategory_objid" target="objid" />
 		</complex>

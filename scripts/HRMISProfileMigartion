@@ -190,7 +190,7 @@ class HRMISProfileMigartion {
 				.setParameter('profileid', it.profileid)
 				.execute();
 			}
-
+			
 			if(isPDSMigrated(it.profileid)){
 				println "Updating PDS " + it.profileid
 				updatePDS(it);
@@ -225,8 +225,8 @@ class HRMISProfileMigartion {
 		    pds.nameextension                 = o.raw.Name.NameExtension
 		    pds.prenametitle                  = o.raw.Name.PreNameTitle
 		    pds.postnametitle                 = o.raw.Name.PostNameTitle
-		    pds.residentialaddress            = o.newentityindividual.address
-		    pds.permanentaddress              = o.newentityindividual.address
+		    pds.residential_address            = o.newentityindividual.address
+		    pds.permanent_address              = o.newentityindividual.address
 		    pds.height                        = o.raw.HeightMeters
 		    pds.weight                        = o.raw.WeightKg
 		    pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
@@ -272,8 +272,8 @@ class HRMISProfileMigartion {
 		pds.nameextension                 = o.raw.Name.NameExtension
 		pds.prenametitle                  = o.raw.Name.PreNameTitle
 		pds.postnametitle                 = o.raw.Name.PostNameTitle
-		pds.residentialaddress            = o.newentityindividual.address
-		pds.permanentaddress              = o.newentityindividual.address
+		pds.residential_address            = o.newentityindividual.address
+		pds.permanent_address              = o.newentityindividual.address
 		pds.height                        = o.raw.HeightMeters
 		pds.weight                        = o.raw.WeightKg
 		pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
@@ -396,7 +396,7 @@ class HRMISProfileMigartion {
 				
 				it.occupation   = it.Occupation ? it.Occupation.toUpperCase() : null
 				it.businessname = it.EmployerOrBusinessName ? it.EmployerOrBusinessName.toUpperCase() : null
-				it.businessadd  = it.BusinessAddressDetails.AddressDetails ? it.BusinessAddressDetails.AddressDetails.toUpperCase() : null
+				it.businessadd  = [text:it.BusinessAddressDetails.AddressDetails ? it.BusinessAddressDetails.AddressDetails.toUpperCase() : null]
 				it.recordlog    = [
 					datecreated        : dateSvc.serverDate,
 					dateoflastupdate   : dateSvc.serverDate,
@@ -536,6 +536,7 @@ class HRMISProfileMigartion {
 			FROM "hrmis"."tblProfileEducationalBackground" e
 			WHERE e."PersonId" = $P{profileid}
 			''').setParameter('profileid',o.raw.PersonId).resultList.each{
+				it.level = ['NONE', 'PRESCHOOL', 'PRIMARY', 'JUNIORHIGH', 'SENIORHIGH', 'TERTIARY', 'POSTGRADUATE', 'SECONDARY', 'VOCATIONAL'][it.level]
 				it.recordlog     = [
 					datecreated        : dateSvc.serverDate,
 					dateoflastupdate   : dateSvc.serverDate,
@@ -825,6 +826,25 @@ class HRMISProfileMigartion {
 			    existingentity.lastname   = o.Father.LastName ?  o.Father.LastName.toUpperCase() : null
 			    existingentity.firstname  = o.Father.FirstName ?  o.Father.FirstName.toUpperCase() : null
 			    existingentity.middlename = o.Father.MiddleName ?  o.Father.MiddleName.toUpperCase() : null
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
 			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
 		}else{
 			// def eaddress = newbuildEntityAddress(entity)
@@ -856,6 +876,7 @@ class HRMISProfileMigartion {
 				text          : '-'
 			]
 			entityindividual.address = address
+
 			
 			entityindividual._schemaname = 'entityindividual';
 			return persistenceService.create( entityindividual );
@@ -870,6 +891,25 @@ class HRMISProfileMigartion {
 			    existingentity.lastname   = o.Mother.LastName ?  o.Mother.LastName.toUpperCase() : null
 			    existingentity.firstname  = o.Mother.FirstName ?  o.Mother.FirstName.toUpperCase() : null
 			    existingentity.middlename = o.Mother.MiddleName ?  o.Mother.MiddleName.toUpperCase() : null
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
 			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
 		}else{
 			// def eaddress = newbuildEntityAddress(entity)
@@ -919,6 +959,25 @@ class HRMISProfileMigartion {
 			    existingentity.phoneno    = o.Contacts.Landline
 			    existingentity.mobileno   = o.Contacts.Mobile
 			    existingentity.email      = o.Contacts.Email
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
 			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
 		}else{
 			// def eaddress = newbuildEntityAddress(entity)
@@ -969,6 +1028,25 @@ class HRMISProfileMigartion {
 			    existingentity.phoneno    = o.Contacts.Landline
 			    existingentity.mobileno   = o.Contacts.Mobile
 			    existingentity.email      = o.Contacts.Email
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : o.barname ? o.barname.toUpperCase() : null,
+					city          : null,
+					municipality  : o.munname ? o.munname.toUpperCase() : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : o.barname ? o.munname.toUpperCase()  + ", " + o.barname.toUpperCase() : '-'
+				]
+				emaddress.save(address)
 			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
 		}else{
 			// def eaddress = newbuildEntityAddress(entity)
@@ -1000,7 +1078,7 @@ class HRMISProfileMigartion {
 				text          : o.barname ? o.munname.toUpperCase()  + ", " + o.barname.toUpperCase() : '-'
 			]
 			entityindividual.address = address
-			
+		
 			entityindividual._schemaname = 'entityindividual';
 			return persistenceService.create( entityindividual );
 		}
@@ -1015,6 +1093,25 @@ class HRMISProfileMigartion {
 			    existingentity.firstname  = o.Name.First ? o.Name.First.toUpperCase() : null
 			    existingentity.middlename = o.Name.Middle ? o.Name.Middle.toUpperCase() : null
 			    existingentity.birthdate  = o.Birthday.toString()
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
 			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
 		}else{
 			// def eaddress = newbuildEntityAddress(entity)
@@ -1046,7 +1143,6 @@ class HRMISProfileMigartion {
 				text          : '-'
 			]
 			entityindividual.address = address
-			
 			entityindividual._schemaname = 'entityindividual';
 			return persistenceService.create( entityindividual );
 		}
@@ -1178,6 +1274,7 @@ class HRMISProfileMigartion {
 		]
 		// println entityindividual
 		// emind.create(entityindividual)
+		emaddress.save(eaddress)
 		entityindividual._schemaname = 'entityindividual';
         persistenceService.update( entityindividual );
 		return entityindividual
@@ -1212,6 +1309,7 @@ class HRMISProfileMigartion {
 		]
 		// println entityindividual
 		// emind.create(entityindividual)
+	
 		entityindividual._schemaname = 'entityindividual';
         persistenceService.create( entityindividual );
        
@@ -1483,11 +1581,11 @@ class HRMISProfileMigartion {
 	}
 
 	def isPDSMigrated(profileid){
-
-		return emhrmis.sqlContext.createQuery('''
-			SELECT * FROM hrmis_pds p
-			WHERE p.objid = $P{profileid}
+		def x = emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM hrmis_pds p WHERE p.objid = $P{profileid}
 			''').setParameter('profileid',profileid).singleResult;
+		
+		return x
 	}
 
 	def isEntityExist(entity){

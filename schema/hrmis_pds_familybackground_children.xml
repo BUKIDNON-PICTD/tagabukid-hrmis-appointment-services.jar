@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_pds_familybackground_children">
 		<field name="objid" primary="true" prefix="FAMC-" visible="false" />
-		<field name="pdsid" primary="true" searchable="false" visible="false" />
+		<field name="pdsid" required="true" searchable="false" visible="false" />
 		<field name="child_objid" required="true" searchable="true" visible="true" />
 		<!-- dugang ni siya -->
 		<field name="nameextension" required="false" searchable="false" visible="true" />
