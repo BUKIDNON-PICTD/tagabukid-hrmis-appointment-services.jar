@@ -20,5 +20,21 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="institutiontype" ref="master_tblinstitutiontype" jointype="many-to-one" required="false">
+			<key field="institutiontype_objid" target="objid" />
+		</complex>
+
+		<complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
+			<key field="jobposition_objid" target="objid" />
+		</complex>
+
+		<complex name="paygradestepincrement" ref="master_tblpaygradeandstepincrement" jointype="many-to-one" required="false">
+			<key field="paygradestepincrement_objid" target="objid" />
+		</complex>
+
+		<complex name="employmentstatus" ref="master_tblemptemploymentstatus" jointype="many-to-one" required="false">
+			<key field="employmentstatus_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
