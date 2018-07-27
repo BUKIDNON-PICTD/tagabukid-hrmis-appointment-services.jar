@@ -5,7 +5,6 @@
         <field name="mother_objid" required="true" searchable="true" visible="false"/>
         <field name="maidenname" required="true" searchable="true" visible="false"/>
         <!-- nara gi add -->
-        <field name="nameextension" required="false" searchable="true" visible="false"/>
         <field name="prenametitle" required="false" searchable="true" visible="false"/>
         <field name="postnametitle" required="false" searchable="true" visible="false"/>
       
