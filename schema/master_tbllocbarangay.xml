@@ -6,7 +6,7 @@
 		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" searchable="true" />
 		<field name="psgccode" visible="false" required="false" />
 		<field name="pinno" visible="false" required="false" />
-		<field name="citymunicipalityid" visible="false" required="true" />
+		<field name="citymunicipality_objid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -14,5 +14,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="citymunicipality" ref="master_tblloccitymunicipality" jointype="many-to-one" required="false">
+			<key field="citymunicipality_objid" target="objid" /> 		
+		</complex>
 	</element>
 </schema>

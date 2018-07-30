@@ -6,7 +6,7 @@
 		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" searchable="true" />
 		<field name="psgccode" visible="false" required="false" />
 		<field name="pinno" visible="false" required="false" />
-		<field name="regionid" visible="false" required="true" />
+		<field name="region_objid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -14,5 +14,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="region" ref="master_tblloccountry" jointype="many-to-one" required="false">
+			<key field="region_objid" target="objid" />
+		</complex>
 	</element>
 </schema>

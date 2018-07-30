@@ -4,7 +4,7 @@
 		<field name="name" caption="Name" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
-		<field name="productcategoryid" visible="false" required="true" />
+		<field name="productcategory_objid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -12,5 +12,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="productcategory" ref="master_tblproductcategory" jointype="many-to-one" required="false">
+			<key field="productcategory_objid" target="objid" />
+		</complex>
 	</element>
 </schema>

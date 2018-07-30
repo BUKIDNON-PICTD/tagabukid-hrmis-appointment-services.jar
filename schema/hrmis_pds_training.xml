@@ -19,6 +19,7 @@
 		<complex name="training" ref="master_tbltraining" jointype="many-to-one" required="false">
 			<key field="training_objid" target="objid" />
 		</complex>
+
 	</element>
 </schema>
 <!-- ok -->
