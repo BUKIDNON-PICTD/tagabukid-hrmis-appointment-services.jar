@@ -46,6 +46,7 @@ class TagabukidAppointmentReportService
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capiptol, City of Malaybalay",
 			TITLE :"ACTIVE APPOINTMENT (" + params.gender.toUpperCase() + ") "  + params.status.toUpperCase() ,
+
 			]
 		return data
 

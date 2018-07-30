@@ -44,7 +44,6 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
-
 		
 		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		

@@ -4,6 +4,7 @@
         <field name="pdsid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
         <field name="nameextension" required="false" searchable="true" visible="false" /> 
+
         <!-- nara gi add -->
         <field name="prenametitle" required="false" searchable="true" visible="false" /> 
         <field name="postnametitle" required="false" searchable="true" visible="false" /> 
@@ -15,6 +16,7 @@
         <field name="businessname" required="false" searchable="true" visible="false" /> 
         <!-- kutob diri -->
         <complex name="businessadd" required="false" serializer="default" /> 
+
         <field name="phoneno" required="false" searchable="true" visible="false" /> 
         
         <field name="recordlog_datecreated" required="true" searchable="true" visible="false" /> 
