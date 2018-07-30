@@ -29,7 +29,9 @@ class TagabukidHRMISPDSReportService
 				pdsentity.familyspouseInfos[0].spouse = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyspouseInfos[0].spouse.objid])
 			}
 			if (pdsentity.familychildInfos.size > 0){
-				pdsentity.familychildInfos[0].child = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familychildInfos[0].child.objid])
+				pdsentity.familychildInfos.each{
+					it.child = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.child.objid])
+				}
 			}
 			
 			pdsentity.family = [

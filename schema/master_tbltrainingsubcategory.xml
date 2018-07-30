@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbltrainingsubcategory">
 		<field name="objid" primary="true" prefix="TSC" searchable="false" />
-		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="name" caption="Training Sub Category Name" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<!-- <field name="trainingcategory_objid" visible="false" required="true" /> -->

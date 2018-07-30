@@ -225,8 +225,8 @@ class HRMISProfileMigartion {
 		    pds.nameextension                 = o.raw.Name.NameExtension
 		    pds.prenametitle                  = o.raw.Name.PreNameTitle
 		    pds.postnametitle                 = o.raw.Name.PostNameTitle
-		    pds.residential_address            = o.newentityindividual.address
-		    pds.permanent_address              = o.newentityindividual.address
+		  	pds.residential                   = [address:o.newentityindividual.address]
+			pds.permanent                     = [address:o.newentityindividual.address]
 		    pds.height                        = o.raw.HeightMeters
 		    pds.weight                        = o.raw.WeightKg
 		    pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
@@ -272,8 +272,8 @@ class HRMISProfileMigartion {
 		pds.nameextension                 = o.raw.Name.NameExtension
 		pds.prenametitle                  = o.raw.Name.PreNameTitle
 		pds.postnametitle                 = o.raw.Name.PostNameTitle
-		pds.residential_address            = o.newentityindividual.address
-		pds.permanent_address              = o.newentityindividual.address
+		pds.residential                   = [address:o.newentityindividual.address]
+		pds.permanent                     = [address:o.newentityindividual.address]
 		pds.height                        = o.raw.HeightMeters
 		pds.weight                        = o.raw.WeightKg
 		pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
@@ -307,7 +307,7 @@ class HRMISProfileMigartion {
 		pds.pdsno     = empds.getPDSNo();
 		pds.versionno = empds.getVersionNo();
 
-		// println pds
+		
 		persistenceService.create(pds)
 
 	}
@@ -626,7 +626,7 @@ class HRMISProfileMigartion {
 			it.voluntarywork =  emhrmis.sqlContext.createQuery('''
 			SELECT objid FROM references_tblvoluntarywork WHERE name = $P{name}
 			''').setParameter('name',it.organizationname).singleResult;
-
+			
 			it.recordlog     = [
 				datecreated        : dateSvc.serverDate,
 				dateoflastupdate   : dateSvc.serverDate,
