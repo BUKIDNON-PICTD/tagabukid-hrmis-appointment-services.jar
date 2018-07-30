@@ -22,10 +22,11 @@
 		<field name="prenametitle" requied="false" visible="false" caption="" searchable="true" />
 		<field name="postnametitle" requied="false" visible="false" caption="" searchable="true" />
 		
-		<complex name="residentialaddress" required="true" serializer="default" />
-        <field name="residentialaddress_text" required="true" defaultValue="" visible="true" caption="Address" searchable="true" />
-        <complex name="permanentaddress" required="true" serializer="default" />
-		<field name="permanentaddress_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
+		<!-- gi edit nako ang address bai -->
+		<complex name="residential_address" required="true" serializer="default" />
+        <field name="residential_address_text" required="true" defaultValue="" visible="true" caption="Address" searchable="true" />
+        <complex name="permanent_address" required="true" serializer="default" />
+		<field name="permanent_address_text" requied="true" defaultValue="" visible="false" caption="" searchable="true" />
 		<!-- physical -->
     	<field name="height" requied="true" defaultValue="0" visible="false" caption="" searchable="true" />
     	<field name="weight" requied="true" defaultValue="0" visible="false" caption="" searchable="true" />
@@ -100,7 +101,7 @@
 			<key field="objid" target="pdsid" /> 	
 		</complex>
 		
-		<complex name="pdsqs" ref="hrmis_pds_question" jointype="one-to-many" required="false">
+		<complex name="pdsquestions" ref="hrmis_pds_question" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" />
 		</complex>
 	</element>

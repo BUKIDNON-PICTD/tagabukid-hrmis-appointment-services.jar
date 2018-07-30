@@ -2,7 +2,8 @@
 	<element tablename="hrmis_pds_recognition">
 		<field name="objid" primary="true" prefix="REC" searchable="false" />
 		<field name="pdsid" required="true" searchable="false" />
-		<field name="distinction_objid" caption="distinction Title" required="true" searchable="true" />
+		<!-- kani gi ilisan ni -->
+		<field name="recognition_objid" caption="distinction Title" required="true" searchable="true" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
@@ -10,8 +11,9 @@
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
 
-		<complex name="distinction" ref="hrmis_tblprofilenonacademicrecognition" jointype="many-to-one" required="false">
-			<key field="distinction_objid" target="objid" />
+		<!-- gi ilisan pud ang ngalan sa master file ani -->
+		<complex name="recognition" ref="hrmis_tblprofilenonacademicrecognition" jointype="many-to-one" required="false">
+			<key field="recognition_objid" target="objid" />
 		</complex>
 	</element>
 </schema>

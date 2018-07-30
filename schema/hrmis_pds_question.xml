@@ -2,31 +2,9 @@
 	<element tablename="hrmis_pds_question">
 		<field name="objid" primary="true" prefix="PDQ" searchable="false" />
 		<field name="pdsid" required="true" visible="false" />
-		<field name="thirddegree" required="true" searchable="true"/>
-		<field name="fourthdegree" required="true" searchable="false"/>
-		<field name="degreedetails" required="false" searchable="true"/>
-		<field name="offense" required="true" searchable="false"/>           
-		<field name="offensedetails" required="false" searchable="false"/>           
-		<field name="criminalcharge" required="true" searchable="false"/>           
-		<field name="criminalchargedate" required="false" searchable="false"/>
-		<field name="criminalchargestatus" required="false" searchable="false"/>           
-		<field name="convicted" required="true" searchable="false"/>           
-		<field name="convictiondetails" required="false" searchable="false"/>           
-		<field name="separated" required="true" searchable="false"/>           
-		<field name="separationdetails" required="false" searchable="false"/>           
-		<field name="candidate" required="true" searchable="false"/>           
-		<field name="candidacydetails" required="false" searchable="false"/>         
-		<field name="resigncampaign" required="true" searchable="false"/>           
-		<field name="resigncampaigndetails" required="false" searchable="false"/>            
-		<field name="immigrant" required="true" searchable="false"/>           
-		<field name="immigrantcountry" required="false" searchable="false"/>           
-		<field name="indigenousgroup" required="true" searchable="false"/>           
-		<field name="indigenousgroupdetails" required="false" searchable="false"/>           
-		<field name="pwd" required="true" searchable="false"/>           
-		<field name="pwdidno" required="false" searchable="false"/>           
-		<field name="soloparent" required="true" searchable="false"/>           
-		<field name="soloparentidno" required="false" searchable="false"/>
-
+		<field name="pdsq_objid" required="true" visible="false" />
+		<field name="answer" required="false" visible="false" />
+		<field name="details" required="false" visible="false" />
 
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
@@ -34,6 +12,9 @@
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
+		<complex name="pdsq" ref="master_tblpdsq" jointype="many-to-one" required="false">
+			<key field="pdsq_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
 <!-- ok -->

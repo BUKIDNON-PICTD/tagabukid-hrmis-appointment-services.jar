@@ -4,7 +4,11 @@
         <field name="pdsid" required="true" searchable="true" visible="false" />
         <field name="father_objid" required="true" searchable="true" visible="false" />
         <field name="nameextension" required="false" searchable="true" visible="false" />
+        <!-- nara gi add -->
+        <field name="prenametitle" required="false" searchable="true" visible="false" />
+        <field name="postnametitle" required="false" searchable="true" visible="false" />
         
+
         <field name="recordlog_datecreated" required="true" searchable="true" visible="false" />
         <field name="recordlog_createdbyuserid" required="true" searchable="true" visible="false" />
         <field name="recordlog_createdbyuser" required="true" searchable="true" visible="false" />

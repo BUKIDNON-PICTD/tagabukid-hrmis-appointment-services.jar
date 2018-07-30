@@ -6,8 +6,8 @@
 		<field name="acronymorabbreviation" caption="Acronym / Abbreviation" required="false" searchable="true" />
 		<field name="psgccode" visible="false" required="false" />
 		<field name="pinno" visible="false" required="false" />
-		<field name="provinceid" visible="false" required="true" />
-		<field name="congressionaldistrictid" visible="false" required="true" />
+		<field name="province_objid" visible="false" required="true" />
+		<field name="congressionaldistrict_objid" visible="false" required="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -15,5 +15,13 @@
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="province" ref="master_tbllocprovince" jointype="many-to-one" required="false">
+			<key field="province_objid" target="objid" /> 		
+		</complex>
+
+		<complex name="congressionaldistrict" ref="master_tblloccongressionaldistrict" jointype="many-to-one" required="false">
+			<key field="congressionaldistrict_objid" target="objid" /> 		
+		</complex>
 	</element>
 </schema>

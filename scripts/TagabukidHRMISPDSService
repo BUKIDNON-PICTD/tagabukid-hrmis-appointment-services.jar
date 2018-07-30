@@ -69,7 +69,7 @@ class TagabukidHRMISPDSService
         entity.organizations = []
         entity.references = []
         entity.govids = []
-        entity.pdsqs = []
+        entity.pdsquestions = []
         // entity.questions = []
 
 
@@ -159,5 +159,22 @@ class TagabukidHRMISPDSService
         o.searchtext+='%'
         return em.getCountry( o );
     }
+
+    @ProxyMethod
+    public def loadQuestions( o ) {
+        return em.getQuestions();
+    }
+
+    @ProxyMethod 
+	public def formatAddress( def x, def delimiter) {
+		// println objid
+		// def municipality = emmain.findMunicipality([objid:objid])
+		// def barangay = persistenceSvc.read([ _schemaname: 'barangay', objid:x.barnagay.objid])
+		def txt1 = [x.unitno, x.bldgno, x.bldgname].findAll{ (it? true: false) }.join(" ").trim(); 
+		def txt2 = [x.street, x.subdivision].findAll{ (it? true: false) }.join(" ").trim(); 
+		def txt3 = [x.barangay?.name, x.city, x.barangay.parent.name, x.province].findAll{ (it? true: false) }.join(", ").trim(); 
+		return [txt1, txt2, txt3].findAll{ (it? true: false) }.join( delimiter ).trim();
+	}
+//    [province:"PROVINCE OF BUKIDNON",type:"local",barangay:[code:"059-15-003",oldpin:null,city:null,indexno:"003",municipality:"MANOLO FORTICH",oldindexno:null,pin:"059-15-003",province:"PROVINCE OF BUKIDNON",objid:"059-15-003",name:"ALAE",state:"DRAFT",lgutype:"barangay",parent:[name:"MANOLO FORTICH",orgclass:"MUNICIPALITY",objid:"059-15"],provcity:[name:"PROVINCE OF BUKIDNON",objid:"059",indexno:"059"],munidistrict:[objid:"059-15",name:"MANOLO FORTICH",indexno:"15"]],text:"ALAE, \nPROVINCE OF BUKIDNON"]
 
 }

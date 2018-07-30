@@ -39,59 +39,61 @@ class HRMISProfileMigartion {
 	@Service("PersistenceService")
     def persistenceService;
 
+	@Service("TagabukidHRMISPDSService")
+	def empds
+
     @PersistenceContext('postgrehrmis')
 	def emposthrmis
 
     @Service()
 	def self 
 
-	@ProxyMethod
-	public void migrateEntity(entityid){
-		def entity = em22.sqlContext.createQuery('''
-			SELECT * FROM entity WHERE objid = $P{objid}
-			''').setParameter('objid',entityid).singleResult;
+	// @ProxyMethod
+	// public void migrateEntity(entityid){
+	// 	def entity = em22.sqlContext.createQuery('''
+	// 		SELECT * FROM entity WHERE objid = $P{objid}
+	// 		''').setParameter('objid',entityid).singleResult;
 
 	
-		entity.info = em22.serializer.read(entity.info);
+	// 	entity.info = em22.serializer.read(entity.info);
 
 
-		if( 'individual'.equals(entity.entitytype) ) {
-			// buildEntity(entity)
-			buildEntityIndividual(entity) 
-		}
-		else if( 'multiple'.equals(entity.entitytype) ) {
-			// buildEntity(entity)
+	// 	if( 'individual'.equals(entity.entitytype) ) {
+	// 		// buildEntity(entity)
+	// 		buildEntityIndividual(entity) 
+	// 	}
+	// 	else if( 'multiple'.equals(entity.entitytype) ) {
+	// 		// buildEntity(entity)
 
-			def members = em22.sqlContext.createQuery('''
-			SELECT * FROM entitymember WHERE entityid = $P{objid}
-			''').setParameter('objid',entity.objid).resultList;
+	// 		def members = em22.sqlContext.createQuery('''
+	// 		SELECT * FROM entitymember WHERE entityid = $P{objid}
+	// 		''').setParameter('objid',entity.objid).resultList;
 			
-			if (members.size() > 1){
-				entity.members = buildEntityMember(members)
-			}else{
-				entity.members = buildMissingMember(entity)
-			}				
-			buildEntityMultiple(entity) 
+	// 		if (members.size() > 1){
+	// 			entity.members = buildEntityMember(members)
+	// 		}else{
+	// 			entity.members = buildMissingMember(entity)
+	// 		}				
+	// 		buildEntityMultiple(entity) 
 			
 			
-		}
-		else if( 'juridical'.equals(entity.entitytype) ) {
-			// buildEntity(entity)
-			buildEntityJuridical(entity) 
-		}
-		else {
-			throw new Exception("Entity Type ${entity.entitytype} is not defined.")
-		}
+	// 	}
+	// 	else if( 'juridical'.equals(entity.entitytype) ) {
+	// 		// buildEntity(entity)
+	// 		buildEntityJuridical(entity) 
+	// 	}
+	// 	else {
+	// 		throw new Exception("Entity Type ${entity.entitytype} is not defined.")
+	// 	}
 
-	}
+	// }
 
 	public def getProfileToMigrate(){
 
 		def profiles = emhrmis.sqlContext.createQuery('''
-			SELECT profileid FROM hrmis_entity
+			SELECT objid FROM xxxmigratedprofile
 		''').resultList;
-		// println "TEST" * 50
-		// println (profiles ? profiles.join("','") : '02e45a31-3d50-44c9-8d73-45d45d34e9a5')
+		
 		def entity = emposthrmis.sqlContext.createQuery('''
 			SELECT p.*,mplaceofbirth."Name" AS birthplace,n."Name" AS nationality,
 			  CASE t."CivilStatusEnum"
@@ -107,14 +109,14 @@ class HRMISProfileMigartion {
 			  b."PSGCCode" AS psgccode,
 			  t.*
 			FROM "hrmis"."tblProfile" p
-			INNER JOIN "hrmis"."tblProfileDetails" t ON p."PersonId" = t."PersonDetailId"
-			LEFT JOIN "references"."tblLocCityMunicipality" mplaceofbirth ON mplaceofbirth."Id" = t."PlaceOfBirthMunId"
-			LEFT JOIN "references"."tblNationality" n ON n."Id" = t."NationalityId"
-			LEFT JOIN "references"."tblLocBarangay" b ON b."Id" = t."PermanentAddressBrgyId"
-			LEFT JOIN "references"."tblLocCityMunicipality" mm ON b."CityMunicipalityId" = mm."Id"
+			INNER JOIN "hrmis"."tblProfileDetails" t ON p."PersonId"                             = t."PersonDetailId"
+			LEFT  JOIN "references"."tblLocCityMunicipality" mplaceofbirth ON mplaceofbirth."Id" = t."PlaceOfBirthMunId"
+			LEFT  JOIN "references"."tblNationality" n ON n."Id"                                 = t."NationalityId"
+			LEFT  JOIN "references"."tblLocBarangay" b ON b."Id"                                 = t."PermanentAddressBrgyId"
+			LEFT  JOIN "references"."tblLocCityMunicipality" mm ON b."CityMunicipalityId"        = mm."Id"
 			WHERE p."PersonId" NOT IN (${profiles})
 			LIMIT 25;
-			''').setVars([profiles:(profiles ? "'"+profiles.profileid.join("','")+"'" : "'02e45a31-3d50-44c9-8d73-45d45d34e9a5'")]).resultList;
+			''').setVars([profiles:(profiles ? "'"+profiles.objid.join("','")+"'" : "'02e45a31-3d50-44c9-8d73-45d45d34e9a5'")]).resultList;
 		return entity
 	}
 	@ProxyMethod
@@ -126,44 +128,84 @@ class HRMISProfileMigartion {
 		    [
 		        info:[
 		        		
-		                lastname   :it.Name.LastName,
-		                firstname  :it.Name.FirstName,
-		                middlename :it.Name.MiddleName,
-						nameextension : it.Name.NameExtension,
-						prenametitle :it.Name.PreNameTitle,
-						postnametitle : it.Name.PostNameTitle,
-		                birthdate  :it.Birthday,
-		                birthpalce :it.birthplace,
-		                citizenship:it.nationality,
-		                gender     :(it.Gender == 0 ? 'M':'F'),
-		                civilstatus:it.civilstatus,
-		                profession : null,
-		                tin        :it.TIN,
-		                sss        :it.SSSId,
-		                height     :it.WeightKg,
-		                Wight      :it.HeightMeters
+		                lastname     : it.Name.LastName,
+		                firstname    : it.Name.FirstName,
+		                middlename   : it.Name.MiddleName,
+		                nameextension: it.Name.NameExtension,
+		                prenametitle : it.Name.PreNameTitle,
+		                postnametitle: it.Name.PostNameTitle,
+		                birthdate    : it.Birthday,
+		                birthpalce   : it.birthplace,
+		                citizenship  : (it.nationality?it.nationality:"-"),
+		                gender       : (it.Gender == 0 ? 'M':'F'),
+		                civilstatus  : it.civilstatus,
+		                profession   : null,
+		                tin          : it.TIN,
+		                sss          : it.SSSId,
+		                height       : it.HeightMeters,
+		                weight       : it.WeightKg,
+		                mobileno     : it.Contacts.Mobile,
+		                landline     : it.Contacts.Landline,
+		                email        : it.Contacts.Email,
+		                name         : it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
 		            ],
-	            name          :it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
+	            name          : it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
 	            address_text  : null,
 	            mailingaddress: null,
-	            entitytype    :'INDIVIDUAL',
-	            entityname    :it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
+	            entitytype    : 'INDIVIDUAL',
+	            entityname    : it.Name.LastName + ", " + ((it.Name.NameExtension != "") && (it.Name.NameExtension != null) ? it.Name.NameExtension + ", " : "") + it.Name.FirstName + " " + it.Name.MiddleName,
 	            entityaddress : null,
-	            street        :it.PermanentAddress.AddressDetails,
-	            barangayname  :it.barangay,
-	            muncity 	:it.muncity,
-	            profileid  :it.PersonId.toString(),
-	            barangaypsgc : it.psgccode,
+	            street        : it.PermanentAddress.AddressDetails,
+	            barangayname  : it.barangay,
+	            muncity       : it.muncity,
+	            profileid     : it.PersonId.toString(),
+	            barangaypsgc  : it.psgccode,
+	            raw           : it
+
 		    ]
 		}
 		newentity.each{
-			// buildEntity(it)
-			// def eaddress = buildEntityAddress(it)
-			// eaddress.text = entity.entityaddress.text
-			println "Migrating Profile " + it.profileid
-			println it.muncity + " - " + it.barangayname + " - " + it.barangaypsgc
-		    newbuildEntityIndividual(it)
+			if(isProfileMigrated(it.profileid)){
+				println "Updating Profile " + it.profileid
+				it.objid = emhrmis.sqlContext.createQuery('''
+					SELECT objid FROM hrmis_entity
+					WHERE profileid = $P{profileid}
+				''').setParameter('profileid',it.profileid).singleResult.objid;
 
+				it.newentityindividual = updateEntity(it)
+			}else{
+				def x = isEntityExist(it)
+				if(x){
+					println "Updating Existing ENtity " + it.profileid
+					it.objid               = x.objid
+					it.newentityindividual = updateEntity(it)
+				}else{
+					println "Migrating Profile " + it.profileid
+					it.newentityindividual = addEntity(it)
+				} 
+				emhrmis.sqlContext.createExecutor('''
+					INSERT INTO hrmis_entity (objid,profileid) VALUES ($P{objid},$P{profileid});
+				''')
+				.setParameter('objid', it.newentityindividual.objid)
+				.setParameter('profileid', it.profileid)
+				.execute();
+			}
+			
+			if(isPDSMigrated(it.profileid)){
+				println "Updating PDS " + it.profileid
+				updatePDS(it);
+			}else{
+				println "Migrating PDS " + it.profileid
+				addPDS(it);
+			}
+
+			// println it
+
+			 emhrmis.sqlContext.createExecutor('''
+				INSERT INTO xxxmigratedprofile (objid) VALUES ($P{profileid});
+			''')
+			.setParameter('profileid', it.profileid)
+			.execute();
 
 		}
 		// println "Done"
@@ -174,117 +216,956 @@ class HRMISProfileMigartion {
 
 	}
 
-	void buildEntity(entity){
-		entity.objid = (entity.objid ? entity.objid:new UID()).toString()
-		def eaddress = buildEntityAddress(entity)
-    	eaddress.text = entity.entityaddress
-		def e = [
-			objid             : entity.objid,
-			// entityno       : prefix + seqSvc.getNextFormattedSeries( stype+ "_ENTITY" ),
-			name              : entity.entityname,
-			mailingaddress    : entity.entityaddress,
-			type              : entity.entitytype,
-			//sys_lastupdate  : dateSvc.buildCustomTimeStamp(dateSvc.serverDate),
-			//sys_lastupdateby: 'ETRACSADMIN',
-			remarks           : null,
-			entityname        : entity.entityname,
-			mobileno          : null,
-			phoneno           : null,
-			email             : null,
-			address           : eaddress
-		]
-		// // entitySvc.save(e)
-		// // println "TAE"*50
-		// // println e
-		// e._schemaname = 'entityindividual';
-  //       persistenceService.create( e );
+	void updatePDS(o){
+		def pds                               = [:]
+		    pds._schemaname                   = 'hrmis_pds'
+		    pds.objid                         = o.raw.PersonId.toString()
+		    pds                               = persistenceService.read(pds)
+		    pds.person                        = o.newentityindividual
+		    pds.nameextension                 = o.raw.Name.NameExtension
+		    pds.prenametitle                  = o.raw.Name.PreNameTitle
+		    pds.postnametitle                 = o.raw.Name.PostNameTitle
+		    pds.residential_address            = o.newentityindividual.address
+		    pds.permanent_address              = o.newentityindividual.address
+		    pds.height                        = o.raw.HeightMeters
+		    pds.weight                        = o.raw.WeightKg
+		    pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
+		    pds.gsisid                        = o.raw.GSISId
+		    pds.pagibigid                     = o.raw.PagIbigId
+		    pds.philhealth                    = o.raw.PhilHealthId
+		    pds.sss                           = o.raw.SSSId
+		    pds.tin                           = o.raw.TIN
+		    pds.employeeno                    = o.raw.AgencyEmployeeNo
+		    pds.recordlog.createdbyuserid     = "ADMIN"
+		    pds.recordlog.createdbyuser       = "ADMIN"
+		    pds.recordlog.lastupdatedbyuserid = "ADMIN"
+		    pds.recordlog.lastupdatedbyuser   = "ADMIN"
+		//items
+		pds.pdsquestions      = getPDSQ(o)
+		pds.civilserviceInfos = getCivilService(o)
+		pds.familyfatherInfos = getfamilyfatherInfos(o)
+		pds.familymotherInfos = getfamilymotherInfos(o)
+		pds.familyspouseInfos = getfamilyspouseInfos(o)
+		pds.familychildInfos  = getfamilychildInfos(o)
+		pds.educationalInfos  = geteducationalInfos(o)
+		pds.organizations     = getorganizations(o)
+		pds.workexperienceInfos = getworkexperienceInfos(o)
+		pds.voluntaryworks = getvoluntaryworks(o)
+		pds.trainings = gettrainings(o)
+		pds.skills = getskills(o)
+		pds.recognitions = getrecognitions(o)
+		pds.references = getreferences(o)
 
-	
-		//emaddress.create(eaddress)
+		pds._schemaname = 'hrmis_pds'
+
+		// println pds.trainings
+		persistenceService.update(pds)
 	}
 
-	def buildEntityAddress(entity){
+	void addPDS(o){
+	
+		def pds = empds.initCreate()
+
+		pds._schemaname                   = 'hrmis_pds'
+		pds.objid                         = o.raw.PersonId.toString()
+		pds.person                        = o.newentityindividual
+		pds.nameextension                 = o.raw.Name.NameExtension
+		pds.prenametitle                  = o.raw.Name.PreNameTitle
+		pds.postnametitle                 = o.raw.Name.PostNameTitle
+		pds.residential_address            = o.newentityindividual.address
+		pds.permanent_address              = o.newentityindividual.address
+		pds.height                        = o.raw.HeightMeters
+		pds.weight                        = o.raw.WeightKg
+		pds.bloodtype                     = ["NA", "A", "B", "AB", "O"][o.raw.BloodType]
+		pds.gsisid                        = o.raw.GSISId
+		pds.pagibigid                     = o.raw.PagIbigId
+		pds.philhealth                    = o.raw.PhilHealthId
+		pds.sss                           = o.raw.SSSId
+		pds.tin                           = o.raw.TIN
+		pds.employeeno                    = o.raw.AgencyEmployeeNo
+		pds.recordlog.createdbyuserid     = "ADMIN"
+		pds.recordlog.createdbyuser       = "ADMIN"
+		pds.recordlog.lastupdatedbyuserid = "ADMIN"
+		pds.recordlog.lastupdatedbyuser   = "ADMIN"
+		//items
+		pds.pdsquestions      = getPDSQ(o)
+		pds.civilserviceInfos = getCivilService(o)
+		pds.familyfatherInfos = getfamilyfatherInfos(o)
+		pds.familymotherInfos = getfamilymotherInfos(o)
+		pds.familyspouseInfos = getfamilyspouseInfos(o)
+		pds.familychildInfos  = getfamilychildInfos(o)
+		pds.educationalInfos  = geteducationalInfos(o)
+		pds.organizations     = getorganizations(o)
+		pds.workexperienceInfos = getworkexperienceInfos(o)
+		pds.voluntaryworks = getvoluntaryworks(o)
+		pds.trainings = gettrainings(o)
+		pds.skills = getskills(o)
+		pds.recognitions = getrecognitions(o)
+		pds.references = getreferences(o)
+
+
+		pds.pdsno     = empds.getPDSNo();
+		pds.versionno = empds.getVersionNo();
+
+		// println pds
+		persistenceService.create(pds)
+
+	}
+
+	public def getreferences(o){
 		
-		def entityaddress = [
-			objid        	: 'A' + new UID(),
-			parentid		: entity.objid,
-			type    		: 'nonlocal',
-			addresstype  	: null,
-			barangay_objid  : null,
-			barangay_name  	: null,
-			city  			: null,
-			municipality 	: null,
-			province 		: null,
-			bldgno			: null,
-			bldgname		: null,
-			unitno			: null,
-			street			: null,
-			subdivision		: null,
-			pin 			: null
-		]
-		def address = entity.entityaddress.split(',')
-		def barangay = address[0];
+		def references =  emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(p."Id" AS VARCHAR) AS "objid",p.*,
+			m."Name" AS "munname",
+			b."Name" AS "barname"
+			FROM "hrmis"."tblProfileDataReferencePerson" p
+			INNER JOIN "references"."tblLocBarangay" b ON b."Id" = p."BarangayAddressId"
+			INNER JOIN "references"."tblLocCityMunicipality" m ON m."Id" =  b."CityMunicipalityId"
+			WHERE p."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		// println child
+		references.each{
+			it.reference         = addorupdateReferenceEntity(it)
+			it.nameextension = it.PersonName.NameExtension ? it.PersonName.NameExtension.toUpperCase() : null
+			it.prenametitle  = it.PersonName.PreNameTitle ? it.PersonName.PreNameTitle.toUpperCase() : null
+			it.postnametitle = it.PersonName.PostNameTitle ? it.PersonName.PostNameTitle.toUpperCase() : null
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
 		
-		boolean hasWhiteSpace = containsWhiteSpace(barangay);
-		if(hasWhiteSpace){
-			barangay = barangay.split(' ')[0]
+		return references
+	}
+
+
+	public def getfamilychildInfos(o){
+		
+		def child =  emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(o."Id" AS VARCHAR) AS "objid", o.* FROM "hrmis"."tblProfileOffspring" o
+			WHERE o."ParentId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		// println child
+		child.each{
+			it.child         = addorupdateChildEntity(it)
+			it.nameextension = it.Name.Extension ? it.Name.Extension.toUpperCase() : null
+			it.prenametitle  = it.Name.TitlePre ? it.Name.TitlePre.toUpperCase() : null
+			it.postnametitle = it.Name.TitlePost ? it.Name.TitlePost.toUpperCase() : null
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+		
+		return child
+	}
+	
+	public def getfamilyspouseInfos(o){
+		
+		def spouse =  emposthrmis.sqlContext.createQuery('''
+			SELECT p.*,
+			CAST(p."Id" AS VARCHAR) AS "objid",
+			sp."SpouseId",
+			sp."Occupation",
+			sp."EmployerOrBusinessName",
+			sp."MunicipalityId",
+			sp."BusinessAddressDetails_AddressDetails",
+			sp."BusinessAddressDetails_ZipCode",
+			sp."SpouseEmployerOrBusinessNameContact_Landline",
+			sp."SpouseEmployerOrBusinessNameContact_Mobile",
+			sp."SpouseEmployerOrBusinessNameContact_Email",
+			sp."SpouseEmployerOrBusinessNameContact_Fax" 
+			FROM "hrmis"."tblProfileSpouse" p
+			LEFT  JOIN "hrmis"."tblProfileSpouseOccupation" sp ON sp."SpouseId" = p."Id"
+			WHERE p."PartnerId"                                                 = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		
+		spouse.each{
+				it.spouse        = addorupdateSpouseEntity(it)
+				it.nameextension = it.Name.NameExtension ? it.Name.NameExtension.toUpperCase() : null
+				it.prenametitle  = it.Name.PreNameTitle ? it.Name.PreNameTitle.toUpperCase() : null
+				it.postnametitle = it.Name.PostNameTitle ? it.Name.PostNameTitle.toUpperCase() : null
+				
+				it.occupation   = it.Occupation ? it.Occupation.toUpperCase() : null
+				it.businessname = it.EmployerOrBusinessName ? it.EmployerOrBusinessName.toUpperCase() : null
+				it.businessadd  = [text:it.BusinessAddressDetails.AddressDetails ? it.BusinessAddressDetails.AddressDetails.toUpperCase() : null]
+				it.recordlog    = [
+					datecreated        : dateSvc.serverDate,
+					dateoflastupdate   : dateSvc.serverDate,
+					createdbyuserid    : "ADMIN",
+					createdbyuser      : "ADMIN",
+					lastupdatedbyuserid: "ADMIN",
+					lastupdatedbyuser  : "ADMIN"
+				]
+		}
+		
+		return spouse
+	}
+
+
+	public def getfamilyfatherInfos(o){
+		def father =  emposthrmis.sqlContext.createQuery('''
+			SELECT 
+			CAST(ed."PersonDetailId" AS VARCHAR) AS "objid",
+			CAST(p."PersonId" AS VARCHAR) AS "pdsid",
+			ed.*
+			FROM "hrmis"."tblProfile" p
+			INNER JOIN "hrmis"."tblProfileDetails" ed ON ed."PersonDetailId" = p."PersonId"
+			WHERE p."PersonId"                                               = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		father.removeAll(father.findAll{it.Father.LastName == "" || it.Father.FirstName == "" || it.Father.LastName == null})
+		father.each{
+			it.father        = addorupdateFatherEntity(it)
+			it.nameextension = it.Father.NameExtension == null ? null : it.Father.NameExtension.toUpperCase()
+			it.prenametitle  = it.Father.PreNameTitle == null ? null : it.Father.PreNameTitle.toUpperCase()
+			it.postnametitle = it.Father.PostNameTitle == null ? null : it.Father.PostNameTitle.toUpperCase()
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
 		}
 
-		barangay = barangay + '%'
+		return father
+	}
 
-		def addressinfo = main.sqlContext.createQuery('''
-			SELECT * FROM sys_org WHERE name LIKE $P{address_text} AND orgclass = 'BARANGAY'
-			''').setParameter('address_text',barangay).singleResult;
-		if (addressinfo){
-			
-			entityaddress.barangay_objid = addressinfo.objid
-			entityaddress.barangay_name = addressinfo.name
-				
-			def municipalityinfo = main.sqlContext.createQuery('''
-			SELECT * FROM sys_org WHERE objid = $P{objid}
-			''').setParameter('objid',addressinfo.parent.objid).singleResult;		
+	public def getfamilymotherInfos(o){
+		def mother =  emposthrmis.sqlContext.createQuery('''
+			SELECT 
+			CAST(ed."PersonDetailId" AS VARCHAR) AS "objid",
+			CAST(p."PersonId" AS VARCHAR) AS "pdsid",
+			ed.*
+			FROM "hrmis"."tblProfile" p
+			INNER JOIN "hrmis"."tblProfileDetails" ed ON ed."PersonDetailId" = p."PersonId"
+			WHERE p."PersonId"                                               = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		mother.removeAll(mother.findAll{it.Mother.LastName == "" || it.Mother.FirstName == "" || it.Mother.LastName == null})
+		mother.each{
+			it.mother        = addorupdateMotherEntity(it)
+			it.maidenname    = it.Mother.LastName.toUpperCase()
+			it.nameextension = it.Mother.NameExtension == null ? null : it.Mother.NameExtension.toUpperCase()
+			it.prenametitle  = it.Mother.PreNameTitle == null ? null : it.Mother.PreNameTitle.toUpperCase()
+			it.postnametitle = it.Mother.PostNameTitle == null ? null : it.Mother.PostNameTitle.toUpperCase()
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]	
+		}
 
-			entityaddress.municipality = municipalityinfo.name
+		return mother
+	}
 
-			def provinceinfo = main.sqlContext.createQuery('''
-			SELECT * FROM sys_org WHERE objid = $P{objid}
-			''').setParameter('objid',municipalityinfo.parent.objid).singleResult;	
+	public def getPDSQ(o){
+		return emposthrmis.sqlContext.createQuery('''
+			SELECT 
+			CAST(q."Id" AS VARCHAR) AS "objid",
+			CAST(p."PersonId" AS VARCHAR) AS "pdsid",
+			CAST(q."PDSQId" AS VARCHAR) AS "pdsq_objid",
+			CASE q."Answer" WHEN true THEN 1 ELSE 0 END AS "answer",
+			q."AnswerDetails" AS "details"
+			FROM "hrmis"."tblProfile" p
+			INNER JOIN "hrmis"."tblProfileAnsToPDSQs" q ON q."PersonId" = p."PersonId"
+			WHERE p."PersonId"                                          = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList.each{
+				it.recordlog     = [
+					datecreated        : dateSvc.serverDate,
+					dateoflastupdate   : dateSvc.serverDate,
+					createdbyuserid    : "ADMIN",
+					createdbyuser      : "ADMIN",
+					lastupdatedbyuserid: "ADMIN",
+					lastupdatedbyuser  : "ADMIN"
+				]
+			}
+	}
 
-			entityaddress.province = provinceinfo.name	
-			entityaddress.type = 'local'
-		}else{
-			if (address.grep('CITY')){
-				entityaddress.city = entity.entityaddress
-				entityaddress.addresstype = 'CITY'
-			}else{
-				entityaddress.municipality = entity.entityaddress
-				entityaddress.addresstype = 'MUNICIPALITY'
+	public def getCivilService(o){
+		return emposthrmis.sqlContext.createQuery('''
+			SELECT 
+			CAST(el."Id" AS VARCHAR) AS "objid",
+			CAST(p."PersonId" AS VARCHAR) AS "pdsid",
+			CAST(et."Id" AS VARCHAR) AS "eligibility_objid",
+			el."Rating" AS "rating",
+			CAST(el."ExamOrConfirmationDate" AS VARCHAR) AS "examinationdate",
+			mm."Name" AS "examinationaddress",
+			el."LicenseNumber" AS "licenseno",
+			CAST(el."ReleaseDate" AS VARCHAR) AS "validitydate"
+			FROM "hrmis"."tblProfile" p
+			INNER JOIN "hrmis"."tblProfileEligibility" el ON el."PersonId" = p."PersonId"
+			INNER JOIN "references"."tblEligibility" et ON et."Id" = el."EligibilityId"
+			LEFT  JOIN "references"."tblLocCityMunicipality" mm ON mm."Id" = el."PlaceOfExamOrConfermationCityMunId"
+			WHERE p."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList.each{
+				it.recordlog     = [
+					datecreated        : dateSvc.serverDate,
+					dateoflastupdate   : dateSvc.serverDate,
+					createdbyuserid    : "ADMIN",
+					createdbyuser      : "ADMIN",
+					lastupdatedbyuserid: "ADMIN",
+					lastupdatedbyuser  : "ADMIN"
+				]
+			}
+	}
+
+	public def geteducationalInfos(o){
+		return emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(e."Id" AS VARCHAR) AS "objid",
+			e."EducationalLevel" AS "level",
+			CAST(e."EducationalInstitutionId" AS VARCHAR) AS "school_objid",
+			CAST(e."CourseId" AS VARCHAR) AS "course_objid",
+			CAST(e."CourseMajorId" AS VARCHAR) AS "major_objid",
+			e."YearGraduated" AS "yeargraduated",
+			e."HighestGradeLevelOrUnitsEarned" AS "levelunitearned",
+			e."InclusiveYearOfAttendanceFrom" AS "from",
+			e."InclusiveYearOfAttendanceTo" AS "to",
+			e."HonorsScholarshipReceived" AS "scholarshipacademic"
+			FROM "hrmis"."tblProfileEducationalBackground" e
+			WHERE e."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList.each{
+				it.level = ['NONE', 'PRESCHOOL', 'PRIMARY', 'JUNIORHIGH', 'SENIORHIGH', 'TERTIARY', 'POSTGRADUATE', 'SECONDARY', 'VOCATIONAL'][it.level]
+				it.recordlog     = [
+					datecreated        : dateSvc.serverDate,
+					dateoflastupdate   : dateSvc.serverDate,
+					createdbyuserid    : "ADMIN",
+					createdbyuser      : "ADMIN",
+					lastupdatedbyuserid: "ADMIN",
+					lastupdatedbyuser  : "ADMIN"
+				]
+			}
+	}
+
+	public def getorganizations(o){
+		def orgs = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(a."Id" AS VARCHAR) AS "objid",
+			a."Name"
+			FROM "hrmis"."tblProfileAffiliation" a
+			WHERE a."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+
+		orgs.each{
+			it.affiliation =  emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM references_tblaffiliation WHERE name = $P{name}
+			''').setParameter('name',it.Name).singleResult;
+
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+
+		return orgs
+	}
+
+	public def getworkexperienceInfos(o){
+		def workexperience = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(w."Id" AS VARCHAR) AS "objid",
+			w."Institution" AS "institution",
+			CAST(w."InstitutionTypeId" AS VARCHAR) AS "institutiontype_objid",
+			CAST(w."JobPositionId" AS VARCHAR) AS "jobposition_objid",
+			CAST(w."DateFrom" AS VARCHAR) AS "from",
+			CAST(w."DateTo" AS VARCHAR) AS "to",
+			w."MonthlySalary" AS "monthlysalary",
+			CAST(w."PayGradeAndStepIncrementId" AS VARCHAR) AS "paygradestepincrement_objid",
+			CAST(w."EmploymentStatusId" AS VARCHAR) AS "employmentstatus_objid",
+			w."IsGovernmentService" AS "isgovservice"
+			FROM "hrmis"."tblProfileWorkExperience" w
+			WHERE w."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList.each{
+				it.recordlog     = [
+					datecreated        : dateSvc.serverDate,
+					dateoflastupdate   : dateSvc.serverDate,
+					createdbyuserid    : "ADMIN",
+					createdbyuser      : "ADMIN",
+					lastupdatedbyuserid: "ADMIN",
+					lastupdatedbyuser  : "ADMIN"
+				]
 			}
 
-		}
 		
-		return entityaddress
+
+
+		return workexperience
+	}
+
+	public def getvoluntaryworks(o){
+		def voluntaryworks = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(v."Id" AS VARCHAR) AS "objid",
+			v."OrganizationName" AS "organizationname",
+			CAST(v."InstitutionTypeId" AS VARCHAR) AS "institutiontype_objid",
+			NULL AS "organization_address",
+			CAST(m."Name" AS VARCHAR) AS "organization_address_text",
+			v."DateFrom" AS "datefrom",
+			v."DateTo" AS "dateto",
+			v."NumberOfHours" AS "numberofhours",
+			v."PositionOrNatureOfWork" AS "positionornatureofwork",
+			CAST(v."PositionOrNatureOfWorkCategoryId" AS VARCHAR) AS "positionornatureofworkcategory_objid"
+			FROM "hrmis"."tblProfileVoluntaryWork" v
+			INNER JOIN "references"."tblLocCityMunicipality" m ON m."Id" = v."MunCityAddrId"
+			WHERE v."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+
+		voluntaryworks.each{
+			it.voluntarywork =  emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM references_tblvoluntarywork WHERE name = $P{name}
+			''').setParameter('name',it.organizationname).singleResult;
+
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+
+
+		return voluntaryworks
+	}
+
+	public def gettrainings(o){
+		def trainings = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(t."Id" AS VARCHAR) AS "objid",
+			t."TrainingTitle",
+			CAST(t."AttendanceFrom" AS VARCHAR) AS "attendedfrom",
+			CAST(t."AttendanceTo" AS VARCHAR) AS "attendedto",
+			t."NumberOfHours" AS "numberofhours",
+			t."Sponsor" AS "sponsor"
+			FROM "hrmis"."tblProfileTrainingProgramAttended" t
+			WHERE t."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+		
+		trainings.each{
+			// println it.TrainingTitle
+			it.training =  emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM references_tbltraining WHERE name = $P{name}
+			''').setParameter('name',it.TrainingTitle).singleResult;
+			
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+		trainings.removeAll(trainings.findAll{!it.training})
+
+		return trainings
+	}
+
+	public def getskills(o){
+		def skills = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(s."Id" AS VARCHAR) AS "objid",
+			s."Skill" AS "skill"
+			FROM "hrmis"."tblProfileSkill" s
+			WHERE s."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+
+		skills.each{
+			it.skill =  emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM references_tblskill WHERE name = $P{name}
+			''').setParameter('name',it.skill).singleResult;
+
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+
+
+		return skills
+	}
+
+	public def getrecognitions(o){
+		def recognitions = emposthrmis.sqlContext.createQuery('''
+			SELECT CAST(r."Id" AS VARCHAR) AS "objid",
+			r."Recognition" AS "recognition"
+			FROM "hrmis"."tblProfileNonAcademicRecognition" r
+			WHERE r."PersonId" = $P{profileid}
+			''').setParameter('profileid',o.raw.PersonId).resultList;
+
+		recognitions.each{
+			it.recognition =  emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM references_tblnonacademicrecognition WHERE name = $P{name}
+			''').setParameter('name',it.recognition).singleResult;
+
+			it.recordlog     = [
+				datecreated        : dateSvc.serverDate,
+				dateoflastupdate   : dateSvc.serverDate,
+				createdbyuserid    : "ADMIN",
+				createdbyuser      : "ADMIN",
+				lastupdatedbyuserid: "ADMIN",
+				lastupdatedbyuser  : "ADMIN"
+			]
+		}
+
+
+		return recognitions
+	}
+// 	void buildEntity(entity){
+// 		entity.objid = (entity.objid ? entity.objid:new UID()).toString()
+// 		def eaddress = buildEntityAddress(entity)
+//     	eaddress.text = entity.entityaddress
+// 		def e = [
+// 			objid             : entity.objid,
+// 			// entityno       : prefix + seqSvc.getNextFormattedSeries( stype+ "_ENTITY" ),
+// 			name              : entity.entityname,
+// 			mailingaddress    : entity.entityaddress,
+// 			type              : entity.entitytype,
+// 			//sys_lastupdate  : dateSvc.buildCustomTimeStamp(dateSvc.serverDate),
+// 			//sys_lastupdateby: 'ETRACSADMIN',
+// 			remarks           : null,
+// 			entityname        : entity.entityname,
+// 			mobileno          : null,
+// 			phoneno           : null,
+// 			email             : null,
+// 			address           : eaddress
+// 		]
+// 		// // entitySvc.save(e)
+// 		// // println "TAE"*50
+// 		// // println e
+// 		// e._schemaname = 'entityindividual';
+//   //       persistenceService.create( e );
+
 	
+// 		//emaddress.create(eaddress)
+// 	}
+
+	// def buildEntityAddress(entity){
+		
+	// 	def entityaddress = [
+	// 		objid        	: 'A' + new UID(),
+	// 		parentid		: entity.objid,
+	// 		type    		: 'nonlocal',
+	// 		addresstype  	: null,
+	// 		barangay_objid  : null,
+	// 		barangay_name  	: null,
+	// 		city  			: null,
+	// 		municipality 	: null,
+	// 		province 		: null,
+	// 		bldgno			: null,
+	// 		bldgname		: null,
+	// 		unitno			: null,
+	// 		street			: null,
+	// 		subdivision		: null,
+	// 		pin 			: null
+	// 	]
+	// 	def address = entity.entityaddress.split(',')
+	// 	def barangay = address[0];
+		
+	// 	boolean hasWhiteSpace = containsWhiteSpace(barangay);
+	// 	if(hasWhiteSpace){
+	// 		barangay = barangay.split(' ')[0]
+	// 	}
+
+	// 	barangay = barangay + '%'
+
+	// 	def addressinfo = main.sqlContext.createQuery('''
+	// 		SELECT * FROM sys_org WHERE name LIKE $P{address_text} AND orgclass = 'BARANGAY'
+	// 		''').setParameter('address_text',barangay).singleResult;
+	// 	if (addressinfo){
+			
+	// 		entityaddress.barangay_objid = addressinfo.objid
+	// 		entityaddress.barangay_name = addressinfo.name
+				
+	// 		def municipalityinfo = main.sqlContext.createQuery('''
+	// 		SELECT * FROM sys_org WHERE objid = $P{objid}
+	// 		''').setParameter('objid',addressinfo.parent.objid).singleResult;		
+
+	// 		entityaddress.municipality = municipalityinfo.name
+
+	// 		def provinceinfo = main.sqlContext.createQuery('''
+	// 		SELECT * FROM sys_org WHERE objid = $P{objid}
+	// 		''').setParameter('objid',municipalityinfo.parent.objid).singleResult;	
+
+	// 		entityaddress.province = provinceinfo.name	
+	// 		entityaddress.type = 'local'
+	// 	}else{
+	// 		if (address.grep('CITY')){
+	// 			entityaddress.city = entity.entityaddress
+	// 			entityaddress.addresstype = 'CITY'
+	// 		}else{
+	// 			entityaddress.municipality = entity.entityaddress
+	// 			entityaddress.addresstype = 'MUNICIPALITY'
+	// 		}
+
+	// 	}
+		
+	// 	return entityaddress
+	
+	// }
+	public def addorupdateFatherEntity(o){
+		def x = isEntityExist2([lastname:o.Father.LastName,firstname:o.Father.FirstName,middlename:o.Father.MiddleName])
+		// println x
+		if(x){
+			def existingentity            = persistenceService.read([_schemaname:'entityindividual',objid:x.objid]);
+			    existingentity.lastname   = o.Father.LastName ?  o.Father.LastName.toUpperCase() : null
+			    existingentity.firstname  = o.Father.FirstName ?  o.Father.FirstName.toUpperCase() : null
+			    existingentity.middlename = o.Father.MiddleName ?  o.Father.MiddleName.toUpperCase() : null
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
+			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
+		}else{
+			// def eaddress = newbuildEntityAddress(entity)
+			// eaddress.text = entity.entityaddress.text
+			def entityindividual = [
+				objid     : 'I' + new UID(),
+				lastname  : o.Father.LastName ?  o.Father.LastName.toUpperCase() : null,
+				firstname : o.Father.FirstName ?  o.Father.FirstName.toUpperCase() : null,
+				middlename: o.Father.MiddleName ?  o.Father.MiddleName.toUpperCase() : null,
+				gender    : 'MALE',
+				
+			]
+
+			def address =[
+				objid         : 'A' + new UID(),
+				type          : 'nonlocal',
+				addresstype   : null,
+				barangay_objid: null,
+				barangay_name : null,
+				city          : null,
+				municipality  : null,
+				province      : null,
+				bldgno        : null,
+				bldgname      : null,
+				unitno        : null,
+				street        : null,
+				subdivision   : null,
+				pin           : null,
+				text          : '-'
+			]
+			entityindividual.address = address
+
+			
+			entityindividual._schemaname = 'entityindividual';
+			return persistenceService.create( entityindividual );
+		}
+	}
+
+	public def addorupdateMotherEntity(o){
+		def x = isEntityExist2([lastname:o.Mother.LastName,firstname:o.Mother.FirstName,middlename:o.Mother.MiddleName])
+		// println x
+		if(x){
+			def existingentity            = persistenceService.read([_schemaname:'entityindividual',objid:x.objid]);
+			    existingentity.lastname   = o.Mother.LastName ?  o.Mother.LastName.toUpperCase() : null
+			    existingentity.firstname  = o.Mother.FirstName ?  o.Mother.FirstName.toUpperCase() : null
+			    existingentity.middlename = o.Mother.MiddleName ?  o.Mother.MiddleName.toUpperCase() : null
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
+			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
+		}else{
+			// def eaddress = newbuildEntityAddress(entity)
+			// eaddress.text = entity.entityaddress.text
+			def entityindividual = [
+				objid     : 'I' + new UID(),
+				lastname  : o.Mother.LastName ?  o.Mother.LastName.toUpperCase() : null,
+				firstname : o.Mother.FirstName ?  o.Mother.FirstName.toUpperCase() : null,
+				middlename: o.Mother.MiddleName ?  o.Mother.MiddleName.toUpperCase() : null,
+				gender    : 'FEMALE',
+				
+				
+			]
+
+			def address =[
+				objid         : 'A' + new UID(),
+				type          : 'nonlocal',
+				addresstype   : null,
+				barangay_objid: null,
+				barangay_name : null,
+				city          : null,
+				municipality  : null,
+				province      : null,
+				bldgno        : null,
+				bldgname      : null,
+				unitno        : null,
+				street        : null,
+				subdivision   : null,
+				pin           : null,
+				text          : '-'
+			]
+			entityindividual.address = address
+			
+			entityindividual._schemaname = 'entityindividual';
+			return persistenceService.create( entityindividual );
+		}
+	}
+
+	public def addorupdateSpouseEntity(o){
+		def x = isEntityExist2([lastname:o.Name.LastName,firstname:o.Name.FirstName,middlename:o.Name.MiddleName])
+		// println x
+		if(x){
+			def existingentity            = persistenceService.read([_schemaname:'entityindividual',objid:x.objid]);
+			    existingentity.lastname   = o.Name.LastName ? o.Name.LastName.toUpperCase() : null
+			    existingentity.firstname  = o.Name.FirstName ? o.Name.FirstName.toUpperCase() : null
+			    existingentity.middlename = o.Name.MiddleName ? o.Name.MiddleName.toUpperCase() : null
+			    existingentity.phoneno    = o.Contacts.Landline
+			    existingentity.mobileno   = o.Contacts.Mobile
+			    existingentity.email      = o.Contacts.Email
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
+			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
+		}else{
+			// def eaddress = newbuildEntityAddress(entity)
+			// eaddress.text = entity.entityaddress.text
+			def entityindividual = [
+				objid     : 'I' + new UID(),
+				lastname  : o.Name.LastName ? o.Name.LastName.toUpperCase() : null,
+				firstname : o.Name.FirstName ? o.Name.FirstName.toUpperCase() : null,
+				middlename: o.Name.MiddleName ? o.Name.MiddleName.toUpperCase() : null,
+				gender    : '-',
+				phoneno   : o.Contacts.Landline,
+				mobileno  : o.Contacts.Mobile,
+				email     : o.Contacts.Email,
+			]
+
+			def address =[
+				objid         : 'A' + new UID(),
+				type          : 'nonlocal',
+				addresstype   : null,
+				barangay_objid: null,
+				barangay_name : null,
+				city          : null,
+				municipality  : null,
+				province      : null,
+				bldgno        : null,
+				bldgname      : null,
+				unitno        : null,
+				street        : null,
+				subdivision   : null,
+				pin           : null,
+				text          : '-'
+			]
+			entityindividual.address = address
+			
+			entityindividual._schemaname = 'entityindividual';
+			return persistenceService.create( entityindividual );
+		}
+	}
+
+	def addorupdateReferenceEntity(o){
+		def x = isEntityExist2([lastname:o.PersonName.LastName,firstname:o.PersonName.FirstName,middlename:o.PersonName.MiddleName])
+		// println x
+		if(x){
+			def existingentity            = persistenceService.read([_schemaname:'entityindividual',objid:x.objid]);
+			    existingentity.lastname   = o.PersonName.LastName ? o.PersonName.LastName.toUpperCase() : null
+			    existingentity.firstname  = o.PersonName.FirstName ? o.PersonName.FirstName.toUpperCase() : null
+			    existingentity.middlename = o.PersonName.MiddleName ? o.PersonName.MiddleName.toUpperCase() : null
+			    existingentity.phoneno    = o.Contacts.Landline
+			    existingentity.mobileno   = o.Contacts.Mobile
+			    existingentity.email      = o.Contacts.Email
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : o.barname ? o.barname.toUpperCase() : null,
+					city          : null,
+					municipality  : o.munname ? o.munname.toUpperCase() : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : o.barname ? o.munname.toUpperCase()  + ", " + o.barname.toUpperCase() : '-'
+				]
+				emaddress.save(address)
+			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
+		}else{
+			// def eaddress = newbuildEntityAddress(entity)
+			// eaddress.text = entity.entityaddress.text
+			def entityindividual = [
+				objid     : 'I' + new UID(),
+				lastname  : o.PersonName.LastName ? o.PersonName.LastName.toUpperCase() : null,
+				firstname : o.PersonName.FirstName ? o.PersonName.FirstName.toUpperCase() : null,
+				middlename: o.PersonName.MiddleName ? o.PersonName.MiddleName.toUpperCase() : null,
+				gender    : '-',
+				// birthdate : o.Birthday.toString()
+			]
+
+			def address =[
+				objid         : 'A' + new UID(),
+				type          : 'nonlocal',
+				addresstype   : null,
+				barangay_objid: null,
+				barangay_name : o.barname ? o.barname.toUpperCase() : null,
+				city          : null,
+				municipality  : o.munname ? o.munname.toUpperCase() : null,
+				province      : null,
+				bldgno        : null,
+				bldgname      : null,
+				unitno        : null,
+				street        : null,
+				subdivision   : null,
+				pin           : null,
+				text          : o.barname ? o.munname.toUpperCase()  + ", " + o.barname.toUpperCase() : '-'
+			]
+			entityindividual.address = address
+		
+			entityindividual._schemaname = 'entityindividual';
+			return persistenceService.create( entityindividual );
+		}
+	}
+
+	public def addorupdateChildEntity(o){
+		def x = isEntityExist2([lastname:o.Name.Last,firstname:o.Name.First,middlename:o.Name.Middle])
+		// println x
+		if(x){
+			def existingentity            = persistenceService.read([_schemaname:'entityindividual',objid:x.objid]);
+			    existingentity.lastname   = o.Name.Last ? o.Name.Last.toUpperCase() : null
+			    existingentity.firstname  = o.Name.First ? o.Name.First.toUpperCase() : null
+			    existingentity.middlename = o.Name.Middle ? o.Name.Middle.toUpperCase() : null
+			    existingentity.birthdate  = o.Birthday.toString()
+				def address =[
+					objid         : existingentity.address.objid,
+					parentid 	  : existingentity.objid,
+					type          : 'nonlocal',
+					addresstype   : null,
+					barangay_objid: null,
+					barangay_name : null,
+					city          : null,
+					municipality  : null,
+					province      : null,
+					bldgno        : null,
+					bldgname      : null,
+					unitno        : null,
+					street        : null,
+					subdivision   : null,
+					pin           : null,
+					text          : '-'
+				]
+				emaddress.save(address)
+			return persistenceService.update([_schemaname:'entityindividual',objid:existingentity.objid]);
+		}else{
+			// def eaddress = newbuildEntityAddress(entity)
+			// eaddress.text = entity.entityaddress.text
+			def entityindividual = [
+				objid     : 'I' + new UID(),
+				lastname  : o.Name.Last ? o.Name.Last.toUpperCase() : null,
+				firstname : o.Name.First ? o.Name.First.toUpperCase() : null,
+				middlename: o.Name.Middle ? o.Name.Middle.toUpperCase() : null,
+				gender    : '-',
+				birthdate : o.Birthday.toString()
+			]
+
+			def address =[
+				objid         : 'A' + new UID(),
+				type          : 'nonlocal',
+				addresstype   : null,
+				barangay_objid: null,
+				barangay_name : null,
+				city          : null,
+				municipality  : null,
+				province      : null,
+				bldgno        : null,
+				bldgname      : null,
+				unitno        : null,
+				street        : null,
+				subdivision   : null,
+				pin           : null,
+				text          : '-'
+			]
+			entityindividual.address = address
+			entityindividual._schemaname = 'entityindividual';
+			return persistenceService.create( entityindividual );
+		}
 	}
 
 	def newbuildEntityAddress(entity){
 		def entityaddress = [
-			objid        	: 'A' + new UID(),
-			parentid		: entity.objid,
-			type    		: 'nonlocal',
-			addresstype  	: null,
-			barangay_objid  : null,
-			barangay_name  	: null,
-			city  			: null,
-			municipality 	: null,
-			province 		: null,
-			bldgno			: null,
-			bldgname		: null,
-			unitno			: null,
-			street			: entity.street,
-			subdivision		: null,
-			pin 			: null,
-			text 			: null
+			objid         : 'A' + new UID(),
+			parentid      : entity.objid,
+			type          : 'nonlocal',
+			addresstype   : null,
+			barangay_objid: null,
+			barangay_name : null,
+			city          : null,
+			municipality  : null,
+			province      : null,
+			bldgno        : null,
+			bldgname      : null,
+			unitno        : null,
+			street        : entity.street,
+			subdivision   : null,
+			pin           : null,
+			text          : null
 		]
 		// def address = entity.entityaddress.split(',')
 		// def barangay = entity.barangayname;
@@ -298,16 +1179,16 @@ class HRMISProfileMigartion {
 		// println entity
 		def addressinfo = main.sqlContext.createQuery('''
 			SELECT b.* FROM bukidnonlgumaster.munbrgy mb
-INNER JOIN etracs254_bukidnon.`barangay` b ON b.`objid` = mb.`barangaypin`
-INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
-			WHERE mb.`brgyid` = $P{psgccode};
+			INNER JOIN etracs254_bukidnon.`barangay` b ON b.`objid`   = mb.`barangaypin`
+			INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
+			WHERE mb.`brgyid`                                         = $P{psgccode};
 			''').setParameter('psgccode',entity.barangaypsgc).singleResult;
 		// println "TEST"* 50
 		// println entity.muncity
 		if (addressinfo){
 			
 			entityaddress.barangay_objid = addressinfo.objid
-			entityaddress.barangay_name = addressinfo.name
+			entityaddress.barangay_name  = addressinfo.name
 		
 			def municipalityinfo = main.sqlContext.createQuery('''
 			SELECT * FROM municipality WHERE objid = $P{objid};
@@ -319,22 +1200,22 @@ INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
 			SELECT * FROM province WHERE objid = $P{objid};
 			''').setParameter('objid',municipalityinfo.parentid).singleResult;	
 
-			entityaddress.province = provinceinfo.name	
-			entityaddress.type = 'local'
+			entityaddress.province = provinceinfo.name
+			entityaddress.type     = 'local'
 		}else{
 			if (entity.muncity){
 				if (entity.muncity.contains("CITY")){
-					entityaddress.city = entity.muncity
-					entityaddress.addresstype = 'CITY'
+					entityaddress.city          = entity.muncity
+					entityaddress.addresstype   = 'CITY'
 					entityaddress.barangay_name = entity.barangayname
 				}else{
-					entityaddress.municipality = entity.muncity
-					entityaddress.addresstype = 'MUNICIPALITY'
+					entityaddress.municipality  = entity.muncity
+					entityaddress.addresstype   = 'MUNICIPALITY'
 					entityaddress.barangay_name = entity.barangayname
 				}
 			}else{
-					entityaddress.municipality = "-"
-					entityaddress.addresstype = 'MUNICIPALITY'
+					entityaddress.municipality  = "-"
+					entityaddress.addresstype   = 'MUNICIPALITY'
 					entityaddress.barangay_name = "-"
 			}
 
@@ -355,50 +1236,94 @@ INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
 		// 	''').setParameter('objid',objid).singleResult;
 		
 		// def barangay = persistenceSvc.read([ _schemaname: 'barangay', objid:x.barnagay.objid])
-		def txt1 = [x.unitno, x.bldgno, x.bldgname].findAll{ (it? true: false) }.join(" ").trim(); 
-		def txt2 = [x.street, x.subdivision].findAll{ (it? true: false) }.join(" ").trim(); 
-		def txt3 = [x.barangay?.name, x.city, x.municipality, x.province].findAll{ (it? true: false) }.join(", ").trim(); 
+		def txt1 = [x.unitno, x.bldgno, x.bldgname].findAll{ (it? true: false) }.join(" ").trim();
+		def txt2 = [x.street, x.subdivision].findAll{ (it? true: false) }.join(" ").trim();
+		def txt3 = [x.barangay?.name, x.city, x.municipality, x.province].findAll{ (it? true: false) }.join(", ").trim();
 		return [txt1, txt2, txt3].findAll{ (it? true: false) }.join( "\n" ).trim();
 	}
-
-	void newbuildEntityIndividual(entity){
+	public def updateEntity(entity){
+		
+	
 		def eaddress = newbuildEntityAddress(entity)
     	// eaddress.text = entity.entityaddress.text
 		def entityindividual = [
-			objid  		: 'I' + new UID(),				
-			lastname 	: entity.info.lastname,
-			firstname 	: entity.info.firstname,
-			middlename 	: entity.info.middlename,
-			birthdate 	: entity.info.birthdate,
-			birthplace 	: entity.info.birthplace,
-			citizenship : entity.info.citizenship,
-			gender 		: entity.info.gender,
-			civilstatus : entity.info.civilstatus,
-			profession 	: entity.info.profession,
-			tin 		: entity.info.tin,
-			sss 		: entity.info.sss,
-			height 		: entity.info.height,
-			weight 		: entity.info.weight,
-			age 		: null,
-			religion 	: null,
-			photo 		: null,
-			thumbnail 	: null,
-			address     : eaddress,
+			objid      : entity.objid,
+			lastname   : entity.info.lastname,
+			firstname  : entity.info.firstname,
+			middlename : entity.info.middlename,
+			birthdate  : entity.info.birthdate,
+			birthplace : entity.info.birthplace,
+			citizenship: entity.info.citizenship,
+			gender     : entity.info.gender,
+			civilstatus: entity.info.civilstatus,
+			profession : entity.info.profession,
+			tin        : entity.info.tin,
+			sss        : entity.info.sss,
+			height     : entity.info.height,
+			weight     : entity.info.weight,
+			age        : null,
+			religion   : null,
+			photo      : null,
+			thumbnail  : null,
+			address    : eaddress,
+			phoneno    : entity.info.landline,
+			mobileno   : entity.info.mobileno,
+			email      : entity.info.email,
+			name       : entity.name
+
 		]
 		// println entityindividual
 		// emind.create(entityindividual)
+		emaddress.save(eaddress)
+		entityindividual._schemaname = 'entityindividual';
+        persistenceService.update( entityindividual );
+		return entityindividual
+	}
+	public def addEntity(entity){
+		def eaddress = newbuildEntityAddress(entity)
+    	// eaddress.text = entity.entityaddress.text
+		def entityindividual = [
+			objid      : 'I' + new UID(),
+			lastname   : entity.info.lastname,
+			firstname  : entity.info.firstname,
+			middlename : entity.info.middlename,
+			birthdate  : entity.info.birthdate,
+			birthplace : entity.info.birthplace,
+			citizenship: entity.info.citizenship,
+			gender     : entity.info.gender,
+			civilstatus: entity.info.civilstatus,
+			profession : entity.info.profession,
+			tin        : entity.info.tin,
+			sss        : entity.info.sss,
+			height     : entity.info.height,
+			weight     : entity.info.weight,
+			age        : null,
+			religion   : null,
+			photo      : null,
+			thumbnail  : null,
+			address    : eaddress,
+			phoneno    : entity.info.landline,
+			mobileno   : entity.info.mobileno,
+			email      : entity.info.email,
+			name       : entity.name
+		]
+		// println entityindividual
+		// emind.create(entityindividual)
+	
 		entityindividual._schemaname = 'entityindividual';
         persistenceService.create( entityindividual );
        
-       	emhrmis.sqlContext.createExecutor('''
-			INSERT INTO hrmis_entity (objid,profileid,nameextension,prenametitle,postnametitle) VALUES ($P{objid},$P{profileid},$P{nameextension},$P{prenametitle},$P{postnametitle});
-		''')
-		.setParameter('objid', entityindividual.objid)
-		.setParameter('profileid', entity.profileid)
-		.setParameter('nameextension', entity.info.nameextension)
-		.setParameter('prenametitle', entity.info.prenametitle)
-		.setParameter('postnametitle', entity.info.postnametitle)
-		.execute();
+        // emhrmis.sqlContext.createExecutor('''
+		// 	INSERT INTO hrmis_entity (objid,profileid,nameextension,prenametitle,postnametitle) VALUES ($P{objid},$P{profileid},$P{nameextension},$P{prenametitle},$P{postnametitle});
+		// ''')
+		// .setParameter('objid', entityindividual.objid)
+		// .setParameter('profileid', entity.profileid)
+		// .setParameter('nameextension', entity.info.nameextension)
+		// .setParameter('prenametitle', entity.info.prenametitle)
+		// .setParameter('postnametitle', entity.info.postnametitle)
+		// .execute();
+
+		return entityindividual
 
 		// println entity.profileid
 	 //    emposthrmis.sqlContext.createExecutor('''
@@ -408,233 +1333,233 @@ INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
 		// return persistenceService.read([ _schemaname: 'entityindividual', objid: entityindividual.objid ]);
 	}
 
-	def buildEntityIndividual(entity){
-		def eaddress = buildEntityAddress(entity)
-    	eaddress.text = entity.entityaddress
-		def entityindividual = [
-			objid  		: entity.objid,				
-			lastname 	: entity.info.lastname,
-			firstname 	: entity.info.firstname,
-			middlename 	: entity.info.middlename,
-			birthdate 	: entity.info.birthdate,
-			birthplace 	: entity.info.birthplace,
-			citizenship : entity.info.citizenship,
-			gender 		: entity.info.gender,
-			civilstatus : entity.info.civilstatus,
-			profession 	: entity.info.profession,
-			tin 		: entity.info.tin,
-			sss 		: entity.info.sss,
-			height 		: entity.info.height,
-			weight 		: entity.info.weight,
-			acr 		: null,
-			religion 	: null,
-			photo 		: null,
-			thumbnail 	: null,
-			address     : eaddress,
-		]
+	// def buildEntityIndividual(entity){
+	// 	def eaddress = buildEntityAddress(entity)
+    // 	eaddress.text = entity.entityaddress
+	// 	def entityindividual = [
+	// 		objid  		: entity.objid,				
+	// 		lastname 	: entity.info.lastname,
+	// 		firstname 	: entity.info.firstname,
+	// 		middlename 	: entity.info.middlename,
+	// 		birthdate 	: entity.info.birthdate,
+	// 		birthplace 	: entity.info.birthplace,
+	// 		citizenship : entity.info.citizenship,
+	// 		gender 		: entity.info.gender,
+	// 		civilstatus : entity.info.civilstatus,
+	// 		profession 	: entity.info.profession,
+	// 		tin 		: entity.info.tin,
+	// 		sss 		: entity.info.sss,
+	// 		height 		: entity.info.height,
+	// 		weight 		: entity.info.weight,
+	// 		acr 		: null,
+	// 		religion 	: null,
+	// 		photo 		: null,
+	// 		thumbnail 	: null,
+	// 		address     : eaddress,
+	// 	]
 
-		// emind.create(entityindividual)
-		entityindividual._schemaname = 'entityindividual';
-        persistenceService.create( entityindividual );
+	// 	// emind.create(entityindividual)
+	// 	entityindividual._schemaname = 'entityindividual';
+    //     persistenceService.create( entityindividual );
 
-       	em22.sqlContext.createExecutor('''
-			INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
-		''')
-		.setParameter('objid', entity.objid)
-		.execute()
+    //    	em22.sqlContext.createExecutor('''
+	// 		INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
+	// 	''')
+	// 	.setParameter('objid', entity.objid)
+	// 	.execute()
 
-		return persistenceService.read([ _schemaname: 'entityindividual', objid: entityindividual.objid ]);
-	}
+	// 	return persistenceService.read([ _schemaname: 'entityindividual', objid: entityindividual.objid ]);
+	// }
 
-	void buildEntityMultiple(entity){
-		def eaddress = buildEntityAddress(entity)
-    	eaddress.text = entity.entityaddress
-		def entitymultiple = [
-			objid   : entity.objid,				
-			fullname: entity.entityname,
-			name    : entity.entityname,
-			address : eaddress,
-			members : entity.members,
-		]
+	// void buildEntityMultiple(entity){
+	// 	def eaddress = buildEntityAddress(entity)
+    // 	eaddress.text = entity.entityaddress
+	// 	def entitymultiple = [
+	// 		objid   : entity.objid,				
+	// 		fullname: entity.entityname,
+	// 		name    : entity.entityname,
+	// 		address : eaddress,
+	// 		members : entity.members,
+	// 	]
 
-		// emmul.create(entitymultiple)
-		entitymultiple._schemaname = 'entitymultiple';
-        persistenceService.create( entitymultiple );
+	// 	// emmul.create(entitymultiple)
+	// 	entitymultiple._schemaname = 'entitymultiple';
+    //     persistenceService.create( entitymultiple );
 
-       	em22.sqlContext.createExecutor('''
-			INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
-		''')
-		.setParameter('objid', entity.objid)
-		.execute()
-	}
+    //    	em22.sqlContext.createExecutor('''
+	// 		INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
+	// 	''')
+	// 	.setParameter('objid', entity.objid)
+	// 	.execute()
+	// }
 
-	def buildEntityMember(member){
-		def entitymember = []
-		member.each{o->
-			def m = [
-				objid  					: o.objid,				
-				entityid 				: o.entityid,
-				itemno					: o.itemno,
-				prefix 					: o.prefix,
-				member_objid 			: o.taxpayerid,
-				member_name 			: o.taxpayername,
-				member_address_text 	: o.taxpayeraddress,
-				suffix 					: o.suffix,
-			]
+	// def buildEntityMember(member){
+	// 	def entitymember = []
+	// 	member.each{o->
+	// 		def m = [
+	// 			objid  					: o.objid,				
+	// 			entityid 				: o.entityid,
+	// 			itemno					: o.itemno,
+	// 			prefix 					: o.prefix,
+	// 			member_objid 			: o.taxpayerid,
+	// 			member_name 			: o.taxpayername,
+	// 			member_address_text 	: o.taxpayeraddress,
+	// 			suffix 					: o.suffix,
+	// 		]
 
-			if(isEntityMigrated(o.taxpayerid)){
-				entitymember.push(m);
-			}else{
-				if (entityExist(o.taxpayerid)){
-					self.migrateEntity(o.taxpayerid)
-					entitymember.push(m);
-				}else{
-					def newentity = [
-						objid      		: o.taxpayerid,
-						// entityno   		: "I" + seqSvc.getNextFormattedSeries( "INDIVIDUAL_ENTITY" ),
-						entityname 		: o.taxpayername,
-						entityaddress 	: o.taxpayeraddress,
-						entitytype 		: 'individual',
-						info			: [:],
-					]
-					def entityname = o.taxpayername.split(',')
+	// 		if(isEntityMigrated(o.taxpayerid)){
+	// 			entitymember.push(m);
+	// 		}else{
+	// 			if (entityExist(o.taxpayerid)){
+	// 				self.migrateEntity(o.taxpayerid)
+	// 				entitymember.push(m);
+	// 			}else{
+	// 				def newentity = [
+	// 					objid      		: o.taxpayerid,
+	// 					// entityno   		: "I" + seqSvc.getNextFormattedSeries( "INDIVIDUAL_ENTITY" ),
+	// 					entityname 		: o.taxpayername,
+	// 					entityaddress 	: o.taxpayeraddress,
+	// 					entitytype 		: 'individual',
+	// 					info			: [:],
+	// 				]
+	// 				def entityname = o.taxpayername.split(',')
 					
-					if (entityname.size() > 2){
-						newentity.info.firstname = entityname[2].replaceAll("\\s","")
-						newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
-					}else{
-						newentity.info.firstname = entityname[1].replaceAll("\\s","")
-						newentity.info.lastname = entityname[0].replaceAll("\\s","")
-					}
+	// 				if (entityname.size() > 2){
+	// 					newentity.info.firstname = entityname[2].replaceAll("\\s","")
+	// 					newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
+	// 				}else{
+	// 					newentity.info.firstname = entityname[1].replaceAll("\\s","")
+	// 					newentity.info.lastname = entityname[0].replaceAll("\\s","")
+	// 				}
 
-					// buildEntity(newentity)
-					buildEntityIndividual(newentity) 
-					entitymember.push(m);
-				}
+	// 				// buildEntity(newentity)
+	// 				buildEntityIndividual(newentity) 
+	// 				entitymember.push(m);
+	// 			}
 				
-			}
+	// 		}
 			
-		}
-		return entitymember
-	}
+	// 	}
+	// 	return entitymember
+	// }
 
-	def buildMissingMember(entitymultiple){
-		def entitymember = []
-		def members = em22.sqlContext.createQuery('''
-		SELECT * FROM entity WHERE $P{entityname} LIKE CONCAT('%',entityname,'%')  AND objid <> $P{objid} AND entitytype = 'individual'
-		''').setParameter('entityname',entitymultiple.entityname).setParameter('objid',entitymultiple.objid).resultList;
+	// def buildMissingMember(entitymultiple){
+	// 	def entitymember = []
+	// 	def members = em22.sqlContext.createQuery('''
+	// 	SELECT * FROM entity WHERE $P{entityname} LIKE CONCAT('%',entityname,'%')  AND objid <> $P{objid} AND entitytype = 'individual'
+	// 	''').setParameter('entityname',entitymultiple.entityname).setParameter('objid',entitymultiple.objid).resultList;
 		
-		if (members.size > 0){
-			def x = 0;
-			members.each{
-				def m = [
-					objid  					: 'EM' + new UID(),				
-					entityid 				: it.entityno,
-					itemno					: x++,
-					prefix 					: null,
-					member_objid 			: it.objid,
-					member_name 			: it.entityname,
-					member_address_text 	: it.entityaddress,
-					suffix 					: null,
-				]
+	// 	if (members.size > 0){
+	// 		def x = 0;
+	// 		members.each{
+	// 			def m = [
+	// 				objid  					: 'EM' + new UID(),				
+	// 				entityid 				: it.entityno,
+	// 				itemno					: x++,
+	// 				prefix 					: null,
+	// 				member_objid 			: it.objid,
+	// 				member_name 			: it.entityname,
+	// 				member_address_text 	: it.entityaddress,
+	// 				suffix 					: null,
+	// 			]
 
-				if(isEntityMigrated(it.objid)){
-					entitymember.push(m);
-				}else{
-					if (entityExist(it.objid)){
-						self.migrateEntity(it.objid)
-						entitymember.push(m);
-					}else{
-						def newentity = [
-							objid      		: it.objid,
-							// entityno   		: "I" + seqSvc.getNextFormattedSeries( "INDIVIDUAL_ENTITY" ),
-							entityname 		: it.entityname,
-							entityaddress 	: it.entityaddress,
-							entitytype 		: 'individual',
-							info			: [:],
-						]
-						def entityname = it.entityname.split(',')
+	// 			if(isEntityMigrated(it.objid)){
+	// 				entitymember.push(m);
+	// 			}else{
+	// 				if (entityExist(it.objid)){
+	// 					self.migrateEntity(it.objid)
+	// 					entitymember.push(m);
+	// 				}else{
+	// 					def newentity = [
+	// 						objid      		: it.objid,
+	// 						// entityno   		: "I" + seqSvc.getNextFormattedSeries( "INDIVIDUAL_ENTITY" ),
+	// 						entityname 		: it.entityname,
+	// 						entityaddress 	: it.entityaddress,
+	// 						entitytype 		: 'individual',
+	// 						info			: [:],
+	// 					]
+	// 					def entityname = it.entityname.split(',')
 						
-						if (entityname.size() > 2){
-							newentity.info.firstname = entityname[2].replaceAll("\\s","")
-							newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
-						}else{
-							newentity.info.firstname = entityname[1].replaceAll("\\s","")
-							newentity.info.lastname = entityname[0].replaceAll("\\s","")
-						}
+	// 					if (entityname.size() > 2){
+	// 						newentity.info.firstname = entityname[2].replaceAll("\\s","")
+	// 						newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
+	// 					}else{
+	// 						newentity.info.firstname = entityname[1].replaceAll("\\s","")
+	// 						newentity.info.lastname = entityname[0].replaceAll("\\s","")
+	// 					}
 
-						// buildEntity(newentity)
-						buildEntityIndividual(newentity) 
-						entitymember.push(m);
-					}
+	// 					// buildEntity(newentity)
+	// 					buildEntityIndividual(newentity) 
+	// 					entitymember.push(m);
+	// 				}
 					
-				}
-			}
-		}else{
-			//buildentity
-			def newentity = [
-				objid      		: 'E' + new UID(),
-				entityname 		: entitymultiple.entityname,
-				entityaddress 	: entitymultiple.entityaddress,
-				entitytype 		: 'individual',
-				info			: [firstname:entitymultiple.entityname,lastname:entitymultiple.entityname],
-			]
-			// def entityname = it.entityname.split(',')
+	// 			}
+	// 		}
+	// 	}else{
+	// 		//buildentity
+	// 		def newentity = [
+	// 			objid      		: 'E' + new UID(),
+	// 			entityname 		: entitymultiple.entityname,
+	// 			entityaddress 	: entitymultiple.entityaddress,
+	// 			entitytype 		: 'individual',
+	// 			info			: [firstname:entitymultiple.entityname,lastname:entitymultiple.entityname],
+	// 		]
+	// 		// def entityname = it.entityname.split(',')
 			
-			// if (entityname.size() > 2){
-			// 	newentity.info.firstname = entityname[2].replaceAll("\\s","")
-			// 	newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
-			// }else{
-			// 	newentity.info.firstname = entityname[1].replaceAll("\\s","")
-			// 	newentity.info.lastname = entityname[0].replaceAll("\\s","")
-			// }
+	// 		// if (entityname.size() > 2){
+	// 		// 	newentity.info.firstname = entityname[2].replaceAll("\\s","")
+	// 		// 	newentity.info.lastname = entityname[0].replaceAll("\\s","") + " " + entityname[1].replaceAll("\\s","")
+	// 		// }else{
+	// 		// 	newentity.info.firstname = entityname[1].replaceAll("\\s","")
+	// 		// 	newentity.info.lastname = entityname[0].replaceAll("\\s","")
+	// 		// }
 
-			// buildEntity(newentity)
-			def individual = buildEntityIndividual(newentity) 
-			def nm = [
-					objid  					: 'EM' + new UID(),				
-					entityid 				: individual.entityno,
-					itemno					: 1,
-					prefix 					: null,
-					member_objid 			: individual.objid,
-					member_name 			: individual.entityname,
-					member_address_text 	: entitymultiple.entityaddress,
-					suffix 					: null,
-				]
+	// 		// buildEntity(newentity)
+	// 		def individual = buildEntityIndividual(newentity) 
+	// 		def nm = [
+	// 				objid  					: 'EM' + new UID(),				
+	// 				entityid 				: individual.entityno,
+	// 				itemno					: 1,
+	// 				prefix 					: null,
+	// 				member_objid 			: individual.objid,
+	// 				member_name 			: individual.entityname,
+	// 				member_address_text 	: entitymultiple.entityaddress,
+	// 				suffix 					: null,
+	// 			]
 
-			entitymember.push(nm);
-		}
+	// 		entitymember.push(nm);
+	// 	}
 		
-		return entitymember
-	}
+	// 	return entitymember
+	// }
 
-	void buildEntityJuridical(entity){
-		def eaddress = buildEntityAddress(entity)
-    	eaddress.text = entity.entityaddress
-		def entityjuridical = [
-			objid                 : entity.objid,				
-			tin                   : entity.info.tin,
-			name                  : entity.entityname,
-			dtregistered          : entity.info.dtregistered,
-			orgtype               : entity.info.orgtype,
-			nature                : entity.info.nature,
-			administrator_name    : null,
-			administrator_address : null,
-			administrator_position: null,
-			address               : eaddress,
-		]
+	// void buildEntityJuridical(entity){
+	// 	def eaddress = buildEntityAddress(entity)
+    // 	eaddress.text = entity.entityaddress
+	// 	def entityjuridical = [
+	// 		objid                 : entity.objid,				
+	// 		tin                   : entity.info.tin,
+	// 		name                  : entity.entityname,
+	// 		dtregistered          : entity.info.dtregistered,
+	// 		orgtype               : entity.info.orgtype,
+	// 		nature                : entity.info.nature,
+	// 		administrator_name    : null,
+	// 		administrator_address : null,
+	// 		administrator_position: null,
+	// 		address               : eaddress,
+	// 	]
 
-		// emjur.create(entityjuridical)
+	// 	// emjur.create(entityjuridical)
 
-		entityjuridical._schemaname = 'entityjuridical';
-        persistenceService.create( entityjuridical );
+	// 	entityjuridical._schemaname = 'entityjuridical';
+    //     persistenceService.create( entityjuridical );
 
-       	em22.sqlContext.createExecutor('''
-			INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
-		''')
-		.setParameter('objid', entity.objid)
-		.execute()
-	}
+    //    	em22.sqlContext.createExecutor('''
+	// 		INSERT INTO etracs25_migrate_entity (objid) VALUES ($P{objid})
+	// 	''')
+	// 	.setParameter('objid', entity.objid)
+	// 	.execute()
+	// }
 
 	public static boolean containsWhiteSpace(final String testCode){
 	    if(testCode != null){
@@ -647,21 +1572,45 @@ INNER JOIN etracs254_bukidnon.municipality m ON m.`objid` = b.`parentid`
 	    return false;
 	}
 
-	def isEntityMigrated(entityid){
+	def isProfileMigrated(profileid){
 
-		return em22.sqlContext.createQuery('''
-			SELECT * FROM etracs25_migrate_entity
-			WHERE objid = $P{objid}
-			''').setParameter('objid',entityid).singleResult;
+		return emhrmis.sqlContext.createQuery('''
+			SELECT * FROM hrmis_entity
+			WHERE profileid = $P{profileid}
+			''').setParameter('profileid',profileid).singleResult;
 	}
 
-	def entityExist(entityid){
-
-		return em22.sqlContext.createQuery('''
-			SELECT * FROM entity WHERE objid = $P{objid}
-			''').setParameter('objid',entityid).singleResult;
+	def isPDSMigrated(profileid){
+		def x = emhrmis.sqlContext.createQuery('''
+			SELECT objid FROM hrmis_pds p WHERE p.objid = $P{profileid}
+			''').setParameter('profileid',profileid).singleResult;
+		
+		return x
 	}
 
+	def isEntityExist(entity){
+		return emhrmis.sqlContext.createQuery('''
+			SELECT * FROM etracs254_bukidnon.entityindividual e
+			WHERE lastname = $P{lastname} AND firstname = $P{firstname} AND middlename = $P{middlename} AND birthdate = $P{birthdate}
+			''')
+			.setParameter('lastname',entity.info.lastname)
+			.setParameter('firstname',entity.info.firstname)
+			.setParameter('middlename',entity.info.middlename)
+			// .setParameter('birthdate',entity.info.birthdate)
+			.singleResult; 
+	}
+
+	def isEntityExist2(entity){
+		return emhrmis.sqlContext.createQuery('''
+			SELECT * FROM etracs254_bukidnon.entityindividual e
+			WHERE lastname = $P{lastname} AND firstname = $P{firstname} AND middlename = $P{middlename}
+			''')
+			.setParameter('lastname',entity.lastname)
+			.setParameter('firstname',entity.firstname)
+			.setParameter('middlename',entity.middlename)
+			// .setParameter('birthdate',entity.info.birthdate)
+			.singleResult; 
+	}
 }
 
 

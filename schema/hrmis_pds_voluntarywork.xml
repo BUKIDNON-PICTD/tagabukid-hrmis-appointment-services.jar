@@ -2,18 +2,38 @@
 	<element tablename="hrmis_pds_voluntarywork">
 		<field name="objid" primary="true" prefix="VWK" searchable="false" />
 		<field name="pdsid" required="true" visible="false" />
-		<field name="voluntarywork_objid" required="false" searchable="true"/>
+		<!-- <field name="voluntarywork_objid" required="false" searchable="true"/>
 
-		<field name="natureofwork" required="false" searchable="true"/>
+		<field name="natureofwork" required="false" searchable="true"/> -->
+		<!-- mao ni bago -->
+		<field name="voluntarywork_objid" required="true" searchable="true"/>
+		<field name="institutiontype_objid" required="true" searchable="true"/>
+		<complex name="organizationaddress" required="true"  serializer="default"/>
+		<field name="organizationaddress_text" required="true" searchable="true"/>
+		<field name="datefrom" required="true" searchable="true"/>
+		<field name="dateto" required="true" searchable="true"/>
+		<field name="numberofhours" required="true" searchable="true"/>
+		<field name="positionornatureofwork" required="true" searchable="true"/>
+		<field name="positionornatureofworkcategory_objid" required="true" searchable="true"/>
+		<!-- kutob diri -->
+
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
-		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
-		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
-		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />
+		<field name="recordlog_dateoflastupdate" required="true" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" searchable="false" visible="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" searchable="false" visible="false" />
 		
-		<complex name="voluntarywork" ref="hrmis_tblprofilevoluntarywork" jointype="many-to-one" required="false">
+		<complex name="voluntarywork" ref="master_tblvoluntarywork" jointype="many-to-one" required="false">
 			<key field="voluntarywork_objid" target="objid" />
+		</complex>
+
+		<complex name="institutiontype" ref="master_tblinstitutiontype" jointype="many-to-one" required="false">
+			<key field="institutiontype_objid" target="objid" />
+		</complex>
+
+		<complex name="positionornatureofworkcategory" ref="master_tbljobpositioncategory" jointype="many-to-one" required="false">
+			<key field="positionornatureofworkcategory_objid" target="objid" />
 		</complex>
 	</element>
 </schema>

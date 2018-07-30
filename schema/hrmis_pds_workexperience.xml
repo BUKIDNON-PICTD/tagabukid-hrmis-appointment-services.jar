@@ -2,14 +2,17 @@
 	<element tablename="hrmis_pds_workexperience">
 		<field name="objid" primary="true" prefix="WE-" searchable="false"/>
 		<field name="pdsid" required="true" searchable="false" visible="true" />
+		<!-- kani na bago ni tanan -->
+		<field name="institution" required="true" searchable="false" visible="true" />
+		<field name="institutiontype_objid" required="false" searchable="false" visible="true" />
+		<field name="jobposition_objid" required="false" searchable="false" visible="true" />
 		<field name="from" required="true" searchable="false" visible="true" />
 		<field name="to" required="true" searchable="false" visible="true" />
-		<field name="position" required="true" searchable="false" visible="true" />
-		<field name="departmentagencyofficecompany" required="true" searchable="false" visible="true" />
+		<field name="paygradestepincrement_objid" required="false" searchable="false" visible="true" />
 		<field name="monthlysalary" required="true" searchable="false" visible="true" />
-		<field name="salarystep" required="true" searchable="false" visible="true" />
-		<field name="appointmentstatus" required="true" searchable="false" visible="true" />
-		<field name="govservice" required="true" searchable="false" visible="true" />
+		<field name="employmentstatus_objid" required="true" searchable="false" visible="true" />
+		<field name="isgovservice" required="true" searchable="false" visible="true" />
+	
 
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
@@ -17,5 +20,21 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="institutiontype" ref="master_tblinstitutiontype" jointype="many-to-one" required="false">
+			<key field="institutiontype_objid" target="objid" />
+		</complex>
+
+		<complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
+			<key field="jobposition_objid" target="objid" />
+		</complex>
+
+		<complex name="paygradestepincrement" ref="master_tblpaygradeandstepincrement" jointype="many-to-one" required="false">
+			<key field="paygradestepincrement_objid" target="objid" />
+		</complex>
+
+		<complex name="employmentstatus" ref="master_tblemptemploymentstatus" jointype="many-to-one" required="false">
+			<key field="employmentstatus_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
