@@ -1,19 +1,11 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblvoluntarywork">
 		<field name="objid" primary="true" prefix="PVW" searchable="false" />
-<!-- <<<<<<< HEAD
-		<field name="organizationname" required="true" caption="Name" searchable="false"/>
-		<field name="institutiontypeid" required="false" visible="false" searchable="false"/>
-		<field name="muncityaddrid" required="false" visible="false" searchable="false"/>
-		<field name="addressdetails" required="false" searchable="false"/>
-		<field name="datefrom" required="true" caption="From" searchable="false"/>
-		<field name="dateto" required="true" caption="To" searchable="false"/>
-		<field name="numberofhours" required="true" caption="Hours" searchable="false"/>
-======= -->
+
 		<field name="name" required="true" caption="Name" searchable="false"/>
 		<field name="code" required="false" visible="false" searchable="false"/>
 		<field name="description" required="false" visible="false" searchable="false"/>
-<!-- >>>>>>> d5cbf01af17d74cbf4ed7360414390e9ae450cd0 -->
+
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
