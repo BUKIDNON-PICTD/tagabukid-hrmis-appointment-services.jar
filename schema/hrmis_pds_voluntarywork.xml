@@ -7,14 +7,14 @@
 		<field name="natureofwork" required="false" searchable="true"/> -->
 		<!-- mao ni bago -->
 		<field name="voluntarywork_objid" required="true" searchable="true"/>
-		<field name="institutiontype_objid" required="true" searchable="true"/>
-		<complex name="organizationaddress" required="true"  serializer="default"/>
-		<field name="organizationaddress_text" required="true" searchable="true"/>
+		<field name="institutiontype_objid" required="false" searchable="true"/>
+		<complex name="organizationaddress" required="false"  serializer="default"/>
+		<field name="organizationaddress_text" required="false" searchable="true"/>
 		<field name="datefrom" required="true" searchable="true"/>
 		<field name="dateto" required="true" searchable="true"/>
 		<field name="numberofhours" required="true" searchable="true"/>
-		<field name="positionornatureofwork" required="true" searchable="true"/>
-		<field name="positionornatureofworkcategory_objid" required="true" searchable="true"/>
+		<field name="positionornatureofwork" required="false" searchable="true"/>
+		<field name="positionornatureofworkcategory_objid" required="false" searchable="true"/>
 		<!-- kutob diri -->
 
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
