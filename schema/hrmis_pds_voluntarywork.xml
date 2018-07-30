@@ -8,7 +8,9 @@
 		<!-- mao ni bago -->
 		<field name="voluntarywork_objid" required="true" searchable="true"/>
 		<field name="institutiontype_objid" required="true" searchable="true"/>
+
 		<complex name="organizationaddress" required="true"  serializer="default"/>
+		
 		<field name="organizationaddress_text" required="true" searchable="true"/>
 		<field name="datefrom" required="true" searchable="true"/>
 		<field name="dateto" required="true" searchable="true"/>
