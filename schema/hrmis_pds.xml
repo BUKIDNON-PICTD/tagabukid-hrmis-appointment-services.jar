@@ -43,7 +43,6 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
-
 		
 		<complex name="familyfatherInfos" ref="hrmis_pds_familybackground_fathername" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
@@ -60,7 +59,6 @@
 		<complex name="familychildInfos" ref="hrmis_pds_familybackground_children" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
-
 
 		<complex name="educationalInfos" ref="hrmis_pds_educationalinfo" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		

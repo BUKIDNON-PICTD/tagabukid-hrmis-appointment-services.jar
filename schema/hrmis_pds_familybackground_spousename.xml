@@ -4,7 +4,8 @@
         <field name="pdsid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
         <field name="nameextension" required="false" searchable="true" visible="false" /> 
-        <field name="occupation" required="false" searchable="true" visible="false" /> 
+        <field name="occupation" required="false" searchable="true" visible="false" />
+        <field name="businessname" required="false" searchable="true" visible="false" /> 
         <field name="businessadd" required="false" searchable="true" visible="false" /> 
         <field name="phoneno" required="false" searchable="true" visible="false" /> 
         

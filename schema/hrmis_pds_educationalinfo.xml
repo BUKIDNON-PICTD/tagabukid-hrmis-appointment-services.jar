@@ -17,5 +17,10 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="school" ref="master_tblinstitution" jointype="many-to-one" required="false">
+			<key field="school_objid" target="objid" />
+		</complex>
+
 	</element>
 </schema>
