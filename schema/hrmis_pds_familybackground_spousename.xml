@@ -3,6 +3,7 @@
         <field name="objid" primary="true" searchable="false" prefix="FAMS-" />
         <field name="pdsid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
+        <field name="maidenname" required="true" searchable="true" visible="false" /> 
         <field name="nameextension" required="false" searchable="true" visible="false" /> 
 
         <!-- nara gi add -->
