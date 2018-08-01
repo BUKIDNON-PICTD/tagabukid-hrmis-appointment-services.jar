@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblskillcompetencylevel">
 		<field name="objid" primary="true" visible="false" prefix="SCL" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="name" caption="Skill Competency Level" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="numericvalue" caption="Numeric Value" required="true" />

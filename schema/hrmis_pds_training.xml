@@ -4,22 +4,40 @@
 		<field name="pdsid" required="true" searchable="false" />
 		<field name="training_objid" caption="Name" required="true" searchable="true" />
 		<!-- kani bago ni -->
+<!-- <<<<<<< HEAD
+		<field name="attendedfrom" required="false" searchable="false" />
+		<field name="attendedto" required="false" searchable="false" />
+		<field name="numberofhours" required="false" searchable="false" />
+		<field name="sponsor" required="false" searchable="false" />
+
+======= -->
 		<field name="attendedfrom" required="true" searchable="false" />
 		<field name="attendedto" required="true" searchable="false" />
 		<field name="numberofhours" required="true" searchable="false" />
 		<field name="sponsor" required="true" searchable="false" />
 		<!-- <field name="trainingcategory_objid" required="false" searchable="false" /> -->
+<!-- >>>>>>> 9b58342b1aee682524a41984754b104e49490cc7 -->
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
 		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
+<!-- <<<<<<< HEAD
+
+=======
 		
+>>>>>>> 9b58342b1aee682524a41984754b104e49490cc7 -->
 		<complex name="training" ref="master_tbltraining" jointype="many-to-one" required="false">
 			<key field="training_objid" target="objid" />
-		</complex>
+		</complex><!-- 
 
+<<<<<<< HEAD
+		<complex name="trainingcategory" ref="master_tbltrainingcategory" jointype="many-to-one" required="false">
+			<key field="trainingcategory_objid" target="objid" />
+		</complex>
+=======
+>>>>>>> 9b58342b1aee682524a41984754b104e49490cc7 -->
 	</element>
 </schema>
 <!-- ok -->
