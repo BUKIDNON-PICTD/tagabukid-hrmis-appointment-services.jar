@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblprofessionalorganizationorassociationcategory">
 		<field name="objid" primary="true" visible="false" prefix="POA" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="true"  searchable="true"/>
+		<field name="name" caption="Organization Category" required="true"  searchable="true"/>
 		<field name="description" caption="Description" required="false"  searchable="true"/>
 		<field name="code" caption="Code" required="false"  searchable="true"/>
 		<field name="state" required="true" visible="false" searchable="false" />

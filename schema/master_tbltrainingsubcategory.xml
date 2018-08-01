@@ -4,7 +4,9 @@
 		<field name="name" caption="Training Sub Category Name" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
-		<!-- <field name="trainingcategory_objid" visible="false" required="true" /> -->
+
+		<field name="trainingcategory_objid" visible="false" required="true" />
+		
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" visible="false" required="false" />
 		<field name="recordlog_createdbyuserid" visible="false" required="false" />
@@ -13,8 +15,8 @@
 		<field name="recordlog_lastupdatebyuserid" visible="false" required="false" />
 		<field name="recordlog_lastupdatebyuser" visible="false" required="false" />
 		
-		<!-- <complex name="trainingcategory" ref="master_tbltrainingcategory" jointype="many-to-one" required="false">
+		<complex name="trainingcategory" ref="master_tbltrainingcategory" jointype="many-to-one" required="false">
 			<key field="trainingcategory_objid" target="objid" />
-		</complex> -->
+		</complex>
 	</element>
 </schema>

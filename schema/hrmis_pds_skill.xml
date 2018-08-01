@@ -11,7 +11,7 @@
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
 
-		<complex name="skill" ref="hrmis_tblprofileskill" jointype="many-to-one" required="false">
+		<complex name="skill" ref="master_tblskill" jointype="many-to-one" required="false">
 			<key field="skill_objid" target="objid" />
 		</complex>
 	</element>
