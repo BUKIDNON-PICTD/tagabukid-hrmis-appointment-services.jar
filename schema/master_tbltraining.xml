@@ -1,20 +1,22 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbltraining">
 		<field name="objid" primary="true" prefix="PTP" searchable="false" />
+
 		<field name="name" required="true" caption="Name" searchable="true"/>
 		<field name="code" required="false" caption="Code" searchable="true"/>
 		<field name="description" required="false" caption="Description" searchable="true"/>
+<!-- 
 		<field name="trainingsubcategory_objid" required="true" visible="false" searchable="false"/>
-		<field name="sponsorinstitutiontype_objid" required="true" visible="false" searchable="false"/>
-		<field name="trainingcomprehensiveness_objid" required="true" visible="false" searchable="false"/>
-		<!-- <field name="sponsor" required="false" caption="Sponsor" searchable="true"/> -->
+		
+		<field name="sponsorinstitutiontype_objid" required="true" visible="false" searchable="false"/> -->
+
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="false" searchable="false" visible="false" />
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
-	
+
 
 		<complex name="trainingsubcategory" ref="master_tbltrainingsubcategory" jointype="many-to-one" required="false">
 			<key field="trainingsubcategory_objid" target="objid" />

@@ -11,7 +11,7 @@
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
 
-		<complex name="affiliation" ref="hrmis_tblprofileaffiliation" jointype="many-to-one" required="false">
+		<complex name="affiliation" ref="master_tblaffiliation" jointype="many-to-one" required="false">
 			<key field="affiliation_objid" target="objid" />
 		</complex>
 	</element>
