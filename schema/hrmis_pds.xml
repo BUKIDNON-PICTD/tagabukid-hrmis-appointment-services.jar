@@ -57,6 +57,51 @@
 			<key field="objid" target="pdsid" /> 		
 		</complex>
 
+
+		<!-- For Consanguinity & affinity -->
+		<complex name="fatherGrandmother" ref="hrmis_pds_family_fatherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="fatherGrandfather" ref="hrmis_pds_family_fatherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="motherGrandfather" ref="hrmis_pds_family_motherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="motherGrandmother" ref="hrmis_pds_family_motherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<!-- Spouse Family Tree-->
+		<complex name="spouseFather" ref="hrmis_pds_family_spouse_father" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>	
+
+		<complex name="spouseMother" ref="hrmis_pds_family_spouse_mother" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>	
+
+		<complex name="spouseFatherGrandmother" ref="hrmis_pds_family_spouse_fatherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>		
+
+		<complex name="spouseFatherGrandfather" ref="hrmis_pds_family_spouse_fatherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+
+		<complex name="spouseMotherGrandfather" ref="hrmis_pds_family_spouse_motherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+		
+		<complex name="spouseMotherGrandmother" ref="hrmis_pds_family_spouse_motherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" /> 		
+		</complex>
+		<!-- |||||||||||||||END||||||||||||||| -->
+
+
 		<complex name="familychildInfos" ref="hrmis_pds_familybackground_children" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" /> 		
 		</complex>
