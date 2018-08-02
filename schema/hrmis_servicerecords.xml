@@ -1,0 +1,48 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_servicerecords">
+		<field name="objid" primary="true" visible="false" searchable="false"/>
+		<field name="pdsid" required="true" searchable="false" visible="true" />
+		<field name="personnelaction_objid" required="false" searchable="false" visible="true" />
+		<field name="datefrom" visible="true" searchable="true"/>
+		<field name="dateto" visible="true" searchable="true"/>
+		<field name="jobposition_objid" required="false" searchable="false" visible="true" />
+		<field name="paygradestepincrement_objid" required="true" visible="false" searchable="false"/>
+		<field name="employmentstatus_objid" required="false" visible="false" searchable="false"/>
+		<field name="wage" required="true" visible="true" searchable="true"/>
+		<field name="compensationtype" required="true" visible="true" searchable="true"/>
+		<field name="org_orgunitid" required="true" visible="false" searchable="false"/>	
+		<field name="branch_objid" required="true" visible="false" searchable="false"/>			
+		<field name="lawop" required="false" visible="false" searchable="false"/>
+		<field name="separationtype_objid" required="true" visible="false" searchable="false"/>
+		<field name="separationdate" visible="true" searchable="true"/>
+		<field name="isgovservice" required="true" searchable="false" visible="true" />
+
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
+			<key field="jobposition_objid" target="objid" />
+		</complex>
+
+		<complex name="paygradestepincrement" ref="master_tblpaygradeandstepincrement" jointype="many-to-one" required="false">
+			<key field="paygradestepincrement_objid" target="objid" />
+		</complex>
+
+		<complex name="employmentstatus" ref="master_tblemptemploymentstatus" jointype="many-to-one" required="false">
+			<key field="employmentstatus_objid" target="objid" />
+		</complex>
+
+		<complex name="separationtype" ref="master_tblemploymentseparationtype" jointype="many-to-one" required="false">
+			<key field="separationtype_objid" target="objid" />
+		</complex>
+
+		<complex name="branch" ref="master_tblemploymentbranch" jointype="many-to-one" required="false">
+			<key field="branch_objid" target="objid" />
+		</complex>
+
+	</element>
+</schema>
