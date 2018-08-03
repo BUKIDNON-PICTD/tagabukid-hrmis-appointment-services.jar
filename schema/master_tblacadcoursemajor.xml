@@ -2,11 +2,11 @@
 	<element tablename="references_tblacadcoursemajor">
 		<field name="objid" primary="true" visible="false" prefix="ACM" searchable="false" required="true"/>
 
-		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="name" caption="Course Major" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 
-		<field name="courseid" visible="false" required="true" searchable="false" />
+		<field name="course_objid" visible="false" required="true" searchable="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
@@ -14,5 +14,9 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="course" ref="master_tblacadcourse" jointype="many-to-one" required="false">
+			<key field="course_objid" target="objid" /> 
+		</complex>
 	</element>
 </schema>

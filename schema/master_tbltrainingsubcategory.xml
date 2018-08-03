@@ -1,12 +1,10 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tbltrainingsubcategory">
 		<field name="objid" primary="true" prefix="TSC" searchable="false" />
-		<field name="name" caption="Training Sub Category Name" required="true" searchable="true" />
-		<field name="description" caption="Description" required="false" searchable="true" />
-		<field name="code" caption="Code" required="false" searchable="true" />
-
-		<field name="trainingcategory_objid" visible="false" required="true" />
-		
+		<field name="name" caption="Training Subcategory" required="true" searchable="true" />
+		<field name="description" caption="Description" required="false" visible="false" searchable="true" />
+		<field name="code" caption="Code" required="false"  visible="false" searchable="true" />
+		<field name="trainingcategory_objid" visible="false" required="true" />		
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" visible="false" required="false" />
 		<field name="recordlog_createdbyuserid" visible="false" required="false" />

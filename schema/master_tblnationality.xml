@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblnationality">
 		<field name="objid" primary="true" prefix="NAT" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="name" caption="Nationality" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="country_objid" visible="false" required="true" />
 		<field name="state" required="true" visible="false" searchable="false" />

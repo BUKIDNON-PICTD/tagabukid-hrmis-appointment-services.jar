@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblproductitem">
 		<field name="objid" visible="false" primary="true" prefix="TPI" searchable="false" />
-		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="name" caption="Product Item" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="productcategory_objid" visible="false" required="true" />

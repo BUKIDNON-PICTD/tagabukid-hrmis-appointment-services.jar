@@ -1,7 +1,7 @@
  <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblinstitution">
 		<field name="objid" primary="true" visible="false" prefix="INS" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="name" caption="Institution" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 		<field name="dateestablished" required="false" visible="false" searchable="false" />
