@@ -2,7 +2,7 @@
 	<element tablename="references_tblacadeducationaldegree">
 		<field name="objid" primary="true" visible="false" prefix="AED" searchable="false" required="true"/>
 
-		<field name="name" caption="Name" required="true" searchable="true" />
+		<field name="name" caption="Degree" required="true" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 

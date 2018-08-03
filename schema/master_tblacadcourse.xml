@@ -1,11 +1,11 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblacadcourse">
 		<field name="objid" primary="true" visible="false" prefix="TAC" searchable="false" required="true"/>
-		<field name="name" caption="Name" required="false" searchable="true" />
+		<field name="name" caption="Course" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
 
-		<field name="degreeid" visible="false" required="true" searchable="false" />
+		<field name="degree_objid" visible="false" required="true" searchable="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
 		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
@@ -14,5 +14,9 @@
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 		<field name="oldid" required="false" visible="false" searchable="false" />
+
+		<complex name="degree" ref="master_tblacadeducationaldegree" jointype="many-to-one" required="false">
+			<key field="degree_objid" target="objid" /> 
+		</complex>
 	</element>
 </schema>
