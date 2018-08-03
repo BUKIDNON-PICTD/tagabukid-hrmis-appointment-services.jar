@@ -50,6 +50,20 @@ class TagabukidHRMISPDSService
          //child info
         entity.familychildInfos = []
 
+        //consanguinity or affinity infos
+        entity.fatherGrandmother = []
+        entity.fatherGrandfather = []
+        entity.motherGrandfather = []
+        entity.motherGrandmother = []
+        entity.spouseFather = []
+        entity.spouseMother = []
+        entity.spouseFatherGrandmother = []
+        entity.spouseFatherGrandfather = []
+        entity.spouseMotherGrandfather = []
+        entity.spouseMotherGrandmother = []
+        //end
+
+
         //education section
         entity.educationalInfos = []
 
@@ -59,8 +73,6 @@ class TagabukidHRMISPDSService
         //work experience section
         entity.workexperienceInfos = []
 
-        
-		//skills section
         entity.voluntaryworks = []
 
         entity.trainings = []
