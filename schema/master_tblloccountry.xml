@@ -1,7 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="references_tblloccountry">
 		<field name="objid" primary="true" prefix="TLC" visible="false" searchable="false" required="true"/>
-		<field name="name" caption="Country Name" required="true" searchable="true" />
+		<field name="name" caption="Country" required="true" searchable="true" />
 		<field name="twodigitcode" caption="Two Digit Code" required="false" searchable="true" />
 		<field name="codeiso3" caption="Code ISO 3" required="false" searchable="true" />
 		<field name="numericcode" caption="Numeric Code" required="false" />

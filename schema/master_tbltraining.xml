@@ -2,8 +2,8 @@
 	<element tablename="references_tbltraining">
 		<field name="objid" primary="true" prefix="PTP" searchable="false" />
 
-		<field name="name" required="true" caption="Name" searchable="true"/>
-		<field name="code" required="false" caption="Code" searchable="true"/>
+		<field name="name" required="true" caption="Training Title" searchable="true"/>
+		<field name="code" required="false" caption="Code" visible="false" searchable="true"/>
 		<field name="description" required="false" caption="Description" searchable="true"/>
 <!-- 
 		<field name="trainingsubcategory_objid" required="true" visible="false" searchable="false"/>
@@ -20,6 +20,7 @@
 
 		<complex name="trainingsubcategory" ref="master_tbltrainingsubcategory" jointype="many-to-one" required="false">
 			<key field="trainingsubcategory_objid" target="objid" />
+		</complex>
 
 		<complex name="sponsorinstitutiontype" ref="master_tblinstitutiontype" jointype="many-to-one" required="false">
 			<key field="sponsorinstitutiontype_objid" target="objid" />
@@ -27,7 +28,6 @@
 
 		<complex name="trainingcomprehensiveness" ref="master_tbltrainingcomprehensiveness" jointype="many-to-one" required="false">
 			<key field="trainingcomprehensiveness_objid" target="objid" />
-		</complex>
 		</complex>
 	</element>
 </schema>

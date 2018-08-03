@@ -15,7 +15,7 @@
 		<field name="recordlog_lastupdatebyuserid" required="false" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatebyuser" required="false" visible="false" searchable="false" />
 
-		<complex name="region" ref="master_tblloccountry" jointype="many-to-one" required="false">
+		<complex name="region" ref="master_tbllocregion" jointype="many-to-one" required="false">
 			<key field="region_objid" target="objid" />
 		</complex>
 	</element>
