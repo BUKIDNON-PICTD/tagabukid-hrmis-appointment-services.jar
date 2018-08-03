@@ -2,9 +2,9 @@
 	<element tablename="references_tblvoluntarywork">
 		<field name="objid" primary="true" prefix="PVW" searchable="false" />
 
-		<field name="name" required="true" caption="Name" searchable="false"/>
-		<field name="code" required="false" visible="false" searchable="false"/>
-		<field name="description" required="false" visible="false" searchable="false"/>
+		<field name="name" required="true" caption="Name" searchable="true"/>
+		<field name="code" required="false" visible="true" searchable="true"/>
+		<field name="description" required="false" visible="true" searchable="true"/>
 
 		<field name="recordlog_datecreated" required="false" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="false" searchable="false" visible="false" />
