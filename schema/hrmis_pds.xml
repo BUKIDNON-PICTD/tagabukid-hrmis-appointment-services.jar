@@ -149,7 +149,8 @@
 		<complex name="pdsquestions" ref="hrmis_pds_question" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" />
 		</complex>
-		<complex name="servicerecords" ref="hrmis_servicerecords" jointype="one-to-many" required="false">
+		
+		<complex name="servicerecordInfos" ref="hrmis_servicerecords" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" />
 		</complex>
 	</element>
