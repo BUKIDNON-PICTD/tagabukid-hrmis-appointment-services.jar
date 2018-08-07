@@ -5,7 +5,7 @@
 		<field name="name" caption="Name" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
-		<field name="parentaccounttitleid" visible="false" required="false" />
+		<field name="parentaccounttitle_objid" visible="false" required="false" />
 		<field name="position" visible="false" required="false" />
 		<field name="normalbalance" required="false" visible="false" searchable="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
@@ -18,5 +18,10 @@
 		<field name="fund_id" visible="false" required="false" />		
 		<field name="lft" visible="false" required="false" />
 		<field name="rgt" visible="false" required="false" />
+
+		<complex name="parentaccounttitle" ref="master_tblfinaccounttitle" jointype="many-to-one" required="false">
+			<key field="parentaccounttitle_objid" target="objid" />
+		</complex>
+
 	</element>
 </schema>
