@@ -1,0 +1,16 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_tblcompensationtype">
+		<field name="objid" primary="true" prefix="CT" visible="false" searchable="false" required="true"/>
+		<field name="name" caption="Compensation Type Name" required="false" searchable="true" />
+		<field name="description" visible="false" required="false" searchable="true" />
+		<field name="code" visible="false" required="false" searchable="true" />
+		<field name="state" visible="false" required="true" />
+		<field name="recordlog_datecreated" visible="false" required="false" />
+		<field name="recordlog_createdbyuserid" visible="false" required="false" />
+		<field name="recordlog_createdbyuser" visible="false" required="false" />
+		<field name="recordlog_dateoflastupdate" visible="false" required="false" />
+		<field name="recordlog_lastupdatedbyuserid" visible="false" required="false" />
+		<field name="recordlog_lastupdatedbyuser" visible="false" required="false" />
+		
+	</element>
+</schema>

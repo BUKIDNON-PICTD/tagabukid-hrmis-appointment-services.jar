@@ -8,10 +8,13 @@
 		<field name="datefrom" visible="true" searchable="true"/>
 		<field name="dateto" visible="true" searchable="true"/>
 		<field name="jobposition_objid" required="false" searchable="false" visible="true" />
+		<field name="tranche_objid" required="false" searchable="false" visible="true" />
 		<field name="paygradestepincrement_objid" required="true" visible="false" searchable="false"/>
 		<field name="employmentstatus_objid" required="false" visible="false" searchable="false"/>
 		<field name="wage" required="true" visible="true" searchable="true"/>
-		<field name="compensationtype" required="false" visible="true" searchable="true"/>
+		<field name="compensationtype_objid" required="false" visible="true" searchable="true"/>
+		<field name="monthlysalary" required="true" visible="true" searchable="true"/>
+		<field name="reportdisplay" required="true" visible="true" searchable="true"/>
 		<field name="org_orgunitid" required="true" visible="false" searchable="false"/>	
 		<field name="branch_objid" required="true" visible="false" searchable="false"/>			
 		<field name="lawop" required="false" visible="false" searchable="false"/>
@@ -48,6 +51,14 @@
 
 		<complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
 			<key field="org_orgunitid" target="orgunitid" />
+		</complex>
+
+		<complex name="compensationtype" ref="master_tblcompensationtype" jointype="many-to-one" required="false">
+			<key field="compensationtype_objid" target="objid" />
+		</complex>
+
+		<complex name="tranch" ref="hrmis_payrollsalarytranche" jointype="many-to-one" required="false">
+			<key field="tranche_objid" target="objid" />
 		</complex>
 
 	</element>
