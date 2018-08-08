@@ -55,12 +55,20 @@ class TagabukidHRMISPDSReportService
 				}
 			}
 
+			pdsentity.workexperienceInfos
+			pdsentity.trainings
+
+
+			if (pdsentity.references.size > 0){
+				pdsentity.references[0].reference = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.references[0].reference.objid])
+			}
+			pdsentity.references	
 
 			data.reportdata = pdsentity
 			println pdsentity
 			data.parameters = [
-				LGUNAME  :"PG-BUKIDNON, REGION 10",
-				LGUADDRESS : "Provincial Capitol, City of Malaybalay",
+				// LGUNAME  :"PG-BUKIDNON, REGION 10",
+				// LGUADDRESS : "Provincial Capitol, City of Malaybalay",
 				TITLE :"PERSONAL DATA SHEET",
 			]
 		return data;

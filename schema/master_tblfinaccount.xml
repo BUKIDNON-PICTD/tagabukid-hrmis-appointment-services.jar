@@ -4,7 +4,7 @@
 		<field name="name" caption="Name" required="false" searchable="true" />
 		<field name="description" caption="Description" required="false" searchable="true" />
 		<field name="code" caption="Code" required="false" searchable="true" />
-		<field name="parentaccountid" visible="false" required="false" />
+		<field name="parentaccount_objid" visible="false" required="false" />
 		<field name="fund_objid" visible="false" required="true" searchable="false" />
 		<field name="position" caption="Position" visible="false" required="false" />
 		<field name="state" required="true" visible="false" searchable="false" />
@@ -18,9 +18,9 @@
 		<field name="lft" visible="false" required="false" />
 		<field name="rgt" visible="false" required="false" />
 
-		<!-- <complex name="parentaccount" ref="master_tblfinaccount" jointype="many-to-one" required="false">
+		<complex name="parentaccount" ref="master_tblfinaccount" jointype="many-to-one" required="false">
 			<key field="parentaccount_objid" target="objid" />
-		</complex> -->
+		</complex>
 
 		<complex name="fund" ref="master_tblfinfund" jointype="many-to-one" required="false">
 			<key field="fund_objid" target="objid" />
