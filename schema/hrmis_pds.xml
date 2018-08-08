@@ -6,7 +6,7 @@
 		<field name="versionno" required="true" searchable="true" />
 		<field name="person_objid" requied="true" visible="false" caption="" searchable="true" />
 		<!-- added maiden name -->
-		<field name="person_maidenname" required="true" visible="true" caption="Name" searchable="true" />
+		<field name="maidenname" required="true" visible="true" caption="Name" searchable="true" />
 		
 		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
 		<field name="person_lastname" requied="trure" visible="false" caption="" searchable="true" />
