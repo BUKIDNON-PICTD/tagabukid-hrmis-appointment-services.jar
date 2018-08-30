@@ -13,33 +13,93 @@ class TagabukidHRMISVerificationReportService
 	@Env
 	def env;
 
+	@ActiveDB(value='hrmis_pds_verification', em='tagabukid_hrmis')
+	def em;
+
 	@ProxyMethod
 	public def getVerificationReportData(params){
 		def data =[:]
 			
 			def pdsentity = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
 
-		// 	if (pdsentity.familyfatherInfos.size > 0){
+			def hitsmatch = em.getHitList([hit:pdsentity.objid])
+
+
+
+			if (pdsentity.familyfatherInfos.size > 0){
 				pdsentity.familyfatherInfos[0].father = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyfatherInfos[0].father.objid])
-		// 	}
-		// 	if (pdsentity.familymotherInfos.size > 0){
+			}
+			if (pdsentity.familymotherInfos.size > 0){
 				pdsentity.familymotherInfos[0].mother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familymotherInfos[0].mother.objid])
-		// 	}
-		// 	if (pdsentity.familyspouseInfos.size > 0){
+			}
+			if (pdsentity.familyspouseInfos.size > 0){
 				pdsentity.familyspouseInfos[0].spouse = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyspouseInfos[0].spouse.objid])
-		// 	}
-		// 	if (pdsentity.familychildInfos.size > 0){
+			}
+			if (pdsentity.familychildInfos.size > 0){
 				pdsentity.familychildInfos.each{
 					it.child = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.child.objid])
 				}
-		// 	}
+			}
+
+			// addt'l family tree
+			if (pdsentity.fatherGrandmother.size > 0){
+				pdsentity.fatherGrandmother[0].fathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fatherGrandmother[0].fathersidegrandmother.objid])
+			}
+
+			if (pdsentity.fatherGrandfather.size > 0){
+				pdsentity.fatherGrandfather[0].fathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fatherGrandfather[0].fathersidegrandfather.objid])
+			}
+
+			if (pdsentity.motherGrandmother.size > 0){
+				pdsentity.motherGrandmother[0].mothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.motherGrandmother[0].mothersidegrandmother.objid])
+			}
+
+			if (pdsentity.motherGrandfather.size > 0){
+				pdsentity.motherGrandfather[0].mothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.motherGrandfather[0].mothersidegrandfather.objid])
+			}
+
+			// for spouse
+			if (pdsentity.spouseFather.size > 0){
+				pdsentity.spouseFather[0].spousefather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseFather[0].spousefather.objid])
+			}
+			if (pdsentity.spouseMother.size > 0){
+				pdsentity.spouseMother[0].spousemother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseMother[0].spousemother.objid])
+			}
+
+
+			if (pdsentity.spouseFatherGrandmother.size > 0){
+				pdsentity.spouseFatherGrandmother[0].spousefathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseFatherGrandmother[0].spousefathersidegrandmother.objid])
+			}
+			if (pdsentity.spouseFatherGrandfather.size > 0){
+				pdsentity.spouseFatherGrandfather[0].spousefathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseFatherGrandfather[0].spousefathersidegrandfather.objid])
+			}
+			if (pdsentity.spouseMotherGrandmother.size > 0){
+				pdsentity.spouseMotherGrandmother[0].spousemothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseMotherGrandmother[0].spousemothersidegrandmother.objid])
+			}
+			if (pdsentity.spouseMotherGrandfather.size > 0){
+				pdsentity.spouseMotherGrandfather[0].spousemothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouseMotherGrandfather[0].spousemothersidegrandfather.objid])
+			}
+			// end addt'l family tree
+
+			pdsentity.hits = hitsmatch
 			
-			// pdsentity.family = [
-		// 		fatherdata : pdsentity.familyfatherInfos[0],
-		// 		motherdata : pdsentity.familymotherInfos[0],
-		// 		spousedata : pdsentity.familyspouseInfos[0],
-		// 		childdata : pdsentity.familychildInfos
-		// 	]
+			pdsentity.family = [
+				father : pdsentity.familyfatherInfos[0],
+				mother : pdsentity.familymotherInfos[0],
+				fathergrandmother : pdsentity.fatherGrandmother[0],
+				fathergrandfather : pdsentity.fatherGrandfather[0],
+				mothergrandmother : pdsentity.motherGrandmother[0],
+				mothergrandfather : pdsentity.motherGrandfather[0],
+
+				spouse : pdsentity.familyspouseInfos[0],
+				spousemother : pdsentity.spouseMother[0],
+				spousefather : pdsentity.spouseFather[0],
+
+				spousefathergrandmother : pdsentity.spouseFatherGrandmother[0],
+				spousefathergrandfather : pdsentity.spouseFatherGrandfather[0],
+				spousemothergrandmother : pdsentity.spouseMotherGrandmother[0],
+				spousemothergrandfather : pdsentity.spouseMotherGrandfather[0],
+			]
 
 		// 	def Levels = [
 		// 		[ level : "ELEMENTARY" ],
@@ -65,7 +125,7 @@ class TagabukidHRMISVerificationReportService
 		// 	pdsentity.references	
 
 			data.reportdata = pdsentity
-			println pdsentity
+			println pdsentity.hits
 		// 	data.parameters = [
 		// 		// LGUNAME  :"PG-BUKIDNON, REGION 10",
 		// 		// LGUADDRESS : "Provincial Capitol, City of Malaybalay",
