@@ -19,34 +19,64 @@ class ServiceRecordReportService
 	@Service('RPTUtil')
 	def util
 
+	@ActiveDB(value='servicerecord', em='tagabukid_hrmis')
+	def em
+
 	@Env
 	def env;
 
 	@ProxyMethod
 	public def getServiceRecordById(params){
 		def data = [:]
-	    println params
+	    //println params
 		def servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+		//println "*************************************************************"
+		//println servicerecord.servicerecordInfos
+		//println	servicerecord.objid
+		//println servicerecord
+		//println "*************************************************************"
+		//println params.forretirement
 		servicerecord.servicerecordInfos.each{
 			//it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.entityid]);
         	//it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
 			//it.plantilla.Id = it.plantilla.Id.toString()
-			it.jobposition = persistenceSvc.read( [_schemaname:'master_tbljobposition', objid:it.jobposition_objid] );
-			it.employmentstatus = persistenceSvc.read( [_schemaname:'master_tblemptemploymentstatus', objid:it.employmentstatus_objid] );
-            it.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', objid:it.org_orgunitid] );
-            it.branch = persistenceSvc.read( [_schemaname:'master_tblemploymentbranch', objid:it.branch_objid] );
-            it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction_objid] );
-		}.sort{it.servicerecordInfos.datefrom}
+			//it.jobposition = persistenceSvc.read( [_schemaname:'master_tbljobposition', objid:it.jobposition.objid] );
+			//it.employmentstatus = persistenceSvc.read( [_schemaname:'master_tblemptemploymentstatus', objid:it.employmentstatus.objid] );
+            //it.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:it.org.orgunitid] );
+            //it.branch = persistenceSvc.read( [_schemaname:'master_tblemploymentbranch', objid:it.branch.objid] );
+            it.monthlysalary = (it.reportdisplay == 'DAILY') ? it.monthlysalary/22 : (it.reportdisplay == 'MONTHLY') ? it.monthlysalary : (it.reportdisplay == 'ANNUALLY') ? it.monthlysalary*12 : (it.reportdisplay == 'HONORARIUM') ? it.monthlysalary : 'NA'
+            it.reportdisplay = (it.reportdisplay == 'DAILY') ? "/d" : (it.reportdisplay == 'MONTHLY') ? "/m" : (it.reportdisplay == 'ANNUALLY') ? "/a" :  (it.reportdisplay == 'HONORARIUM') ? "/h" : 'NA'
+            it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : it.employmentstatus.name
+            it.lawop = it.lawop ? it.lawop : "None"
+            it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction.objid] );
+		}.sort{it.datefrom}
+
+		servicerecord.serviceretireInfos.each{
+			//it.separationtype = persistenceSvc.read([_schemaname:'master_tblemploymentseparationtype', objid:it.separationtype.objid])
+			it.personnelaction = it.separationtype;
+			it.datefrom = (params.forgsis == true) ? it.datefrom : it.datefrom - 1
+			servicerecord.servicerecordInfos<<it
+		}//.sort{it.datefrom}
+
+		//println servicerecord.servicerecordInfos
 		//appointment.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:appointment.org.objid] );
 		//appointment.natureofappointment = persistenceSvc.read( [_schemaname:'master_tblappointmententrycode', objid:appointment.natureofappointmentid] );
 		//servicerecord.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		//println appointment
 		data.reportdata = servicerecord;
+		def d = dtSvc.getServerDate()
+		def x = em.findServiceRecordReceiptData([objid:servicerecord.objid])
+		def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+		//println diff
+		//println	x
 		data.parameters = [
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capitol, City of Malaybalay",
 			TITLE :"SERVICE RECORD",
 			ORGNAME :"PROVINCIAL HUMAN RESOURCE MANAGEMENT OFFICE",
+			receiptno : (diff.difference <= 90) ? x.receiptno : null,
+			receiptdate	: (diff.difference <= 90) ? x.receiptdate : null,
+			forretirement : (params.forretirement == true) ? null : "*Not valid for retirement purposes",
 		]
 		return data
 

@@ -155,5 +155,9 @@
 		<complex name="servicerecordInfos" ref="hrmis_servicerecords" jointype="one-to-many" required="false">
 			<key field="objid" target="pdsid" />
 		</complex>
+
+		<complex name="serviceretireInfos" ref="hrmis_serviceretire" jointype="one-to-many" required="false">
+			<key field="objid" target="pdsid" />
+		</complex>
 	</element>
 </schema>
