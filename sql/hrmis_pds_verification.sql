@@ -1,6 +1,6 @@
 [getHitList]
 -- by lastname vs lastname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_lastname` IN
 (
 SELECT DISTINCT zzz.lastname
@@ -104,7 +104,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by lastname vs middlename
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_lastname` IN
 (
 SELECT DISTINCT zzz.middlename
@@ -207,7 +207,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by lastname vs maidenname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_lastname` IN
 (
 SELECT DISTINCT zzz.maidenname
@@ -314,7 +314,7 @@ UNION
 -- middlename here
 
 -- by MIDDLENAME vs lastname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_middlename` IN
 (
 SELECT DISTINCT zzz.lastname
@@ -417,7 +417,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by middlename vs middlename
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_middlename` IN
 (
 SELECT DISTINCT zzz.middlename
@@ -520,7 +520,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by middlename vs maidenname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`person_middlename` IN
 (
 SELECT DISTINCT zzz.maidenname
@@ -628,7 +628,7 @@ UNION
 -- maidenname here
 
 -- by maidenname vs lastname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`maidenname` IN
 (
 SELECT DISTINCT zzz.lastname
@@ -731,7 +731,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by maidenname vs middlename
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`maidenname` IN
 (
 SELECT DISTINCT zzz.middlename
@@ -834,7 +834,7 @@ WHERE q.pdsid = $P{hit}
 UNION
 
 -- by maidenname vs maidenname
-SELECT xx.person_name as fullname FROM hrmis_pds xx
+SELECT xx.objid, xx.person_name as fullname FROM hrmis_pds xx
 WHERE xx.`maidenname` IN
 (
 SELECT DISTINCT zzz.maidenname
@@ -868,7 +868,7 @@ INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.child_objid
 WHERE f.pdsid = $P{hit}
 
 -- ++++++++++++ --
--- GRANDPARENTS --
+-- GRANDPARENTS -- 
 
 UNION
 
