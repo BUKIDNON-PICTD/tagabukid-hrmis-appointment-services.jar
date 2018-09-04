@@ -22,9 +22,9 @@ class TagabukidHRMISVerificationReportService
 			
 			def pdsentity = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
 
+
+			
 			def hitsmatch = em.getHitList([hit:pdsentity.objid])
-
-
 
 			if (pdsentity.familyfatherInfos.size > 0){
 				pdsentity.familyfatherInfos[0].father = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyfatherInfos[0].father.objid])
@@ -34,7 +34,29 @@ class TagabukidHRMISVerificationReportService
 			}
 			if (pdsentity.familyspouseInfos.size > 0){
 				pdsentity.familyspouseInfos[0].spouse = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyspouseInfos[0].spouse.objid])
+				def hs = em.getHitList([hit:pdsentity.familyspouseInfos[0].spouse.objid])
+				hitsmatch += hs
 			}
+			
+			// println hs
+
+
+	
+
+			def hitlist = []
+
+			
+			hitsmatch.each {
+				println it
+				hitlist += em.getHitList([hit:it.objid])
+			}
+			//println hitlist
+
+			
+
+			hitsmatch += hitlist
+
+
 			if (pdsentity.familychildInfos.size > 0){
 				pdsentity.familychildInfos.each{
 					it.child = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.child.objid])
@@ -81,8 +103,17 @@ class TagabukidHRMISVerificationReportService
 			}
 			// end addt'l family tree
 
-			pdsentity.hits = hitsmatch
+			pdsentity.hits = hitsmatch.groupBy({[objid:it.objid,fullname:it.fullname]}).collect{a,b->
+				[
+					objid:a.objid,
+					fullname:a.fullname
+				]
+			}.sort{it.fullname}
+
+			pdsentity.hits.removeAll(pdsentity.hits.findAll{it.objid == pdsentity.objid})
+
 			
+
 			pdsentity.family = [
 				father : pdsentity.familyfatherInfos[0],
 				mother : pdsentity.familymotherInfos[0],
@@ -125,7 +156,7 @@ class TagabukidHRMISVerificationReportService
 		// 	pdsentity.references	
 
 			data.reportdata = pdsentity
-			println pdsentity.hits
+			// println pdsentity.hits
 		// 	data.parameters = [
 		// 		// LGUNAME  :"PG-BUKIDNON, REGION 10",
 		// 		// LGUADDRESS : "Provincial Capitol, City of Malaybalay",
