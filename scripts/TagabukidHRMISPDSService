@@ -85,6 +85,7 @@ class TagabukidHRMISPDSService
         // entity.questions = []
         
         entity.servicerecordInfos = []
+        entity.serviceretireInfos = []
 
 
 

@@ -8,6 +8,7 @@
 		<field name="datefrom" visible="true" searchable="true"/>
 		<field name="dateto" visible="true" searchable="true"/>
 		<field name="jobposition_objid" required="false" searchable="false" visible="true" />
+		<field name="otherjobposition" required="false" searchable="false" visible="true" />
 		<field name="tranche_objid" required="false" searchable="false" visible="true" />
 		<field name="paygradestepincrement_objid" required="true" visible="false" searchable="false"/>
 		<field name="employmentstatus_objid" required="false" visible="false" searchable="false"/>
