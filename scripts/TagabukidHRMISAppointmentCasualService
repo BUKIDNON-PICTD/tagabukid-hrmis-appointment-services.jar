@@ -21,9 +21,6 @@ class TagabukidHRMISAppointmentCasualService
 	@Service("PersistenceService")
     def persistenceSvc;
 
-    @ActiveDB(value='pmissuccessindicators', em='postgrehrmis')
-	def emposthrmis
-
 	@ActiveDB(value='pmissuccessindicators', em='tagabukid_subay')
 	def emorg;
 

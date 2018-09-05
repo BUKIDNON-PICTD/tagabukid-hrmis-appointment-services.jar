@@ -32,7 +32,7 @@ class TagabukidAppointmentReportService
         }else{
             params.filter = "UPPER(ei.`gender`) IN ('FEMALE','F') "
         }
-        
+        params.status ="Casual"
         if(params.status == "Casual"){
             list = em.getActiveAppointmentByGenderCasual(params)
         }else{
