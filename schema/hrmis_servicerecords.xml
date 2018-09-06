@@ -29,6 +29,7 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+		<field name="oldid" required="false" searchable="false" visible="false" />
 
 		<complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
 			<key field="jobposition_objid" target="objid" />

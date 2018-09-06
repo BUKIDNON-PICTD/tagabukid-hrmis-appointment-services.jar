@@ -12,3 +12,6 @@ where po.permobjid	= $P{objid}
 
 [findDateDiff]
 select DATEDIFF($P{currentdate},$P{receiptdate}) AS difference
+
+[findDateDiffBogus]
+select 1000 as difference

@@ -49,6 +49,7 @@ class ServiceRecordReportService
             it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : it.employmentstatus.name
             it.lawop = it.lawop ? it.lawop : "None"
             it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction.objid] );
+            println it.personnelaction
 		}.sort{it.datefrom}
 
 		servicerecord.serviceretireInfos.each{
@@ -66,9 +67,18 @@ class ServiceRecordReportService
 		data.reportdata = servicerecord;
 		def d = dtSvc.getServerDate()
 		def x = em.findServiceRecordReceiptData([objid:servicerecord.objid])
-		def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+
+		// if (x == null){
+		// 	def diff.difference = 1000
+		// }else{
+		// 	def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+		// }
+
+		def diff = x ? em.findDateDiff([currentdate:d, receiptdate:x.receiptdate]) : em.findDateDiffBogus()
+		//def z = diff ? diff.difference : 1000
+		//println x
 		//println diff
-		//println	x
+		//println	z
 		data.parameters = [
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capitol, City of Malaybalay",
