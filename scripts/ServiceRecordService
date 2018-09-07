@@ -136,7 +136,8 @@ public class ServiceRecordService extends ActiveCrudListService
 
 		def d = dtSvc.getServerDate()
 		def x = em.findServiceRecordReceiptData([objid:params.objid])
-		def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+		//def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+		def diff = x ? em.findDateDiff([currentdate:d, receiptdate:x.receiptdate]) : em.findDateDiffBogus()
 
 		return diff.difference
 	}
