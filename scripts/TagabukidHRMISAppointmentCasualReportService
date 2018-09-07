@@ -32,7 +32,7 @@ class TagabukidHRMISAppointmentCasualReportService
 		def appointment = persistenceSvc.read(params)
 		def pages       = appointment.appointmentitems.size()
 		def pagelist    = []
-		def pagecount = 0
+		def pagecount   = 0
 		for(def x=1;x<=pages;x++){
 			
 			if(x % 15 == 0){
@@ -75,9 +75,9 @@ class TagabukidHRMISAppointmentCasualReportService
 			it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
 			// it.plantilla.Id = it.plantilla.Id.toString()
 		}.sort{it.personnel.lastname}
-		def pagesize  = appointment.appointmentitems.size()
-		def list = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
-		appointment.appointmentitems = []
+		def pagesize                     = appointment.appointmentitems.size()
+		def list                         = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
+		    appointment.appointmentitems = []
 		list.each{
 			appointment.appointmentitems.add(it)
 		}
@@ -90,10 +90,10 @@ class TagabukidHRMISAppointmentCasualReportService
 			LGUNAME   : "PG-BUKIDNON, REGION 10",
 			LGUADDRESS: "Provincial Capiptol, City of Malaybalay",
 			TITLE     : "PLANTILLA OF CASUAL APPOINTMENTS",
-			START : page.start,
-			LASTPAGE : page.end == pagesize,
+			START     : page.start,
+			LASTPAGE  : page.end == pagesize,
 			PAGENUMBER: page.page - 1,
-			PAGECOUNT :pagelist.size() + 1
+			PAGECOUNT : pagelist.size() + 1
 		]
 		return data
 	}
@@ -101,6 +101,8 @@ class TagabukidHRMISAppointmentCasualReportService
 	@ProxyMethod
 	public def getAppointmentCasualRaiById(params){
 		def data = [:]
+
+		
 	//    println params.signatorygroup
 		def appointment = persistenceSvc.read(params)
 		appointment.appointmentitems.each{
@@ -112,9 +114,16 @@ class TagabukidHRMISAppointmentCasualReportService
 		// println appointment
 		data.reportdata = appointment;
 		data.parameters = [
-			LGUNAME   : "PG-BUKIDNON, REGION 10",
-			LGUADDRESS: "Provincial Capiptol, City of Malaybalay",
-			TITLE     : "REPORT ON APPOINTMENT ISSUED (RAI)",
+			LGUNAME            : "PG-BUKIDNON, REGION 10",
+			LGUADDRESS         : "Provincial Capiptol, City of Malaybalay",
+			TITLE              : "REPORT ON APPOINTMENT ISSUED (RAI)",
+			appointmentforms   : params.appointmentforms,
+			casualappointment  : params.casualappointment,
+			pds                : params.pds,
+			eligibility        : params.eligibility,
+			positiondescription: params.positiondescription,
+			oathofoffice       : params.oathofoffice,
+			assumptionofduty   : params.assumptionofduty,
 		]
 		return data
 
