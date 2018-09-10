@@ -49,7 +49,7 @@ class ServiceRecordReportService
             it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : it.employmentstatus.name
             it.lawop = it.lawop ? it.lawop : "None"
             it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction.objid] );
-            println it.personnelaction
+            //println it.personnelaction
 		}.sort{it.datefrom}
 
 		servicerecord.serviceretireInfos.each{
