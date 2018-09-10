@@ -46,11 +46,11 @@ class ServiceRecordReportService
             //it.branch = persistenceSvc.read( [_schemaname:'master_tblemploymentbranch', objid:it.branch.objid] );
             it.monthlysalary = (it.reportdisplay == 'DAILY') ? it.monthlysalary/22 : (it.reportdisplay == 'MONTHLY') ? it.monthlysalary : (it.reportdisplay == 'ANNUALLY') ? it.monthlysalary*12 : (it.reportdisplay == 'HONORARIUM') ? it.monthlysalary : 'NA'
             it.reportdisplay = (it.reportdisplay == 'DAILY') ? "/d" : (it.reportdisplay == 'MONTHLY') ? "/m" : (it.reportdisplay == 'ANNUALLY') ? "/a" :  (it.reportdisplay == 'HONORARIUM') ? "/h" : 'NA'
-            it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : it.employmentstatus.name
+            it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : (it.employmentstatus.name == 'JOB ORDER') ? "JO" : it.employmentstatus.name
             it.lawop = it.lawop ? it.lawop : "None"
             it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction.objid] );
             //println it.personnelaction
-		}.sort{it.datefrom}
+		}//.sort{it.datefrom}
 
 		servicerecord.serviceretireInfos.each{
 			//it.separationtype = persistenceSvc.read([_schemaname:'master_tblemploymentseparationtype', objid:it.separationtype.objid])
@@ -58,6 +58,8 @@ class ServiceRecordReportService
 			it.datefrom = (params.forgsis == true) ? it.datefrom : it.datefrom - 1
 			servicerecord.servicerecordInfos<<it
 		}//.sort{it.datefrom}
+
+		servicerecord.servicerecordInfos.sort{it.datefrom}
 
 		//println servicerecord.servicerecordInfos
 		//appointment.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:appointment.org.objid] );
