@@ -16,3 +16,9 @@ SELECT * FROM hrmis_appointmentcasualitems xx
 inner join hrmis_appointmentcasual xxx
 WHERE xx.`personnel_objid` = $P{personnelid}
 AND $P{effectivefrom} BETWEEN xxx.`effectivefrom` ANd xxx.`effectiveuntil`
+
+[getCasualAppointmentItems]
+SELECT x.* FROM hrmis_appointmentcasualitems xx
+INNER JOIN etracs254_bukidnon.entityindividual i ON i.objid = xx.personnel_objid
+WHERE xx.`parentid` = $P{parentid}
+ORDER BY i.lastname

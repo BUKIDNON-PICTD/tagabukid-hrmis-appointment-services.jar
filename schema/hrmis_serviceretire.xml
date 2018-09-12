@@ -1,0 +1,22 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_serviceretire">
+		<field name="objid" primary="true" visible="false" prefix="RET" searchable="false"/>
+		<field name="pdsid" required="true" searchable="false" visible="true" />
+		
+		<field name="separationtype_objid" required="false" visible="false" searchable="false"/>
+		<field name="datefrom" visible="true" searchable="true"/>
+
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="separationtype" ref="master_tblemploymentseparationtype" jointype="many-to-one" required="false">
+			<key field="separationtype_objid" target="objid" />
+		</complex>
+
+
+	</element>
+</schema>

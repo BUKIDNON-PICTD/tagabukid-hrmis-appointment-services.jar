@@ -8,6 +8,7 @@
 		<field name="datefrom" visible="true" searchable="true"/>
 		<field name="dateto" visible="true" searchable="true"/>
 		<field name="jobposition_objid" required="false" searchable="false" visible="true" />
+		<field name="otherjobposition" required="false" searchable="false" visible="true" />
 		<field name="tranche_objid" required="false" searchable="false" visible="true" />
 		<field name="paygradestepincrement_objid" required="true" visible="false" searchable="false"/>
 		<field name="employmentstatus_objid" required="false" visible="false" searchable="false"/>
@@ -28,6 +29,7 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+		<field name="oldid" required="false" searchable="false" visible="false" />
 
 		<complex name="jobposition" ref="master_tbljobposition" jointype="many-to-one" required="false">
 			<key field="jobposition_objid" target="objid" />

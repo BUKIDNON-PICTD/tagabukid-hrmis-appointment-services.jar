@@ -7,8 +7,14 @@ public class ServiceRecordService extends ActiveCrudListService
 	@ActiveDB(value='servicerecord', em='tagabukid_hrmis')
 	def em;
 
+	@ActiveDB(value='bukpayorder', em='plugtreasury')
+	def emx;
+
 	@Service('DateService')
-	def dtSvc 
+	def dtSvc
+
+	@Service('BUKPayOrderService')
+	def poSvc 
 
 
 	// @ProxyMethod
@@ -60,6 +66,81 @@ public class ServiceRecordService extends ActiveCrudListService
     public def getDailyWageByTranch(o,x) {
     	return em.findDailyWageByTranch([trancheid:o.objid,paygradestepincrementid:x.objid]);
     }
+
+    @ProxyMethod
+    public def paymentorderSupport(o){
+    	//println '+++++++++++++++++++'
+    	//println o
+
+		o.objid = 'PO' + new java.rmi.server.UID()
+		//o.office = "HR"
+		def paymentorders = []
+		
+		def payorder = createPaymentOrder(o)
+
+		poSvc.save(payorder)
+
+		//println	payorder	
+
+		return payorder	
+    }
+
+
+
+    def createPaymentOrder(o){
+		def paymentorderitems = []
+		
+		def paymentorderitem = [
+			objid: 'PI' + new java.rmi.server.UID(),
+			payorderid : o.objid,
+			item_objid : 'IA3f500166:132a973ff20:-7f10',
+			item_title : 'SERVICE RECORD',
+			item_code : '188',
+			type : 'REVENUE',
+			valuetype : 'ANY',
+			defaultvalue : '100.00',
+			item_fund_objid : 'GENERAL',
+			item_fund_title : 'GENERAL',
+			item_fund_code : '01',
+			amount : '100',
+			remarks: null,
+			sgquantity : null,
+			couponno : null,
+		]
+		paymentorderitems.push(paymentorderitem)
+
+		//println paymentorderitems
+		def paymentorder = [
+			objid : o.objid,
+			ordernum : null,
+			permobjid : o.permobjid	,
+			paidby : o.name,
+			paidbyaddress : o.address,
+			amountdue : paymentorderitems.amount.sum(),
+			items : paymentorderitems,
+			office: 'HR',
+			state : 'DRAFT',
+			ordertype : 'MISC'
+
+		]
+
+
+		return paymentorder
+	}
+
+
+	@ProxyMethod
+	def findReceiptData(params){
+
+		println params.objid
+
+		def d = dtSvc.getServerDate()
+		def x = em.findServiceRecordReceiptData([objid:params.objid])
+		//def diff = em.findDateDiff([currentdate:d, receiptdate:x.receiptdate])
+		def diff = x ? em.findDateDiff([currentdate:d, receiptdate:x.receiptdate]) : em.findDateDiffBogus()
+
+		return diff.difference
+	}
 
 
 
