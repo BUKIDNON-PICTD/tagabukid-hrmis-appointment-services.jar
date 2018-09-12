@@ -32,8 +32,21 @@ class TagabukidHRMISPDSReportService
 				pdsentity.familychildInfos.each{
 					it.child = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.child.objid])
 				}
+			}else{
+				
 			}
-			
+			def Familychild = []
+			pdsentity.familychildInfos.each{ a ->
+				Familychild.add(a)
+			}
+			int x = 12 - Familychild.size();
+			for (def i = 1;i <= x ; i++){
+				Familychild.add([
+					child : [name : null]
+				])
+			}
+			pdsentity.familychildInfos = Familychild
+
 			pdsentity.family = [
 				fatherdata : pdsentity.familyfatherInfos[0],
 				motherdata : pdsentity.familymotherInfos[0],
@@ -48,21 +61,100 @@ class TagabukidHRMISPDSReportService
 				[ level : "COLLEGE" ],
 				[ level : "GRADUATE STUDIES" ],
 			]
-			// pdsentity.educationalInfos + Levels
-			Levels.each{ a ->
-				if (pdsentity.educationalInfos.findAll{it.level == a.level}.size()==0){
-					pdsentity.educationalInfos << a
+			Levels.each{ b ->
+				if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
+					pdsentity.educationalInfos << b
+					// Levels << pdsentity.educationalInfos
+					
 				}
+				 
+				// pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0
+				// pdsentity.educationalInfos << b
 			}
 
-			pdsentity.workexperienceInfos
-			pdsentity.trainings
+			// pdsentity.educationalInfos.each{ b ->
+			// // // 	Levels.findAll{it.level == b.level
+			// // // 		// Levels.(b)
+			// // // 		// pdsentity.educationalInfos << b
+			// 	// Levels.each{it.level == b.level}
+
+			// 	if (pdsentity.educationalInfos.findAll{it.level == b.level}){
+			// // // 		pdsentity.educationalInfos << b
+			// // // 	}else{
+			// 		Levels << pdsentity.educationalInfos
+			// 	}
+			// }
+			// int edu = 5 - Levels.size()
+			// for (def educ = 1; educ <= edu; educ++){
+			// 	Levels.add([
+			// 		school: [name: null]
+			// 	])
+			// }
+
+
+			def Civilservice = []
+			pdsentity.civilserviceInfos.each{c ->
+				Civilservice.add(c)
+			}
+			int xx = 7 - Civilservice.size();
+			for (def ii = 1; ii <= xx ; ii++){
+				Civilservice.add([
+					eligibility : [name: null]
+				])
+			}
+			pdsentity.civilserviceInfos = Civilservice
+
+			def Workexperience = []
+			pdsentity.workexperienceInfos.each{ d ->
+				Workexperience.add(d)
+			}
+			int xxx = 28 - Workexperience.size();
+			for (def iii = 1; iii <= xxx ; iii++){
+				Workexperience.add([
+					jobposition : [name: null]
+				])
+			}
+			pdsentity.workexperienceInfos = Workexperience
+
+
+
+			def Training = []
+			pdsentity.trainings.each{ e ->
+				Training.add(e)
+			}
+			int xxxx = 21 - Training.size();
+			for (def iiii = 1; iiii <= xxxx ; iiii++){
+				Training.add([
+					training : [name: null]
+				])
+			}
+			pdsentity.trainings = Training
 
 
 			if (pdsentity.references.size > 0){
-				pdsentity.references[0].reference = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.references[0].reference.objid])
+				pdsentity.references.each{
+					it.reference = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.reference.objid])
+				}
+			}else{
+				
 			}
-			pdsentity.references	
+			def Reference = []
+			pdsentity.references.each{f ->
+				Reference.add(f)
+			}
+			int xxxxx = 3 - Reference.size();
+			for (def iiiii = 1; iiiii <= xxxxx ; iiiii++){
+				Reference.add([
+					reference : [name: null]
+				])
+			}
+			pdsentity.references = Reference
+
+			pdsentity.referenceperson = [
+				referencedata : pdsentity.references
+			]
+
+			
 
 			data.reportdata = pdsentity
 			println pdsentity
