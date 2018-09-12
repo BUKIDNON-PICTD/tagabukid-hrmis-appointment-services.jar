@@ -10,20 +10,20 @@
 		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
 		<field name="person_lastname" required="true" visible="false" caption="" searchable="true" />
 		<field name="person_firstname" required="true" visible="false" caption="" searchable="true" />
-		<field name="person_middlename" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
-		<field name="person_birthdate" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
-		<field name="person_birthplace" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
-  		<field name="person_gender" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
-    	<field name="person_civilstatus" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
-		<field name="person_citizenship" required="true" defaultValue=""  visible="false" caption="" searchable="true" />
+		<field name="person_middlename" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_birthdate" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_birthplace" required="true" visible="false" caption="" searchable="true" />
+  		<field name="person_gender" required="true" visible="false" caption="" searchable="true" />
+    	<field name="person_civilstatus" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_citizenship" required="true" visible="false" caption="" searchable="true" />
 		<field name="person_phoneno" required="false" visible="false" caption="" searchable="true" />
     	<field name="person_mobileno" required="false" visible="false" caption="" searchable="true" />
     	<field name="person_email" required="false" visible="false" caption="" searchable="true" />
 		
-		<field name="maidenname" required="true" visible="true" caption="Name" searchable="true" />
-		<field name="nameextension" required="false" visible="false" caption="" searchable="true" />
-		<field name="prenametitle" required="false" visible="false" caption="" searchable="true" />
-		<field name="postnametitle" required="false" visible="false" caption="" searchable="true" />
+		<field name="maidenname" required="true" visible="true" caption="Maiden name" searchable="true" />
+		<field name="nameextension" required="false" visible="true" caption="Name Extension" searchable="true" />
+		<field name="prenametitle" required="false" visible="true" caption="Pre Name Title" searchable="true" />
+		<field name="postnametitle" required="false" visible="true" caption="Post Name Title" searchable="true" />
 		
 		<!-- gi edit nako ang address bai -->
 		<complex name="residential_address" required="true" serializer="default" />
