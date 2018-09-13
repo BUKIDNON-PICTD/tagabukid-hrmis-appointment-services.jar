@@ -93,13 +93,13 @@ class TagabukidHRMISAppointmentCasualReportService
 			START     : page.start,
 			LASTPAGE  : page.end == pagesize,
 			PAGENUMBER: page.page - 1,
-			PAGECOUNT : pagelist.size() + 1
+			PAGECOUNT : pagelist.size()
 		]
 		return data
 	}
 
 	@ProxyMethod
-	public def getAppointmentCasualRaiById(params){
+	public def getAppointmentCasualRaiById(params,page,pagelist){
 		def data = [:]
 
 		
@@ -110,6 +110,15 @@ class TagabukidHRMISAppointmentCasualReportService
 			it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
 			// it.plantilla.Id = it.plantilla.Id.toString()
 		}.sort{it.personnel.lastname}
+
+		def pagesize                     = appointment.appointmentitems.size()
+		def list                         = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
+		    appointment.appointmentitems = []
+		list.each{
+			appointment.appointmentitems.add(it)
+		}
+	
+
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
 		// println appointment
 		data.reportdata = appointment;
@@ -124,6 +133,10 @@ class TagabukidHRMISAppointmentCasualReportService
 			positiondescription: params.positiondescription,
 			oathofoffice       : params.oathofoffice,
 			assumptionofduty   : params.assumptionofduty,
+			START              : page.start,
+			LASTPAGE           : page.end == pagesize,
+			PAGENUMBER         : page.page - 1,
+			PAGECOUNT          : pagelist.size()
 		]
 		return data
 
