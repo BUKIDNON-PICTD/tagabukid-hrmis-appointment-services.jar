@@ -6,6 +6,12 @@
 		<field name= "plantilla_objid" required="true" visible="true" searchable="true"/>
 		<field name= "dailywage" required="true" visible="true" searchable="true"/>
 		<field name= "monthlywage" required="false" visible="true" searchable="true"/>
+		<field name= "cutoffdate" required="false" visible="false" />
+		<field name= "cutoffreason_objid" required="false" visible="false" />
+		<field name= "cutoffreason_name" required="false" visible="false" />
+		<field name= "cutoffreason_code" required="false" visible="false" />
+
+
 		<complex name="parent" ref="hrmis_appointmentcasual" jointype="many-to-one" includefields="objid,icrno" required="false">
 			<key field="parentid" target="objid" />
 		</complex>
