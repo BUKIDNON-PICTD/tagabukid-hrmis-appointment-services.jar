@@ -49,13 +49,26 @@ class ServiceRecordReportService
             it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : (it.employmentstatus.name == 'JOB ORDER') ? "JO" : it.employmentstatus.name
             it.lawop = it.lawop ? it.lawop : "None"
             it.personnelaction = tgbkdSvc.getSingleServiceRecordById( [objid:it.personnelaction.objid] );
+            def currdate = em.findCurrDate()
+            //println currdate.currdate
+            it.dateto = currdate.currdate < it.dateto  ? null : it.dateto
+            it.datestr = it.date == null ? 'TO DATE' : null
             //println it.personnelaction
 		}//.sort{it.datefrom}
+
+		//def currdate = em.getCurrDate()
+		//def str = 'TO DATE'
+
+		//def last = servicerecord.servicerecordInfos.last().dateto < currdate ? str : servicerecord.servicerecordInfos.last().dateto
+		// def st = em.getSeparationTypes()
+		// if (!st.contains(last.separationtype.name)){
+		// 	last.dateto = str.toString()
+		// }
 
 		servicerecord.serviceretireInfos.each{
 			//it.separationtype = persistenceSvc.read([_schemaname:'master_tblemploymentseparationtype', objid:it.separationtype.objid])
 			it.personnelaction = it.separationtype;
-			it.datefrom = (params.forgsis == true) ? it.datefrom : it.datefrom - 1
+			//it.datefrom = (params.forgsis == true) ? it.datefrom : it.datefrom - 1
 			servicerecord.servicerecordInfos<<it
 		}//.sort{it.datefrom}
 
@@ -89,6 +102,7 @@ class ServiceRecordReportService
 			receiptno : (diff.difference <= 90) ? x.receiptno : null,
 			receiptdate	: (diff.difference <= 90) ? x.receiptdate : null,
 			forretirement : (params.forretirement == true) ? null : "*Not valid for retirement purposes",
+			forpurpose : params.forpurpose
 		]
 		return data
 

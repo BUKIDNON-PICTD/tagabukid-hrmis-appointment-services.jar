@@ -54,7 +54,7 @@ class TagabukidHRMISVerificationReportService
 
 			
 
-			hitsmatch += hitlist
+			// hitsmatch += hitlist
 
 
 			if (pdsentity.familychildInfos.size > 0){
