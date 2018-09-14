@@ -11,7 +11,7 @@
 		<field name="paygradestepincrement_objid" required="false" searchable="false" visible="true" />
 		<field name="monthlysalary" required="true" searchable="false" visible="true" />
 		<field name="employmentstatus_objid" required="true" searchable="false" visible="true" />
-		<field name="isgovservice" required="true" searchable="false" visible="true" />
+		<field name="isgovservice" required="false" searchable="false" visible="true" />
 	
 
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
