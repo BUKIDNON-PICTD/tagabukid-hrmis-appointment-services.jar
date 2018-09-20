@@ -1,0 +1,22 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_verify_applicant">
+    	<field name="objid" primary="true"/>
+		<field name="state" required="true" visible="false" searchable="true" />
+		<field name="itemno" caption="PDS No." required="true" visible="true" searchable="true"/>
+		<field name="person_objid" required="true" visible="false" caption="" searchable="true" />
+
+		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
+		<field name="person_lastname" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_firstname" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_middlename" required="true" visible="false" caption="" searchable="true" />
+
+		<field name="maidenname" required="false" visible="true" caption="Name" searchable="true" />
+    
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>
