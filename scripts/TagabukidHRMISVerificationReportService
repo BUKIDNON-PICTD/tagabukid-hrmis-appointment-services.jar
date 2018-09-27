@@ -43,7 +43,7 @@ class TagabukidHRMISVerificationReportService
 
 	
 
-			def hitlist = []
+			def hitlist = [] 
 
 			
 			hitsmatch.each {
