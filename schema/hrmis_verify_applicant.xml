@@ -2,7 +2,7 @@
 	<element tablename="hrmis_verify_applicant">
     	<field name="objid" primary="true"/>
 		<field name="state" required="true" visible="false" searchable="true" />
-		<field name="itemno" caption="PDS No." required="true" visible="true" searchable="true"/>
+		<field name="itemno" caption="ID" required="true" visible="true" searchable="true"/>
 		<field name="person_objid" required="true" visible="false" caption="" searchable="true" />
 
 		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
@@ -18,5 +18,57 @@
 		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
 		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+
+		<complex name="father" ref="hrmis_verify_father" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="fathersidegrandfather" ref="hrmis_verify_fatherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="fathersidegrandmother" ref="hrmis_verify_fatherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="mother" ref="hrmis_verify_mother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="mothersidegrandfather" ref="hrmis_verify_motherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="mothersidegrandmother" ref="hrmis_verify_motherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spouse" ref="hrmis_verify_spouse" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousefather" ref="hrmis_verify_spouse_father" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousefathersidegrandfather" ref="hrmis_verify_spouse_fatherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousefathersidegrandmother" ref="hrmis_verify_spouse_fatherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousemother" ref="hrmis_verify_spouse_mother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousemothersidegrandfather" ref="hrmis_verify_spouse_motherside_grandfather" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
+
+		<complex name="spousemothersidegrandmother" ref="hrmis_verify_spouse_motherside_grandmother" jointype="one-to-many" required="false">
+			<key field="objid" target="applicantid" /> 		
+		</complex>
 	</element>
 </schema>
