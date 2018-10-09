@@ -3,6 +3,7 @@
 		<field name= "objid" primary="true" visible="false" searchable="false"/>
 		<field name= "parentid" required="true" visible="false" searchable="false"/>
 		<field name= "personnel_objid" required="true" visible="true" searchable="true"/>
+		<field name= "pds_objid" required="true" visible="true" searchable="true"/>
 		<field name= "plantilla_objid" required="true" visible="true" searchable="true"/>
 		<field name= "dailywage" required="true" visible="true" searchable="true"/>
 		<field name= "monthlywage" required="false" visible="true" searchable="true"/>

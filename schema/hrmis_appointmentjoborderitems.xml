@@ -3,6 +3,7 @@
 		<field name="objid" primary="true" visible="false" searchable="false"/>
 		<field name="parentid" required="true" visible="false" searchable="false"/>
 		<field name="entityid" required="true" visible="true" searchable="true"/>
+		<field name="pdsid" required="true" visible="true" searchable="true"/>
 		<field name="positionid" required="true" visible="true" searchable="true"/>
 		<field name="fundid" required="true" visible="false" />
 		<field name="accountid" required="true" visible="false" />
