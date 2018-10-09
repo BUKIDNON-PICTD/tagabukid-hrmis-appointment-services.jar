@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+    <element tablename="hrmis_verify_mother">
+        <field name="objid" primary="true" searchable="false" prefix="FAMM-" />
+        <field name="applicantid" required="true" searchable="true" visible="false"/>
+        <field name="mother_objid" required="true" searchable="true" visible="false"/>
+        <field name="mother_firstname" required="true" searchable="true" visible="false"/>
+        <field name="mother_middlename" required="true" searchable="true" visible="false"/>
+        <field name="mother_lastname" required="true" searchable="true" visible="false"/>
+        <field name="maidenname" required="false" searchable="true" visible="false"/>
+        <!-- nara gi add -->
+        <field name="prenametitle" required="false" searchable="true" visible="false"/>
+        <field name="postnametitle" required="false" searchable="true" visible="false"/>
+      
+        <field name="recordlog_datecreated" required="true" searchable="true" visible="false"/>
+        <field name="recordlog_createdbyuserid" required="true" searchable="true" visible="false"/>
+        <field name="recordlog_createdbyuser" required="true" searchable="true" visible="false"/>
+        <field name="recordlog_dateoflastupdate" required="true" searchable="true" visible="false"/>
+        <field name="recordlog_lastupdatedbyuserid" required="true" searchable="true" visible="false"/>
+        <field name="recordlog_lastupdatedbyuser" required="true" searchable="true" visible="false"/>
+    </element>
+</schema>
