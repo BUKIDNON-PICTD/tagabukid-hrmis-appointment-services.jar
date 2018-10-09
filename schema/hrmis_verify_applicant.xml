@@ -2,7 +2,7 @@
 	<element tablename="hrmis_verify_applicant">
     	<field name="objid" primary="true"/>
 		<field name="state" required="true" visible="false" searchable="true" />
-		<field name="itemno" caption="ID" required="true" visible="true" searchable="true"/>
+		<field name="itemno" caption="Applicant No." required="true" visible="true" searchable="true"/>
 		<field name="person_objid" required="true" visible="false" caption="" searchable="true" />
 
 		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />

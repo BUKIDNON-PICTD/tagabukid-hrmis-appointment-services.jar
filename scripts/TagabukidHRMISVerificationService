@@ -54,6 +54,7 @@ class TagabukidHRMISVerificationService
     entity.spousemothersidegrandmother = []
 
     return entity;
+
 	}
 
   def initFather(o){
@@ -68,6 +69,7 @@ class TagabukidHRMISVerificationService
     public def getApplicantNo(){
 		  def yr      = dtSvc.serverYear;
       def mnth   = dtSvc.serverMonth;
+      def dd   = dtSvc.serverDay;
 
           def cal = Calendar.getInstance();
 
@@ -77,7 +79,10 @@ class TagabukidHRMISVerificationService
           def hh = cal.get( Calendar.HOUR_OF_DAY );
           def mm = cal.get( Calendar.MINUTE );
           def ss = cal.get( Calendar.SECOND );
-		return yr+mnth+hh+mm+ss;
+		// return yr+mnth+hh+mm+ss; 
+    return yr + "" + mnth + "" + hh + "" + mm + "" + ss + "" + dd;
+
+
     }
 
     @ProxyMethod
