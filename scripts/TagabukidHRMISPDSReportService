@@ -39,8 +39,8 @@ class TagabukidHRMISPDSReportService
 			pdsentity.familychildInfos.each{ a ->
 				Familychild.add(a)
 			}
-			int x = 12 - Familychild.size();
-			for (def i = 1;i <= x ; i++){
+			int familyx = 12 - Familychild.size();
+			for (def familyi = 1;familyi <= familyx ; familyi++){
 				Familychild.add([
 					child : [name : null]
 				])
@@ -96,8 +96,8 @@ class TagabukidHRMISPDSReportService
 			pdsentity.civilserviceInfos.each{c ->
 				Civilservice.add(c)
 			}
-			int xx = 7 - Civilservice.size();
-			for (def ii = 1; ii <= xx ; ii++){
+			int civilservicex = 7 - Civilservice.size();
+			for (def civilservicei = 1; civilservicei <= civilservicex ; civilservicei++){
 				Civilservice.add([
 					eligibility : [name: null]
 				])
@@ -108,27 +108,77 @@ class TagabukidHRMISPDSReportService
 			pdsentity.workexperienceInfos.each{ d ->
 				Workexperience.add(d)
 			}
-			int xxx = 28 - Workexperience.size();
-			for (def iii = 1; iii <= xxx ; iii++){
+			int workx = 28 - Workexperience.size();
+			for (def worki = 1; worki <= workx ; worki++){
 				Workexperience.add([
 					jobposition : [name: null]
 				])
 			}
 			pdsentity.workexperienceInfos = Workexperience
 
-
+			def Voluntary = []
+			pdsentity.voluntaryworks.each{c ->
+				Voluntary.add(c)
+			}
+			int voluntaryx = 7 - Voluntary.size();
+			for (def voluntaryi = 1; voluntaryi <= voluntaryx ; voluntaryi++){
+				Voluntary.add([
+					voluntarywork : [description: null]
+				])
+			}
+			pdsentity.voluntaryworks = Voluntary
 
 			def Training = []
 			pdsentity.trainings.each{ e ->
 				Training.add(e)
 			}
-			int xxxx = 21 - Training.size();
-			for (def iiii = 1; iiii <= xxxx ; iiii++){
+			int trainingx = 21 - Training.size();
+			for (def trainingi = 1; trainingi <= trainingx ; trainingi++){
 				Training.add([
 					training : [name: null]
 				])
 			}
 			pdsentity.trainings = Training
+
+
+
+			def Specialskill = []
+			pdsentity.skills.each{ e ->
+				Specialskill.add(e)
+			}
+			int skillx = 7 - Specialskill.size();
+			for (def skilli = 1; skilli <= skillx ; skilli++){
+				Specialskill.add([
+					skill : [name: null]
+				])
+			}
+			pdsentity.skills = Specialskill
+
+			def Recognations = []
+			pdsentity.recognitions.each{ e ->
+				Recognations.add(e)
+			}
+			int recognitionx = 7 - Recognations.size();
+			for (def recognitioni = 1; recognitioni <= recognitionx ; recognitioni++){
+				Recognations.add([
+					recognition : [name: null]
+				])
+			}
+			pdsentity.recognitions = Recognations
+
+
+			def Membership = []
+			pdsentity.organizations.each{ e ->
+				Membership.add(e)
+			}
+			int organizationx = 7 - Membership.size();
+			for (def organizationi = 1; organizationi <= organizationx ; organizationi++){
+				Membership.add([
+					affiliation : [name: null]
+				])
+			}
+			pdsentity.organizations = Membership
+
 
 
 			if (pdsentity.references.size > 0){
@@ -142,8 +192,8 @@ class TagabukidHRMISPDSReportService
 			pdsentity.references.each{f ->
 				Reference.add(f)
 			}
-			int xxxxx = 3 - Reference.size();
-			for (def iiiii = 1; iiiii <= xxxxx ; iiiii++){
+			int referencesx = 3 - Reference.size();
+			for (def referencesi = 1; referencesi <= referencesx ; referencesi++){
 				Reference.add([
 					reference : [name: null]
 				])

@@ -6,6 +6,10 @@ WHERE xx.`person_lastname` IN
 	SELECT DISTINCT zzz.lastname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -35,65 +39,65 @@ WHERE xx.`person_lastname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -106,7 +110,10 @@ WHERE xx.`person_lastname` IN
 	SELECT DISTINCT zzz.middlename
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
 
+		UNION
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.father_objid 
@@ -135,65 +142,65 @@ WHERE xx.`person_lastname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -206,6 +213,10 @@ WHERE xx.`person_lastname` IN
 	SELECT DISTINCT zzz.maidenname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -235,65 +246,65 @@ WHERE xx.`person_lastname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -310,6 +321,10 @@ WHERE xx.`person_middlename` IN
 	SELECT DISTINCT zzz.lastname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -339,65 +354,65 @@ WHERE xx.`person_middlename` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -410,6 +425,10 @@ WHERE xx.`person_middlename` IN
 	SELECT DISTINCT zzz.middlename
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -439,65 +458,65 @@ WHERE xx.`person_middlename` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -510,6 +529,10 @@ WHERE xx.`person_middlename` IN
 	SELECT DISTINCT zzz.maidenname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -539,65 +562,65 @@ WHERE xx.`person_middlename` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -615,6 +638,10 @@ WHERE xx.`maidenname` IN
 	SELECT DISTINCT zzz.lastname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -644,65 +671,65 @@ WHERE xx.`maidenname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -715,6 +742,10 @@ WHERE xx.`maidenname` IN
 	SELECT DISTINCT zzz.middlename
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -744,65 +775,65 @@ WHERE xx.`maidenname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -815,6 +846,10 @@ WHERE xx.`maidenname` IN
 	SELECT DISTINCT zzz.maidenname
 	FROM
 	(
+		SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
+		WHERE objid = $P{hit}
+
+		UNION
 
 
 		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
@@ -844,65 +879,65 @@ WHERE xx.`maidenname` IN
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		-- Spouse side --
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 
 		UNION
 
-		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+		SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-		WHERE q.pdsid = '${hit}'
+		WHERE q.applicantid = '${hit}'
 	) zzz
 )
 
@@ -929,7 +964,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -961,65 +996,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -1027,7 +1062,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1059,65 +1094,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -1125,7 +1160,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1157,65 +1192,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -1237,7 +1272,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1269,65 +1304,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -1335,7 +1370,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1367,65 +1402,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -1433,7 +1468,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1465,65 +1500,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -1545,7 +1580,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1577,65 +1612,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -1643,7 +1678,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1675,65 +1710,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -1741,7 +1776,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1773,65 +1808,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -1854,7 +1889,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1886,65 +1921,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -1952,7 +1987,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -1984,65 +2019,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -2050,7 +2085,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2082,65 +2117,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -2162,7 +2197,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2194,65 +2229,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -2260,7 +2295,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2292,65 +2327,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -2358,7 +2393,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2390,65 +2425,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -2470,7 +2505,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2502,65 +2537,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -2568,7 +2603,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2600,65 +2635,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -2666,7 +2701,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2698,65 +2733,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -2778,7 +2813,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2810,65 +2845,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -2876,7 +2911,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -2908,65 +2943,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -2974,7 +3009,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3006,65 +3041,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -3086,7 +3121,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3118,65 +3153,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -3184,7 +3219,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3216,65 +3251,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -3282,7 +3317,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3314,65 +3349,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -3394,7 +3429,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3426,65 +3461,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -3492,7 +3527,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3524,65 +3559,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -3590,7 +3625,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3622,65 +3657,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -3702,7 +3737,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3734,65 +3769,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -3800,7 +3835,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3832,65 +3867,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -3898,7 +3933,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -3930,65 +3965,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -4010,7 +4045,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4042,65 +4077,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -4108,7 +4143,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4140,65 +4175,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -4206,7 +4241,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4238,65 +4273,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -4318,7 +4353,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4350,65 +4385,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -4416,7 +4451,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4448,65 +4483,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -4514,7 +4549,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4546,65 +4581,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -4626,7 +4661,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4658,65 +4693,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -4724,7 +4759,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4756,65 +4791,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -4822,7 +4857,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4854,65 +4889,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -4934,7 +4969,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -4966,65 +5001,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -5032,7 +5067,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5064,65 +5099,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -5130,7 +5165,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5162,65 +5197,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -5242,7 +5277,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5274,65 +5309,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -5340,7 +5375,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5372,65 +5407,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -5438,7 +5473,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5470,65 +5505,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -5550,7 +5585,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5582,65 +5617,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -5648,7 +5683,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5680,65 +5715,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -5746,7 +5781,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5778,65 +5813,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -5858,7 +5893,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5890,65 +5925,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -5956,7 +5991,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -5988,65 +6023,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -6054,7 +6089,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6086,65 +6121,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -6166,7 +6201,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6198,65 +6233,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -6264,7 +6299,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6296,65 +6331,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -6362,7 +6397,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6394,65 +6429,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -6474,7 +6509,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6506,65 +6541,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -6572,7 +6607,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6604,65 +6639,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -6670,7 +6705,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6702,65 +6737,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -6783,7 +6818,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6815,65 +6850,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -6881,7 +6916,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -6913,65 +6948,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -6979,7 +7014,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7011,65 +7046,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -7092,7 +7127,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7124,65 +7159,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -7190,7 +7225,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7222,65 +7257,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -7288,7 +7323,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7320,65 +7355,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -7400,7 +7435,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7432,65 +7467,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -7498,7 +7533,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7530,65 +7565,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -7596,7 +7631,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7628,65 +7663,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -7708,7 +7743,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7740,65 +7775,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -7806,7 +7841,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7838,65 +7873,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -7904,7 +7939,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -7936,65 +7971,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -8016,7 +8051,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8048,65 +8083,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -8114,7 +8149,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8146,65 +8181,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -8212,7 +8247,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8244,65 +8279,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -8324,7 +8359,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8356,65 +8391,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -8422,7 +8457,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8454,65 +8489,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -8520,7 +8555,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8552,65 +8587,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -8632,7 +8667,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8664,65 +8699,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -8730,7 +8765,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8762,65 +8797,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -8828,7 +8863,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8860,65 +8895,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -8940,7 +8975,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -8972,65 +9007,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -9038,7 +9073,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9070,65 +9105,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -9136,7 +9171,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9168,65 +9203,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -9248,7 +9283,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9280,65 +9315,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -9346,7 +9381,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9378,65 +9413,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -9444,7 +9479,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9476,65 +9511,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -9557,7 +9592,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9589,65 +9624,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -9655,7 +9690,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9687,65 +9722,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -9753,7 +9788,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9785,65 +9820,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -9865,7 +9900,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9897,65 +9932,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -9963,7 +9998,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -9995,65 +10030,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -10061,7 +10096,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10093,65 +10128,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -10173,7 +10208,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10205,65 +10240,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -10271,7 +10306,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10303,65 +10338,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -10369,7 +10404,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10401,65 +10436,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -10481,7 +10516,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10513,65 +10548,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -10579,7 +10614,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10611,65 +10646,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -10677,7 +10712,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10709,65 +10744,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -10789,7 +10824,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10821,65 +10856,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -10887,7 +10922,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -10919,65 +10954,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -10985,7 +11020,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -11017,65 +11052,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
@@ -11097,7 +11132,7 @@ UNION
 			SELECT DISTINCT zzz.middlename
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -11129,65 +11164,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION 
@@ -11195,7 +11230,7 @@ UNION
 			SELECT DISTINCT zzz.lastname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -11227,65 +11262,65 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 
 			UNION
@@ -11293,7 +11328,7 @@ UNION
 			SELECT DISTINCT zzz.maidenname
 			FROM
 			(
-				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
+				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_verify_applicant 
 				WHERE objid = '${hit}'
 
 				UNION
@@ -11325,374 +11360,66 @@ UNION
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				-- Spouse side --
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_father q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_mother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_fatherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_fatherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_verify_spouse_motherside_grandfather q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 
 				UNION
 
-				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
+				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_verify_spouse_motherside_grandmother q
 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
-				WHERE q.pdsid = '${hit}'
+				WHERE q.applicantid = '${hit}'
 			) zzz
 		-- end names to search -- 
 		)
 	)
-
--- UNION
-
--- -- MAIN QUERY 14.2 - CHILDREN
--- -- by middlename of CHILDREN
-
--- 	SELECT xx.objid, xx.person_name AS fullname FROM hrmis_pds xx
--- 	WHERE xx.objid IN
--- 	(
--- 		SELECT ch.pdsid FROM hrmis_pds_familybackground_children ch
--- 		INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = ch.child_objid 
--- 		WHERE xx.middlename IN
--- 		(
--- 		-- names to search --
--- 			SELECT DISTINCT zzz.middlename
--- 			FROM
--- 			(
--- 				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
--- 				WHERE objid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.father_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_mothername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.mother_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_spousename f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.spouse_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_children f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.child_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				-- ++++++++++++ --
--- 				-- GRANDPARENTS --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				-- Spouse side --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
--- 			) zzz
-
--- 			UNION 
-
--- 			SELECT DISTINCT zzz.lastname
--- 			FROM
--- 			(
--- 				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
--- 				WHERE objid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.father_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_mothername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.mother_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_spousename f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.spouse_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_children f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.child_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				-- ++++++++++++ --
--- 				-- GRANDPARENTS --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				-- Spouse side --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
--- 			) zzz
-
--- 			UNION
-
--- 			SELECT DISTINCT zzz.maidenname
--- 			FROM
--- 			(
--- 				SELECT person_lastname AS lastname,person_middlename AS middlename,maidenname AS maidenname FROM hrmis_pds 
--- 				WHERE objid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_fathername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.father_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_mothername f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.mother_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,f.maidenname AS maidenname FROM hrmis_pds_familybackground_spousename f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.spouse_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_familybackground_children f
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = f.child_objid 
--- 				WHERE f.pdsid = '${hit}'
-
--- 				-- ++++++++++++ --
--- 				-- GRANDPARENTS --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.fathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.mothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				-- Spouse side --
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_father q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_mother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_fatherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousefathersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename,NULL AS maidenname FROM hrmis_pds_family_spouse_motherside_grandfather q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandfather_objid
--- 				WHERE q.pdsid = '${hit}'
-
--- 				UNION
-
--- 				SELECT xx.lastname AS lastname,xx.middlename AS middlename, q.maidenname AS maidenname FROM hrmis_pds_family_spouse_motherside_grandmother q
--- 				INNER JOIN etracs254_bukidnon.`entityindividual` xx ON xx.objid = q.spousemothersidegrandmother_objid
--- 				WHERE q.pdsid = '${hit}'
--- 			) zzz
--- 		-- end names to search -- 
--- 		)
--- 	)

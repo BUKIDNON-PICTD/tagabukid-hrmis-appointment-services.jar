@@ -23,8 +23,8 @@ class TagabukidHRMISVerificationReportService
 			def pdsentity = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
 
 
-			
 			def hitsmatch = em.getHitList([hit:pdsentity.objid])
+
 
 			if (pdsentity.familyfatherInfos.size > 0){
 				pdsentity.familyfatherInfos[0].father = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.familyfatherInfos[0].father.objid])
@@ -40,16 +40,11 @@ class TagabukidHRMISVerificationReportService
 			
 			// println hs
 
+			// hitsmatch.each {
+				
+			// 	hitlist += em.getHitList([hit:it.objid])
 
-	
-
-			def hitlist = []
-
-			
-			hitsmatch.each {
-				println it
-				hitlist += em.getHitList([hit:it.objid])
-			}
+			// }
 			//println hitlist
 
 			
@@ -112,7 +107,9 @@ class TagabukidHRMISVerificationReportService
 
 			pdsentity.hits.removeAll(pdsentity.hits.findAll{it.objid == pdsentity.objid})
 
-			
+			pdsentity.hits.each{
+				println it.fullname
+			}
 
 			pdsentity.family = [
 				father : pdsentity.familyfatherInfos[0],

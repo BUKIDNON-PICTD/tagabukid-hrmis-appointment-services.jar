@@ -1,0 +1,95 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.services.extended.*;
+
+
+class TagabukidHRMISVerificationService
+{
+  @ActiveDB(value='hrmis_verify_aplicant', em='tagabukid_hrmis')
+  def em;
+
+  @Env
+  def env; 
+
+  @Service('DateService')
+  def dtSvc 
+
+	@Service("SequenceService")
+	def seqSvc;
+
+	@Service("PersistenceService")
+  def persistenceSvc;
+
+	@ProxyMethod
+	def initCreate(){
+    def entity = [:];
+    entity.objid = 'PDV' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year +"-N"
+    // entity.state = "DRAFT"
+    entity.recordlog = [:]
+    entity.recordlog.datecreated = dtSvc.serverDate
+        entity.recordlog.createdbyuserid = env.USERID
+        entity.recordlog.createdbyuser = env.FULLNAME
+        entity.recordlog.dateoflastupdate =  dtSvc.serverDate
+        entity.recordlog.lastupdatedbyuserid = env.USERID
+        entity.recordlog.lastupdatedbyuser = env.FULLNAME   
+
+    entity.father = []
+    entity.fathersidegrandfather = []
+    entity.fathersidegrandmother = []
+
+
+    entity.mother = []
+    entity.mothersidegrandfather = []
+    entity.mothersidegrandmother = []
+
+    entity.spouse = []
+
+    entity.spousefather = []
+    entity.spousefathersidegrandfather = []
+    entity.spousefathersidegrandmother = []
+
+
+    entity.spousemother = []
+    entity.spousemothersidegrandfather = []
+    entity.spousemothersidegrandmother = []
+
+    return entity;
+
+	}
+
+  def initFather(o){
+        return [
+          objid       : 'F' + new java.rmi.server.UID(),
+            applicantid : o.objid,
+        ]
+    }
+
+
+    @ProxyMethod
+    public def getApplicantNo(){
+		  def yr      = dtSvc.serverYear;
+      def mnth   = dtSvc.serverMonth;
+      def dd   = dtSvc.serverDay;
+
+          def cal = Calendar.getInstance();
+
+          // map.month = cal.get( Calendar.MONTH ) + 1;
+          // map.day = cal.get( Calendar.DATE );
+          // map.year = cal.get( Calendar.YEAR );
+          def hh = cal.get( Calendar.HOUR_OF_DAY );
+          def mm = cal.get( Calendar.MINUTE );
+          def ss = cal.get( Calendar.SECOND );
+		// return yr+mnth+hh+mm+ss; 
+    return yr + "" + mnth + "" + hh + "" + mm + "" + ss + "" + dd;
+
+
+    }
+
+    @ProxyMethod
+    public def getID(){
+		def appcode = "CH-"
+		def yr      = dtSvc.serverYear;
+		def prefix  = appcode+yr;
+		return prefix+seqSvc.getNextFormattedSeries(prefix);
+    }    
+}

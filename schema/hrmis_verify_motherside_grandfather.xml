@@ -1,10 +1,12 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_pds_family_motherside_grandmother">
-		<field name="objid" primary="true" prefix="MSGM" visible="false" />
-		<field name="pdsid" required="true" searchable="false" visible="false" />
-		<field name="mothersidegrandmother_objid" required="true" searchable="true" visible="true" />
+	<element tablename="hrmis_verify_motherside_grandfather">
+		<field name="objid" primary="true" prefix="MSGF" visible="false" />
+		<field name="applicantid" required="true" searchable="false" visible="false" />
+		<field name="mothersidegrandfather_objid" required="true" searchable="true" visible="true" />
+		<field name="mothersidegrandfather_firstname" required="true" searchable="true" visible="true" />
+		<field name="mothersidegrandfather_middlename" required="true" searchable="true" visible="true" />
+		<field name="mothersidegrandfather_lastname" required="true" searchable="true" visible="true" />
 		<!-- dugang ni siya -->
-        <field name="maidenname" required="false" searchable="true" visible="false"/>
 		<field name="nameextension" required="false" searchable="false" visible="true" />
 		<field name="prenametitle" required="false" searchable="false" visible="true" />
 		<field name="postnametitle" required="false" searchable="false" visible="true" />
