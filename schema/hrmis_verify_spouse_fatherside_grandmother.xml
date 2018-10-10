@@ -1,0 +1,22 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_verify_spouse_fatherside_grandmother">
+		<field name="objid" primary="true" prefix="SFGM" visible="false" />
+		<field name="applicantid" required="true" searchable="false" visible="false" />
+		<field name="spousefathersidegrandmother_objid" required="true" searchable="true" visible="true" />
+		<field name="spousefathersidegrandmother_firstname" required="true" searchable="true" visible="true" />
+		<field name="spousefathersidegrandmother_middlename" required="true" searchable="true" visible="true" />
+		<field name="spousefathersidegrandmother_lastname" required="true" searchable="true" visible="true" />
+		<!-- dugang ni siya -->
+        <field name="maidenname" required="true" searchable="true" visible="false"/>
+		<field name="nameextension" required="false" searchable="false" visible="true" />
+		<field name="prenametitle" required="false" searchable="false" visible="true" />
+		<field name="postnametitle" required="false" searchable="false" visible="true" />
+		<!-- kutob diri -->
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>
