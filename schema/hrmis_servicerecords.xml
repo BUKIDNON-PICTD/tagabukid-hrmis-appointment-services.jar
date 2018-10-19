@@ -1,6 +1,7 @@
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_servicerecords">
-		<field name="objid" primary="true" visible="false" prefix="SR" searchable="false"/>
+		<field name="objid" primary="true" visible="false" prefix="SR" searchable="false"/>	
+		<field name="appointmentitemid" required="false" searchable="false" visible="true" />
 		<field name="pdsid" required="true" searchable="false" visible="true" />
 		<field name="personnelaction_objid" required="false" searchable="false" visible="true" />
 		<field name="personnelaction_name" required="false" searchable="false" visible="true" />
