@@ -22,3 +22,29 @@ select * from references_tblemploymentseparationtype
 
 [findCurrDate]
 SELECT CURDATE() as currdate
+
+[getResultFromJobOrderAppointment]
+select * from hrmis_appointmentjoborder jo
+inner join hrmis_appointmentjoborderitems joi on joi.`parentid` = jo.`objid`
+where jo.objid = $P{objid}
+
+[findNatureofAppointmentName]
+select name from references_tblappointmententrycode
+where objid = $P{objid}
+
+[findNatureofAppointmentCode]
+select code from references_tblappointmententrycode
+where objid = $P{objid}
+
+[getResultFromCasualAppointment]
+select * from hrmis_appointmentcasual ca
+inner join hrmis_appointmentcasualitems cai on cai.`parentid` = ca.`objid`
+where ca.objid = $P{objid}
+
+[findJobPositionId]
+select jobposition_objid as jobid from hrmis_tblemploymentplantilla
+where objid = $P{objid}
+
+[findPayGradeId]
+select paygrade_objid as paygradeid from references_tbljobposition
+where objid = $P{objid}
