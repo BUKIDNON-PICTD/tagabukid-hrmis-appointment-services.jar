@@ -59,7 +59,7 @@ class TagabukidHRMISAppointmentCasualReportService
 	}
 
 	@ProxyMethod
-	public def getAppointmentCasualById(params,page,pagelist){
+	public def getAppointmentCasualById(params,page,pagelist,hidenoa){
 		def data = [:]
 	    // println page
 		params._schemaname = 'hrmis_appointmentcasual'
@@ -86,7 +86,7 @@ class TagabukidHRMISAppointmentCasualReportService
 	
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		// println appointment
-	
+		
 		data.reportdata = appointment;
 		data.parameters = [
 			LGUNAME   : "PG-BUKIDNON, REGION 10",
@@ -95,7 +95,8 @@ class TagabukidHRMISAppointmentCasualReportService
 			START     : page.start,
 			LASTPAGE  : page.end == pagesize,
 			PAGENUMBER: page.page - 1,
-			PAGECOUNT : pagelist.size()
+			PAGECOUNT : pagelist.size(),
+			HIDENOA : hidenoa,
 		]
 		return data
 	}
