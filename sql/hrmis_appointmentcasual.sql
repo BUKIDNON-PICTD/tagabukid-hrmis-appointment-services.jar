@@ -2,7 +2,7 @@
 SELECT DISTINCT xx.`appointmentgroupname`,xx.objid
 FROM hrmis_appointmentcasual xx
 WHERE NOW() BETWEEN xx.`effectivefrom` AND xx.`effectiveuntil`
-WHERE xx. appointmentgroupname LIKE $P{searchtext}
+AND xx.appointmentgroupname LIKE $P{searchtext}
 
 [findDailyWageByTranch]
 SELECT si.* FROM hrmis_tblemploymentplantilla p

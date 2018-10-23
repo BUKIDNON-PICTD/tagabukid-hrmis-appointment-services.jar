@@ -24,7 +24,7 @@ class AppointmentJobOrderListService extends ActiveCrudListService  {
 	@ProxyMethod
 	public def getNodes(o) {
 		def nodes = [];
-		nodes << [name:'draft',  caption: 'DRAFT', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'draft',  caption: 'DRAFT/CUTOFF', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'active',  caption: 'ACTIVE', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'renewal', caption: 'FOR RENEWAL', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'expired', caption: 'EXPIRED', leaf:true, allowSearch:true, folder:true];
@@ -79,8 +79,8 @@ class AppointmentJobOrderListService extends ActiveCrudListService  {
 			//--------------- processing--------------------	
 			case 'draft':
 				
-				o.state = 'DRAFT';
-				o.filter += ''' AND `hrmis_appointmentjoborder`.`state` = $P{state} ''';
+				//o.state = 'DRAFT';
+				o.filter += ''' AND `hrmis_appointmentjoborder`.`state` IN ('DRAFT','CUTOFF') ''';
 				break;
 
 			case 'active':
