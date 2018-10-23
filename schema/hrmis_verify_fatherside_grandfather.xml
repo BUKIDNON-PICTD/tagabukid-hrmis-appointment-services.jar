@@ -3,9 +3,9 @@
 		<field name="objid" primary="true" prefix="FSGF" visible="false" />
 		<field name="applicantid" required="true" searchable="false" visible="false" />
 		<field name="fathersidegrandfather_objid" required="true" searchable="true" visible="true" />
-		<field name="fathersidegrandfather_firstname" required="true" searchable="true" visible="true" />
-		<field name="fathersidegrandfather_middlename" required="true" searchable="true" visible="true" />
-		<field name="fathersidegrandfather_lastname" required="true" searchable="true" visible="true" />
+		<field name="fathersidegrandfather_firstname" searchable="true" visible="true" />
+		<field name="fathersidegrandfather_middlename" searchable="true" visible="true" />
+		<field name="fathersidegrandfather_lastname" searchable="true" visible="true" />
 		<!-- dugang ni siya -->
 		<field name="nameextension" required="false" searchable="false" visible="true" />
 		<field name="prenametitle" required="false" searchable="false" visible="true" />

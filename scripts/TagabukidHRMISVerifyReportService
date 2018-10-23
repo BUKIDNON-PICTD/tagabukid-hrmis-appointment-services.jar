@@ -27,13 +27,13 @@ class TagabukidHRMISVerifyReportService
 
 
 			if (pdsentity.father.size > 0){
-				pdsentity.father[0].father = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.father[0].father.objid])
+				// pdsentity.father[0].father = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.father[0].father.objid])
 			}
 			if (pdsentity.mother.size > 0){
-				pdsentity.mother[0].mother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mother[0].mother.objid])
+				// pdsentity.mother[0].mother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mother[0].mother.objid])
 			}
 			if (pdsentity.spouse.size > 0){
-				pdsentity.spouse[0].spouse = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouse[0].spouse.objid])
+				// pdsentity.spouse[0].spouse = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spouse[0].spouse.objid])
 				def hs = em.getHitList([hit:pdsentity.spouse[0].spouse.objid])
 				hitsmatch += hs
 			}
@@ -60,41 +60,41 @@ class TagabukidHRMISVerifyReportService
 
 			// addt'l family tree
 			if (pdsentity.fathersidegrandmother.size > 0){
-				pdsentity.fathersidegrandmother[0].fathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fathersidegrandmother[0].fathersidegrandmother.objid])
+				// pdsentity.fathersidegrandmother[0].fathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fathersidegrandmother[0].fathersidegrandmother.objid])
 			}
 
 			if (pdsentity.fathersidegrandfather.size > 0){
-				pdsentity.fathersidegrandfather[0].fathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fathersidegrandfather[0].fathersidegrandfather.objid])
+				// pdsentity.fathersidegrandfather[0].fathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.fathersidegrandfather[0].fathersidegrandfather.objid])
 			}
 
 			if (pdsentity.mothersidegrandmother.size > 0){
-				pdsentity.mothersidegrandmother[0].mothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mothersidegrandmother[0].mothersidegrandmother.objid])
+				// pdsentity.mothersidegrandmother[0].mothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mothersidegrandmother[0].mothersidegrandmother.objid])
 			}
 
 			if (pdsentity.mothersidegrandfather.size > 0){
-				pdsentity.mothersidegrandfather[0].mothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mothersidegrandfather[0].mothersidegrandfather.objid])
+				// pdsentity.mothersidegrandfather[0].mothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.mothersidegrandfather[0].mothersidegrandfather.objid])
 			}
 
 			// for spouse
 			if (pdsentity.spousefather.size > 0){
-				pdsentity.spousefather[0].spousefather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefather[0].spousefather.objid])
+				// pdsentity.spousefather[0].spousefather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefather[0].spousefather.objid])
 			}
 			if (pdsentity.spousemother.size > 0){
-				pdsentity.spousemother[0].spousemother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemother[0].spousemother.objid])
+				// pdsentity.spousemother[0].spousemother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemother[0].spousemother.objid])
 			}
 
 
 			if (pdsentity.spousefathersidegrandmother.size > 0){
-				pdsentity.spousefathersidegrandmother[0].spousefathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefathersidegrandmother[0].spousefathersidegrandmother.objid])
+				// pdsentity.spousefathersidegrandmother[0].spousefathersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefathersidegrandmother[0].spousefathersidegrandmother.objid])
 			}
 			if (pdsentity.spousefathersidegrandfather.size > 0){
-				pdsentity.spousefathersidegrandfather[0].spousefathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefathersidegrandfather[0].spousefathersidegrandfather.objid])
+				// pdsentity.spousefathersidegrandfather[0].spousefathersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousefathersidegrandfather[0].spousefathersidegrandfather.objid])
 			}
 			if (pdsentity.spousemothersidegrandmother.size > 0){
-				pdsentity.spousemothersidegrandmother[0].spousemothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemothersidegrandmother[0].spousemothersidegrandmother.objid])
+				// pdsentity.spousemothersidegrandmother[0].spousemothersidegrandmother = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemothersidegrandmother[0].spousemothersidegrandmother.objid])
 			}
 			if (pdsentity.spousemothersidegrandfather.size > 0){
-				pdsentity.spousemothersidegrandfather[0].spousemothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemothersidegrandfather[0].spousemothersidegrandfather.objid])
+				// pdsentity.spousemothersidegrandfather[0].spousemothersidegrandfather = persistenceSvc.read( [_schemaname:'entityindividual', objid:pdsentity.spousemothersidegrandfather[0].spousemothersidegrandfather.objid])
 			}
 			// end addt'l family tree
 
