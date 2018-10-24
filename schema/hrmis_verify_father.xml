@@ -4,9 +4,9 @@
         <field name="applicantid" required="true" searchable="true" visible="false" />
         <field name="father_objid" required="true" searchable="true" visible="false" />
         <field name="father_name" required="false" searchable="true" visible="false" />
-        <field name="father_firstname" required="true" searchable="true" visible="false" />
-        <field name="father_middlename" required="true" searchable="true" visible="false" />
-        <field name="father_lastname" required="true" searchable="true" visible="false" />
+        <field name="father_firstname" searchable="true" visible="false" />
+        <field name="father_middlename" searchable="true" visible="false" />
+        <field name="father_lastname" searchable="true" visible="false" />
 
         <field name="nameextension" required="false" searchable="true" visible="false" />
         <!-- nara gi add -->

@@ -3,9 +3,9 @@
         <field name="objid" primary="true" searchable="false" prefix="FAMS-" />
         <field name="applicantid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
-        <field name="spouse_firstname" required="true" searchable="true" visible="false" /> 
-        <field name="spouse_middlename" required="true" searchable="true" visible="false" /> 
-        <field name="spouse_lastname" required="true" searchable="true" visible="false" /> 
+        <field name="spouse_firstname" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_middlename" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_lastname" required="false" searchable="true" visible="false" /> 
         <field name="maidenname" required="false" searchable="true" visible="false" /> 
         <field name="nameextension" required="false" searchable="true" visible="false" /> 
 

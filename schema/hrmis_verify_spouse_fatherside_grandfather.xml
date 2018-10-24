@@ -4,8 +4,8 @@
 		<field name="applicantid" required="true" searchable="false" visible="false" />
 		<field name="spousefathersidegrandfather_objid" required="true" searchable="true" visible="true" />
 		<field name="spousefathersidegrandfather_firstname" required="true" searchable="true" visible="true" />
-		<field name="spousefathersidegrandfather_middlename" required="true" searchable="true" visible="true" />
-		<field name="spousefathersidegrandfather_lastname" required="true" searchable="true" visible="true" />
+		<field name="spousefathersidegrandfather_middlename" required="false" searchable="true" visible="true" />
+		<field name="spousefathersidegrandfather_lastname" required="false" searchable="true" visible="true" />
 		<!-- dugang ni siya -->
 		<field name="nameextension" required="false" searchable="false" visible="true" />
 		<field name="prenametitle" required="false" searchable="false" visible="true" />
