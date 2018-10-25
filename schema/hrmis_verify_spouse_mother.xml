@@ -3,9 +3,10 @@
 		<field name="objid" primary="true" prefix="SM" visible="false" />
 		<field name="applicantid" required="true" searchable="false" visible="false" />
 		<field name="spousemother_objid" required="true" searchable="true" visible="true" />
-		<field name="spousemother_firstname" required="true" searchable="true" visible="true" />
-		<field name="spousemother_middlename" required="false" searchable="true" visible="true" />
-		<field name="spousemother_lastname" required="false" searchable="true" visible="true" />
+		<field name="spousemother_name" searchable="true" visible="true" />
+		<field name="spousemother_firstname" searchable="true" visible="true" />
+		<field name="spousemother_middlename" searchable="true" visible="true" />
+		<field name="spousemother_lastname" searchable="true" visible="true" />
 		<!-- dugang ni siya -->
 		<field name="maidenname" required="false" searchable="false" visible="true" />
 		<field name="nameextension" required="false" searchable="false" visible="true" />

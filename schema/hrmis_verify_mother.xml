@@ -3,6 +3,7 @@
         <field name="objid" primary="true" searchable="false" prefix="FAMM-" />
         <field name="applicantid" required="true" searchable="true" visible="false"/>
         <field name="mother_objid" required="true" searchable="true" visible="false"/>
+        <field name="mother_name" searchable="true" visible="false"/>
         <field name="mother_firstname" searchable="true" visible="false"/>
         <field name="mother_middlename" searchable="true" visible="false"/>
         <field name="mother_lastname" searchable="true" visible="false"/>

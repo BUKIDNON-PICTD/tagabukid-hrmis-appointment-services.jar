@@ -3,11 +3,12 @@
         <field name="objid" primary="true" searchable="false" prefix="FAMS-" />
         <field name="applicantid" required="true" searchable="true" visible="false" /> 
         <field name="spouse_objid" required="true" searchable="true" visible="false" /> 
-        <field name="spouse_firstname" required="false" searchable="true" visible="false" /> 
-        <field name="spouse_middlename" required="false" searchable="true" visible="false" /> 
-        <field name="spouse_lastname" required="false" searchable="true" visible="false" /> 
-        <field name="maidenname" required="false" searchable="true" visible="false" /> 
-        <field name="nameextension" required="false" searchable="true" visible="false" /> 
+        <field name="spouse_name" searchable="true" visible="false" />
+        <field name="spouse_firstname" searchable="true" visible="false" /> 
+        <field name="spouse_middlename" searchable="true" visible="false" /> 
+        <field name="spouse_lastname" searchable="true" visible="false" /> 
+        <field name="maidenname" searchable="true" visible="false" /> 
+        <field name="nameextension" searchable="true" visible="false" /> 
 
         <!-- nara gi add -->
         <field name="prenametitle" required="false" searchable="true" visible="false" /> 
