@@ -140,7 +140,8 @@ class TagabukidHRMISAppointmentCasualReportService
 			START              : page.start,
 			LASTPAGE           : page.end == pagesize,
 			PAGENUMBER         : page.page - 1,
-			PAGECOUNT          : pagelist.size()
+			PAGECOUNT          : pagelist.size(),
+			HIDENOA:params.hidenoa,
 		]
 		return data
 
