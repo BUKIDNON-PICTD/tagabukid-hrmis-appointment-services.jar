@@ -13,7 +13,8 @@
         <field name="to_code" caption="ASSIGNED TO" searchable="true" visible="true" />                
         <field name="effectivity" caption="EFFECTIVITY" searchable="true" visible="true" />            
         <field name="years" searchable="true" visible="false" />
-        <field name="returned" searchable="true" visible="false" />  
+        <field name="returned" searchable="true" visible="false" />            
+        <field name="returndate" searchable="true" visible="false" /> 
         <field name="remarks" searchable="true" visible="false" />    
         <field name="state" searchable="true" visible="false" />    
         <field name="recordlog_datecreated" required="true" searchable="true" visible="false" />
