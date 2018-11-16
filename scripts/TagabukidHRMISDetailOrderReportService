@@ -1,0 +1,40 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+class TagabukidHRMISDetailOrderReportService 
+{
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getDetailOrder(params){
+		def data = [:]
+		params._schemaname = 'hrmis_detailorder_list'
+		def detailorder = persistenceSvc.read(params)
+
+		data.reportdata = detailorder;
+		data.parameters = [
+			LGUNAME            	: "PROVINCE OF BUKIDNON",
+			LGUADDRESS         	: "Provincial Capiptol 8700",
+			TITLE              	: "DETAIL ORDER",
+			personnel   		: params.personnel,
+			date  				: params.date,
+			details             : params.details,
+			signatory        	: params.signatory,
+			signatorytitle     	: params.signatorytitle,
+			subject				: params.subject,
+			supervisor       	: params.supervisor,
+			supervisortitle     : params.supervisortitle,
+		]
+		return data
+		
+		println data
+	}
+}

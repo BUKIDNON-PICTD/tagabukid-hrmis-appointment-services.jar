@@ -10,7 +10,9 @@
         <field name="charges_code" caption="CHARGES" searchable="true" visible="true" />            
         <field name="to_orgunitid" searchable="true" visible="false" />                    
         <field name="to_name" searchable="true" visible="false" />                    
-        <field name="to_code" caption="ASSIGNED TO" searchable="true" visible="true" />                
+        <field name="to_code" caption="ASSIGNED TO" searchable="true" visible="true" />                              
+        <field name="supervisor" searchable="false" visible="false" />                                 
+        <field name="supervisortitle" searchable="false" visible="false" />          
         <field name="effectivity" caption="EFFECTIVITY" searchable="true" visible="true" />            
         <field name="years" searchable="true" visible="false" />
         <field name="returned" searchable="true" visible="false" />            
