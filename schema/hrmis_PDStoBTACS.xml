@@ -1,0 +1,68 @@
+<schema adapter="btacs">
+	<element name="USERINFO" tablename="USERINFO">
+		<field name="USERID" primary="true" />
+		<field name="BADGENUMBER" required="true" caption="BADGENUMBER" searchable="false" visible="true" />
+		<field name="SSN" required="false" caption="SSN" searchable="false" visible="true" />
+		<field name="NAME" required="true" caption="NAME" searchable="true" visible="true" indexed="true"/>
+		<field name="GENDER" required="true" caption="GENDER" searchable="true" visible="true" indexed="true"/>
+		<field name="TITLE" required="false" caption="TITLE" searchable="true" visible="true" indexed="true"/>
+		<field name="PAGER" required="false" caption="PAGER" searchable="false" visible="true" />
+		<field name="BIRTHDAY" required="true" caption="BIRTHDAY" searchable="false" visible="true" />
+		<field name="HIREDDAY" required="false" caption="HIREDDAY" searchable="false" visible="true" />
+		<field name="STREET" required="false" caption="STREET" searchable="false" visible="true" />
+		<field name="CITY" required="false" caption="CITY" searchable="false" visible="true" />
+		<field name="STATE" required="false" caption="STATE" searchable="false" visible="true" />
+		<field name="ZIP" required="false" caption="ZIP" searchable="false" visible="true" />
+		<field name="OPHONE" required="false" caption="OPHONE" searchable="false" visible="true" />
+		<field name="FPHONE" required="false" caption="FPHONE" searchable="false" visible="true" />
+		<field name="VERIFICATIONMETHOD" required="false" caption="VERIFICATIONMETHOD" searchable="false" visible="true" />
+		<field name="DEFAULTDEPTID" required="false" caption="DEFAULTDEPTID" searchable="false" visible="true" />
+		<field name="SECURITYFLAGS" required="false" caption="SECURITYFLAGS" searchable="false" visible="true" />
+		<field name="ATT" required="true" caption="ATT" searchable="false" visible="true" />
+		<field name="INLATE" required="true" caption="INLATE" searchable="false" visible="true" />
+		<field name="OUTEARLY" required="true" caption="OUTEARLY" searchable="false" visible="true" />
+		<field name="OVERTIME" required="true" caption="OVERTIME" searchable="false" visible="true" />
+		<field name="SEP" required="true" caption="SEP" searchable="false" visible="true" />
+		<field name="HOLIDAY" required="true" caption="HOLIDAY" searchable="false" visible="true" />
+		<field name="MINZU" required="false" caption="MINZU" searchable="false" visible="true" />
+		<field name="PASSWORD" required="false" caption="PASSWORD" searchable="false" visible="true" />
+		<field name="LUNCHDURATION" required="true" caption="LUNCHDURATION" searchable="false" visible="true" />
+		<field name="MVerifyPass" required="false" caption="MVerifyPass" searchable="false" visible="true" />
+		<field name="PHOTO" required="false" caption="PHOTO" searchable="false" visible="true" />
+		<field name="Notes" required="false" caption="Notes" searchable="false" visible="true" />
+		<field name="privilege" required="false" caption="privilege" searchable="false" visible="true" />
+		<field name="InheritDeptSch" required="false" caption="InheritDeptSch" searchable="false" visible="true" />
+		<field name="InheritDeptSchClass" required="false" caption="InheritDeptSchClass" searchable="false" visible="true" />
+		<field name="AutoSchPlan" required="false" caption="AutoSchPlan" searchable="false" visible="true" />
+		<field name="MinAutoSchInterval" required="false" caption="MinAutoSchInterval" searchable="false" visible="true" />
+		<field name="RegisterOT" required="false" caption="RegisterOT" searchable="false" visible="true" />
+		<field name="InheritDeptRule" required="false" caption="InheritDeptRule" searchable="false" visible="true" />
+		<field name="EMPRIVILEGE" required="false" caption="EMPRIVILEGE" searchable="false" visible="true" />
+		<field name="CardNo" required="false" caption="CardNo" searchable="false" visible="true" />
+		<field name="Pin1" required="false" caption="Pin1" searchable="false" visible="true" />
+		<field name="FaceGroup" required="false" caption="FaceGroup" searchable="false" visible="true" />
+		<field name="AccGroup" required="false" caption="AccGroup" searchable="false" visible="true" />
+		<field name="UseAccGroupTZ" required="false" caption="UseAccGroupTZ" searchable="false" visible="true" />
+		<field name="VerifyCode" required="false" caption="VerifyCode" searchable="false" visible="true" />
+		<field name="Expires" required="false" caption="Expires" searchable="false" visible="true" />
+		<field name="ValidCount" required="false" caption="ValidCount" searchable="false" visible="true" />
+		<field name="ValidTimeBegin" required="false" caption="ValidTimeBegin" searchable="false" visible="true" />
+		<field name="ValidTimeEnd" required="false" caption="ValidTimeEnd" searchable="false" visible="true" />
+		<field name="TimeZone1" required="false" caption="TimeZone1" searchable="false" visible="true" />
+		<field name="TimeZone2" required="false" caption="TimeZone2" searchable="false" visible="true" />
+		<field name="TimeZone3" required="false" caption="TimeZone3" searchable="false" visible="true" />
+		<field name="TimeZone3" required="false" caption="TimeZone3" searchable="false" visible="true" />
+<!-- 
+		<complex name="department" ref="DEPARTMENTS" jointype="many-to-one">
+			<key field="DEFAULTDEPTID" target="DEPTID"/>
+		</complex>	
+
+		<complex name="items" ref="CHECKINOUT" jointype="one-to-many" lazy="true">
+			<key field="USERID" target="USERID"/>
+		</complex>	
+ -->
+	</element>
+</schema>
+
+
+

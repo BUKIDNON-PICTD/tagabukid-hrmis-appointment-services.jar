@@ -1,0 +1,14 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds_version_educationalbackground">
+		<field name="objid" primary="true" searchable="false" visible="false"/>
+		<field name="varchar" required="true" searchable="false" visible="false"/>
+		<field name="level" required="true" visible="true"/>
+		<field name="schoolname" required="true" searchable="true" visible="true"/>
+		<field name="degree_course" required="false" searchable="true" visible="true"/>
+		<field name="from" required="true" visible="true"/>
+		<field name="to" required="true" visible="true"/>
+		<field name="highestlevel_units" required="false" visible="true"/>
+		<field name="yeargraduated" required="true" visible="true"/>
+		<field name="scholarship_honors" required="false" visible="true"/>
+	</element>
+</schema>
