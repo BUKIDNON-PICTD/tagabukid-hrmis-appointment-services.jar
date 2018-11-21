@@ -1,9 +1,10 @@
 <schema adapter="tagabukid_hrmis">
     <element tablename="hrmis_detailorder_list">
         <field name="objid" primary="true" searchable="false" prefix="FAMF-" />
-        <field name="pdsid" caption="PDS ID" required="false" searchable="true" visible="true" />
+        <field name="pdsid" caption="PDS ID" required="false" searchable="true" visible="false" />
         <field name="personnel_objid" required="true" searchable="true" visible="false" />
         <field name="personnel_name" caption="PERSONNEL" required="truez" searchable="true" visible="true" />
+        <field name="personnel_position" required="false" searchable="true" visible="false" />
         <field name="status" caption="STATUS" required="false" searchable="true" visible="false" />
         <field name="charges_orgunitid" caption="CHARGES" searchable="true" visible="false" />                   
         <field name="charges_name" searchable="true" visible="false" />                       
@@ -12,7 +13,9 @@
         <field name="to_name" searchable="true" visible="false" />                    
         <field name="to_code" caption="ASSIGNED TO" searchable="true" visible="true" />                              
         <field name="supervisor" searchable="false" visible="false" />                                 
-        <field name="supervisortitle" searchable="false" visible="false" />          
+        <field name="supervisortitle" searchable="false" visible="false" />                       
+        <field name="signatory_signatoryname" searchable="false" visible="false" />                       
+        <field name="signatory_signatorytitle" searchable="false" visible="false" />          
         <field name="effectivity" caption="EFFECTIVITY" searchable="true" visible="true" />            
         <field name="years" searchable="true" visible="false" />
         <field name="returned" searchable="true" visible="false" />            
