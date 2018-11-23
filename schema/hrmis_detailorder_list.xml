@@ -5,7 +5,7 @@
         <field name="personnel_objid" required="true" searchable="true" visible="false" />
         <field name="personnel_name" caption="PERSONNEL" required="truez" searchable="true" visible="true" />
         <field name="personnel_position" required="false" searchable="true" visible="false" />
-        <field name="status" caption="STATUS" required="false" searchable="true" visible="false" />
+        <field name="status" caption="STATUS" required="false" searchable="true" visible="true" />
         <field name="charges_orgunitid" caption="CHARGES" searchable="true" visible="false" />                   
         <field name="charges_name" searchable="true" visible="false" />                       
         <field name="charges_code" caption="CHARGES" searchable="true" visible="true" />            
