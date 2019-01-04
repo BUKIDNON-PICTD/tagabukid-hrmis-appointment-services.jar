@@ -59,7 +59,7 @@ class TagabukidHRMISAppointmentCasualReportService
 	}
 
 	@ProxyMethod
-	public def getAppointmentCasualById(params,page,pagelist,hidenoa){
+	public def getAppointmentCasualById(params,page,pagelist,hidenoa,hidenoaheader,nothingfollows){
 		def data = [:]
 	    // println page
 		params._schemaname = 'hrmis_appointmentcasual'
@@ -86,17 +86,19 @@ class TagabukidHRMISAppointmentCasualReportService
 	
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		// println appointment
-		
+		println nothingfollows
 		data.reportdata = appointment;
 		data.parameters = [
-			LGUNAME   : "PG-BUKIDNON, REGION 10",
-			LGUADDRESS: "Provincial Capiptol, City of Malaybalay",
-			TITLE     : "PLANTILLA OF CASUAL APPOINTMENTS",
-			START     : page.start,
-			LASTPAGE  : page.end == pagesize,
-			PAGENUMBER: page.page - 1,
-			PAGECOUNT : pagelist.size(),
-			HIDENOA : hidenoa,
+			LGUNAME           : "PG-BUKIDNON, REGION 10",
+			LGUADDRESS        : "Provincial Capiptol, City of Malaybalay",
+			TITLE             : "PLANTILLA OF CASUAL APPOINTMENTS",
+			START             : page.start,
+			LASTPAGE          : page.end == pagesize,
+			PAGENUMBER        : page.page - 1,
+			PAGECOUNT         : pagelist.size(),
+			HIDENOA           : hidenoa,
+			HIDENOAHEADER     : hidenoaheader,
+			SHOWNOTHINGFOLLOWS: nothingfollows,
 		]
 		return data
 	}
@@ -104,7 +106,7 @@ class TagabukidHRMISAppointmentCasualReportService
 	@ProxyMethod
 	public def getAppointmentCasualRaiById(params,page,pagelist){
 		def data = [:]
-
+		def title = "REPORT ON APPOINTMENT ISSUED (RAI)"
 		
 	//    println params.signatorygroup
 		params._schemaname = 'hrmis_appointmentcasual'
@@ -126,10 +128,16 @@ class TagabukidHRMISAppointmentCasualReportService
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
 		// println appointment
 		data.reportdata = appointment;
+
+		//change title
+		if (params.changetitle){
+			title = 'APPOINTMENT TRANSMITTAL AND ACTION FORM'
+		}
+		
 		data.parameters = [
 			LGUNAME            : "PG-BUKIDNON, REGION 10",
 			LGUADDRESS         : "Provincial Capiptol, City of Malaybalay",
-			TITLE              : "REPORT ON APPOINTMENT ISSUED (RAI)",
+			TITLE              : title,
 			appointmentforms   : params.appointmentforms,
 			casualappointment  : params.casualappointment,
 			pds                : params.pds,
@@ -141,7 +149,7 @@ class TagabukidHRMISAppointmentCasualReportService
 			LASTPAGE           : page.end == pagesize,
 			PAGENUMBER         : page.page - 1,
 			PAGECOUNT          : pagelist.size(),
-			HIDENOA:params.hidenoa,
+			HIDENOA            : params.hidenoa,
 		]
 		return data
 
