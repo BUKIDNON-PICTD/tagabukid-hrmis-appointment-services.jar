@@ -59,8 +59,9 @@ class TagabukidHRMISAppointmentCasualReportService
 	}
 
 	@ProxyMethod
-	public def getAppointmentCasualById(params,page,pagelist,hidenoa,hidenoaheader,nothingfollows){
+	public def getAppointmentCasualById(params,page,pagelist,hidenoa,hidenoaheader){
 		def data = [:]
+		
 	    // println page
 		params._schemaname = 'hrmis_appointmentcasual'
 		def appointment = persistenceSvc.read(params)
@@ -79,15 +80,32 @@ class TagabukidHRMISAppointmentCasualReportService
 		}.sort{it.personnel.lastname}
 		def pagesize                     = appointment.appointmentitems.size()
 		def list                         = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
-		    appointment.appointmentitems = []
+		appointment.appointmentitems = []
+		
 		list.each{
 			appointment.appointmentitems.add(it)
 		}
-	
+		
+		if (list.size() < 15){
+			appointment.appointmentitems.add([
+					personnel:[lastname:"**NOTHING FOLLOWS**"]
+				])
+			for (int i = 1; i < 15 - list.size(); i++) {
+				appointment.appointmentitems.add([])
+			}
+		}
+		
+
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		// println appointment
-		println nothingfollows
+		// println nothingfollows
 		data.reportdata = appointment;
+
+		//natureofappointment
+		def natureofappointment = data.reportdata.natureofappointment.name
+		if(natureofappointment == "REAPPOINTMENT"){
+			natureofappointment = "REAPPOINTMENT - RENEWAL"
+		}
 		data.parameters = [
 			LGUNAME           : "PG-BUKIDNON, REGION 10",
 			LGUADDRESS        : "Provincial Capiptol, City of Malaybalay",
@@ -98,7 +116,7 @@ class TagabukidHRMISAppointmentCasualReportService
 			PAGECOUNT         : pagelist.size(),
 			HIDENOA           : hidenoa,
 			HIDENOAHEADER     : hidenoaheader,
-			SHOWNOTHINGFOLLOWS: nothingfollows,
+			NATUREOFAPPOINTMENT: natureofappointment,
 		]
 		return data
 	}
@@ -123,16 +141,24 @@ class TagabukidHRMISAppointmentCasualReportService
 		list.each{
 			appointment.appointmentitems.add(it)
 		}
-	
+
+		if (list.size() < 15){
+			appointment.appointmentitems.add([
+					personnel:[lastname:"**NOTHING FOLLOWS**"]
+				])
+			for (int i = 1; i < 15 - list.size(); i++) {
+				appointment.appointmentitems.add([])
+			}
+		}
 
 		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
 		// println appointment
 		data.reportdata = appointment;
 
 		//change title
-		if (params.changetitle){
+		// if (params.changetitle){
 			title = 'APPOINTMENT TRANSMITTAL AND ACTION FORM'
-		}
+		// }
 		
 		data.parameters = [
 			LGUNAME            : "PG-BUKIDNON, REGION 10",
