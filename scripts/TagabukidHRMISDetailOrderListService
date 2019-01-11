@@ -1,0 +1,101 @@
+import com.rameses.annotations.*;
+import com.rameses.services.extended.*;
+import java.rmi.server.*;
+
+
+class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
+
+	@ActiveDB(value='detailorder', em='tagabukid_hrmis')
+	def em
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Service('UserRoleService') 
+    def userRoleSvc; 
+
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getNodes(o) {
+		def nodes = [];
+		nodes << [name:'detailed',  caption: 'DETAILED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'assigned',  caption: 'ASSIGNED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'returned',  caption: 'RETURNED TO OFFICE', leaf:true, allowSearch:true, folder:true];
+		
+
+		return nodes;
+	}	
+
+	@ProxyMethod
+	public def getColumns(o) {
+		def cols = [];
+		cols <<	[name:'persona', caption:'PERSONNEL', width:120];
+		cols <<	[name:'status', caption:'STATUS', width:130, resizable:false];
+		cols <<	[name:'charged', caption:'OFFICE', width:120, resizable:false];
+		cols <<	[name:'destined', caption:'TO', width:150, resizable:false];
+		cols << [name:'effectivity', caption:'EFFECTIVITY', width:130, resizable:false];
+		cols <<	[name:'years', caption:'YEARS REASSIGNED', width:120, resizable:false];
+		cols <<	[name:'remarks', caption:'REMARKS', width:100];
+		// cols <<	[name:'dateissued', caption:'Date Issued', width:130, resizable:false];
+		//cols <<	[name:'assignee.name', caption:'Performed By', width:130, resizable:false];
+		// cols <<	[name:'locationorg.name', caption:'Doc. Location', width:140, resizable:true];
+		return cols;
+	}
+	
+	public void beforeList(o) {
+		o._pagingKeys = "`hrmis_detailorder_list`.`objid`";
+		o.filter = '';		
+		o.filter += ''' '''
+		
+
+		switch(o.name) {
+			// case 'search':
+			// 	if( !o.searchtext || o.searchtext == '%' ){
+			// 		o.searchtext = "?";
+			// 	}	
+			// 	break;
+					
+			case 'detailed':
+				o.filter += ''' WHERE returned = 'FALSE' AND to_orgunitid in (
+					SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,
+						`references_tblorganizationunit` AS parent
+					WHERE node.lft BETWEEN parent.lft AND parent.rgt
+					AND parent.orgunitid = 'e448370d-16db-4c58-9c97-ba08138eeac7'
+					ORDER BY parent.lft)
+					or to_orgunitid is null ''';
+				break;
+
+			case 'assigned':
+				o.filter += ''' WHERE returned = 'FALSE' AND to_orgunitid in (
+					SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,
+						`references_tblorganizationunit` AS parent
+					WHERE node.lft BETWEEN parent.lft AND parent.rgt
+					AND parent.orgunitid = 'ac299664-82c7-45a1-a096-194844656ea3'
+					ORDER BY parent.lft) ''';
+				break;
+
+			case 'returned':
+				o.filter += ''' WHERE returned = 'TRUE' ''';
+				break;
+
+			case 'all':
+				if( !o.searchtext || o.searchtext == '%' ){
+					o.searchtext = "?";
+				}
+				break;
+
+			default:
+				break;
+		}
+
+	// 	if(o.dtfrom && o.dtto){
+	// 		o.filter += '''AND `hrmis_detailorder_list`.`dateissued` BETWEEN $P{dtfrom} AND ADDDATE($P{dtto},1) '''
+	// 	}
+	// 	o.filter += '''ORDER BY `hrmis_detailorder_list`.`dateissued` DESC, `hrmis_detailorder_list`.`appointmentgroupname` ASC '''
+	// 	// println o.searchtext
+	}
+
+}
