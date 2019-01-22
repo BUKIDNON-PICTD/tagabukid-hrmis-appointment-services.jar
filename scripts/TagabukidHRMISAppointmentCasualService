@@ -81,6 +81,7 @@ class TagabukidHRMISAppointmentCasualService
         entity.recordlog.lastupdatedbyuserid = env.USERID
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
         
+	
         return entity;
 
 	}
