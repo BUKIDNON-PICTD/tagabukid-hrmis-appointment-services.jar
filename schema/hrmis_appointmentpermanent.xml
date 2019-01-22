@@ -1,0 +1,84 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentpermanent">
+		<field name="objid" primary="true" searchable="flase"/>
+		<field name="state" required="true" caption="State" searchable="true"/>
+		<field name="status_objid" required="true" visible="false"/>
+		<field name="pds_objid" required="true" visible="false"/>
+		<field name="effectivefrom" required="true" caption="Effective From" searchable="true"/>
+		<field name="effectiveuntil" required="true" caption="Effective Until" searchable="true"/>
+		<field name="natureofappointment_objid" required="true" visible="false"/>
+		<field name="dateissued" required="true" caption="Date Issued" searchable="true"/>
+		<field name="dateapproved" caption="Date Approved" searchable="true"/>
+		<field name="datedisapproved" caption="Date Disapproved" searchable="true"/>
+		<field name="disapprovalreason" caption="Disapproval Reason" searchable="true"/>
+		<field name="plantilla_objid" required="true" visible="false"/>
+		<field name="paygradeandstepincrement_objid" required="true" visible="false"/>
+		<field name="compensation" required="true" caption="Compensation" searchable="true"/>
+		<field name="positionpublishedlocation" required="true" caption="Publish Location" searchable="true"/>
+		<field name="positionpublisheddate" required="true" caption="Publish Date" searchable="true"/>
+		<field name="succeededperson" caption="Succeeded Person" searchable="true"/>
+		<field name="causeofsuccession" caption="Cause of Succession" searchable="true"/>
+		<field name="remarks" required="true" caption="true" searchable="true"/>
+		<field name="cutoffdate" required="true" caption="true" searchable="true"/>
+		<field name="cutoffreason_objid" required="true" caption="true" searchable="true"/>
+		<field name="cutoffreason_name" required="true" caption="true" searchable="true"/>
+		<field name="cutoffreason_code" required="true" caption="true" searchable="true"/>
+		<field name="signatorygroup_objid" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_createdbyuser" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_dateupdated" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_lastupdatedbyuserid" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_lastupdatedbyuser" required="true" caption="true" searchable="true"/>
+		<complex name="pds" ref="hrmis_pds" jointype="many-to-one" required="false">
+			<key field="pds_objid" target="objid" />
+		</complex>
+		<complex name="natureofappointment" ref="master_tblappointmententrycode" jointype="many-to-one" required="false">
+			<key field="natureofappointment_objid" target="objid" />
+		</complex>
+		<!-- <complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
+			<key field="org_orgunitid" target="orgunitid" />
+		</complex> -->
+		<complex name="plantilla" ref="hrmis_plantilla_management" jointype="many-to-one" required="false">
+			<key field="plantilla_objid" target="objid" />
+		</complex>
+		<complex name="paygradeandstepincrement" ref="master_tblpaygradeandstepincrement" jointype="many-to-one" required="false">
+			<key field="paygradeandstepincrement_objid" target="objid" />
+		</complex>
+		<complex name="status" ref="master_tblemptemploymentstatus" jointype="many-to-one" required="false">
+			<key field="status_objid" target="objid" />
+		</complex>
+		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" required="false">
+			<key field="signatorygroup_objid" target="objid" /> 		
+		</complex>
+	</element>
+</schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

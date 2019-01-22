@@ -8,12 +8,12 @@
 		<!-- added maiden name -->
 
 		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
-		<field name="person_lastname" required="true" visible="false" caption="" searchable="true" />
-		<field name="person_firstname" required="true" visible="false" caption="" searchable="true" />
-		<field name="person_middlename" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_lastname" required="true" visible="true" caption="Last Name" searchable="true" />
+		<field name="person_firstname" required="true" visible="true" caption="First Name" searchable="true" />
+		<field name="person_middlename" required="true" visible="true" caption="Middle Name" searchable="true" />
 		<field name="person_birthdate" required="true" visible="false" caption="" searchable="true" />
 		<field name="person_birthplace" required="true" visible="false" caption="" searchable="true" />
-  		<field name="person_gender" required="true" visible="false" caption="" searchable="true" />
+  		<field name="person_gender" required="true" visible="true" caption="Gender" searchable="true" />
     	<field name="person_civilstatus" required="true" visible="false" caption="" searchable="true" />
 		<field name="person_citizenship" required="true" visible="false" caption="" searchable="true" />
 		<field name="person_phoneno" required="false" visible="false" caption="" searchable="true" />

@@ -1,5 +1,5 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_appointmentregular_cancel">
+	<element tablename="hrmis_appointmentpermanent_cancel">
 		<field name="objid" primary="true" prefix="ARC" visible="false" searchable="false"/>
 		<field name="appointmentid" required="true" visible="false" searchable="false"/>
 		<field name="datecanceled" required="true" visible="false" searchable="false"/>

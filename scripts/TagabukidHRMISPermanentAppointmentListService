@@ -1,0 +1,129 @@
+import com.rameses.annotations.*;
+import com.rameses.services.extended.*;
+import java.rmi.server.*;
+
+
+class TagabukidHRMISPermanentAppointmentListService extends ActiveCrudListService  {
+
+	@ActiveDB(value='permanentappointmentdocument', em='tagabukid_hrmis')
+	def em
+
+	@Service("TagabukidSubayTransactionService")
+	def dtssvc;
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Service('UserRoleService') 
+    def userRoleSvc; 
+
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getNodes(o) {
+		def nodes = [];
+		nodes << [name:'pending',  caption: 'PENDING/CUTOFF', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'active',  caption: 'ACTIVE', leaf:true, allowSearch:true, folder:true];
+		// nodes << [name:'renewal', caption: 'FOR RENEWAL', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'retired', caption: 'RETIRED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'cancelled', caption: 'CANCELLED', leaf:true, allowSearch:true, folder:true];
+		// nodes << [name:'closed', caption: 'Closed', leaf:true, allowSearch:true, folder:true];
+		// nodes << [name:'attached', caption: 'Attached', leaf:true, allowSearch:true, folder:true];
+		// if (userRoleSvc.getUsers( [domain:'SUBAY', roles:'MASTER'] ).collect {it.objid}.contains(env.USERID)){
+		nodes << [name:'all', caption: 'ALL APPOINTMENTS', leaf:true, allowSearch:true, folder:true];
+		// }
+		
+
+		return nodes;
+	}	
+
+	@ProxyMethod
+	public def getColumns(o) {
+		def cols = [];
+		cols <<	[name:'state', caption:'State', width:100, resizable:false];
+		cols <<	[name:'pds.person.lastname', caption:'Last Name', width:120];
+		cols <<	[name:'pds.person.firstname', caption:'First Name', width:120];
+		cols <<	[name:'pds.person.middlename', caption:'Middle Name', width:120];
+		cols <<	[name:'pds.person.gender', caption:'Gender', width:100];
+		cols <<	[name:'status.name', caption:'Status', width:100, resizable:false];
+		cols <<	[name:'effectivefrom', caption:'Effective From', width:100, resizable:false];
+		// cols << [name:'effectiveuntil', caption:'Effective Until', width:100, resizable:false];
+		cols <<	[name:'org.code', caption:'Organization Unit', width:150, resizable:false];
+		cols <<	[name:'natureofappointment.name', caption:'Nature of Appointment', width:130];
+		cols <<	[name:'dateissued', caption:'Date Issued', width:130, resizable:false];
+		return cols;
+	}
+
+	public void beforeList(o) {
+		o._pagingKeys = "`hrmis_appointmentpermanent`.`objid`";
+		o.filter = '';
+		//int activeyear = dateSvc.getServerYear();
+		// def userorgid  = dtssvc.getUserOrg(env.USERID).org.objid;
+		// o.userorgid = userorgid;
+
+		
+		o.filter += ''' AND (`pds`.`person_name` LIKE '%'
+		OR `org`.`name` LIKE $P{searchtext}
+		OR `org`.`code` LIKE $P{searchtext}) 
+		'''
+
+		switch(o.name) {
+			case 'search':
+				if( !o.searchtext || o.searchtext == '%' ){
+					o.searchtext = "?";
+				}	
+				break;
+				
+			//--------------- processing--------------------	
+			case 'pending':
+				
+				//o.state = 'DRAFT';
+				o.filter += ''' AND `hrmis_appointmentpermanent`.`state` IN ('PENDING','CUTOFF') ''';
+				break;
+
+			case 'active':
+				
+				o.state = 'APPROVED';
+				o.filter += ''' AND `hrmis_appointmentpermanent`.`state` = $P{state} ''';
+				// AND NOW() BETWEEN `hrmis_appointmentpermanent`.`effectivefrom` AND `hrmis_appointmentpermanent`.`effectiveuntil` ''';
+				break;
+
+			// case 'renewal':
+				
+			// 	o.state = 'APPROVED';
+			// 	o.filter += ''' AND `hrmis_appointmentpermanent`.`state` = $P{state} 
+			// 	AND DATEDIFF(`hrmis_appointmentpermanent`.`effectiveuntil`,NOW()) BETWEEN -7 AND 60 ''';
+			// 	break;
+
+			case 'retired':
+				
+				o.state = 'RETIRED';
+				o.filter += ''' AND `hrmis_appointmentpermanent`.`state` = $P{state} ''';
+				// AND DATEDIFF(`hrmis_appointmentpermanent`.`effectiveuntil`,NOW()) < 0 ''';
+				break;
+
+			case 'cancelled':
+				
+				o.filter += ''' AND `hrmis_appointmentpermanent`.`objid` IN (SELECT appointmentid FROM `hrmis_appointmentpermanent_cancel`) ''';
+				break;
+
+			case 'all':
+				if( !o.searchtext || o.searchtext == '%' ){
+					o.searchtext = "?";
+				}
+				break;
+
+			default:
+				break;
+		}
+
+		// if(o.dtfrom && o.dtto){
+		// 	o.filter += '''AND `hrmis_appointmentpermanent`.`dateissued` BETWEEN $P{dtfrom} AND ADDDATE($P{dtto},1) '''
+		// }
+		o.filter += '''ORDER BY `hrmis_appointmentpermanent`.`dateissued` DESC, `pds`.`person_lastname` ASC '''
+		
+	}
+
+} 
