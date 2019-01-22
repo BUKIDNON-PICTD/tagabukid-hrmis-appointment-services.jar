@@ -87,7 +87,12 @@ class TagabukidHRMISPDSService
         entity.servicerecordInfos = []
         entity.serviceretireInfos = []
 
-
+        // entity.continuedchilddata = []
+        // entity.continuededucationalInfos = []
+        // entity.continuedcivilserviceInfos = []
+        // entity.continuedworkexperienceInfos = []
+        // entity.continuedvoluntaryworks = []
+        // entity.continuedtrainings = []
 
         // entity.version.personalinfo =  initPersonalInfo(entity.version)
         // entity.version.voluntarywork = initVoluntaryWork(entity.version)

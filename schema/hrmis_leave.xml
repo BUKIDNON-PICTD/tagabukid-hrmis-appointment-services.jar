@@ -1,0 +1,57 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_pds">
+    	<field name="objid" primary="true"/>
+		<field name="state" required="true" visible="false" searchable="true" />
+		<field name="pdsno" caption="PDS No." required="true" visible="true" searchable="true"/>
+		<field name="versionno" required="true" searchable="true" />
+		<field name="person_objid" required="true" visible="false" caption="" searchable="true" />
+		<!-- added maiden name -->
+
+		<field name="person_name" required="true" visible="true" caption="Name" searchable="true" />
+		<field name="person_lastname" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_firstname" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_middlename" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_birthdate" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_birthplace" required="true" visible="false" caption="" searchable="true" />
+  		<field name="person_gender" required="true" visible="false" caption="" searchable="true" />
+    	<field name="person_civilstatus" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_citizenship" required="true" visible="false" caption="" searchable="true" />
+		<field name="person_phoneno" required="false" visible="false" caption="" searchable="true" />
+    	<field name="person_mobileno" required="false" visible="false" caption="" searchable="true" />
+    	<field name="person_email" required="false" visible="false" caption="" searchable="true" />
+		
+		<field name="maidenname" required="false" visible="true" caption="Name" searchable="true" />
+		<field name="nameextension" required="false" visible="true" caption="Name Extension" searchable="true" />
+		<field name="prenametitle" required="false" visible="true" caption="Pre Name Title" searchable="true" />
+		<field name="postnametitle" required="false" visible="true" caption="Post Name Title" searchable="true" />
+		
+		<!-- gi edit nako ang address bai -->
+		<complex name="residential_address" required="true" serializer="default" />
+        <field name="residential_address_text" required="true" defaultValue="" visible="true" caption="Address" searchable="true" />
+        <complex name="permanent_address" required="true" serializer="default" />
+		<field name="permanent_address_text" required="true" defaultValue="" visible="true" caption="Address" searchable="true" />
+		<!-- physical -->
+
+		<!-- add ko ug ZIP code -->
+		<field name="residentialzipcode" required="false" visible="false" caption="" searchable="true" />
+		<field name="permanentzipcode" required="false" visible="false" caption="" searchable="true" />
+		<!-- .....  -->
+
+    	<field name="height" required="true" defaultValue="0" visible="false" caption="" searchable="true" />
+    	<field name="weight" required="true" defaultValue="0" visible="false" caption="" searchable="true" />
+    	<field name="bloodtype" required="false" defaultValue="" visible="false" caption="" searchable="true" />
+    	<field name="gsisid" required="false" visible="false" caption="" searchable="true" />
+    	<field name="pagibigid" required="false" visible="false" caption="" searchable="true" />
+    	<field name="philhealth" required="false" visible="false" caption="" searchable="true" />
+    	<field name="sss" required="false" visible="false" caption="" searchable="true" />
+    	<field name="tin" required="false" visible="false" caption="" searchable="true" />
+    	<field name="employeeno" required="false" visible="false" caption="" searchable="true" />
+    
+		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="true" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="true" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="true" visible="false" searchable="false" />
+	</element>
+</schema>

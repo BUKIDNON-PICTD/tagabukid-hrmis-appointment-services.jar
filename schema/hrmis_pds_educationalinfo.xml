@@ -28,5 +28,8 @@
 		<complex name="coursemajor" ref="master_tblacadcoursemajor" jointype="many-to-one" required="false">
 			<key field="coursemajor_objid" target="objid" />
 		</complex>
+		<complex name="school" ref="master_tblinstitution" jointype="many-to-one" required="false">
+			<key field="school_objid" target="objid" />
+		</complex>
 	</element>
 </schema>
