@@ -103,10 +103,10 @@ class TagabukidHRMISAppointmentCasualReportService
 
 		//natureofappointment
 		def natureofappointment = data.reportdata.natureofappointment.name
-		def formno = "34F"
+		def formno = "34D"
 		if(natureofappointment == "REAPPOINTMENT"){
 			natureofappointment = "REAPPOINTMENT - RENEWAL"
-			formno = "34D"
+			formno = "34F"
 		}
 		data.parameters = [
 			LGUNAME           : "PG-BUKIDNON, REGION 10",
