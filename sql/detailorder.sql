@@ -27,6 +27,7 @@ ORDER BY persona
 
 [getPersonnel]
 SELECT
+@rownum := @rownum + 1 AS no,
 `hrmis_detailorder_list`.`objid`,
 `hrmis_detailorder_list`.`personnel_name` as persona,
 `hrmis_detailorder_list`.`status`,
@@ -35,6 +36,7 @@ SELECT
 `hrmis_detailorder_list`.`effectivity`,
 `hrmis_detailorder_list`.`years`,
 `hrmis_detailorder_list`.`remarks`
+
 
 FROM `hrmis_detailorder_list`
 
@@ -48,6 +50,9 @@ LEFT JOIN `references_tblorganizationunit` `charges`
 	ON `charges`.`orgunitid` = `hrmis_detailorder_list`.`charges_orgunitid`
 
 LEFT JOIN `references_tblorganizationunit` `to`
-	ON `to`.`orgunitid` = `hrmis_detailorder_list`.`to_orgunitid`
+	ON `to`.`orgunitid` = `hrmis_detailorder_list`.`to_orgunitid`,
+
+(SELECT @rownum := 0) r
+
 ${funnel}
 ORDER BY persona
