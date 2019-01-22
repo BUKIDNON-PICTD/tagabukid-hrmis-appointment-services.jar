@@ -4,6 +4,9 @@ import com.rameses.services.extended.*;
 
 class TagabukidHRMISDetailOrderReportService 
 {
+	@ActiveDB(value='detailorder', em='tagabukid_hrmis')
+	def em
+
 	@Service("PersistenceService")
     def persistenceSvc;
 
@@ -37,5 +40,32 @@ class TagabukidHRMISDetailOrderReportService
 		return data
 		
 		println data
+	}
+
+	@ProxyMethod
+	public def getInventory(params){
+		def data = [:]
+		def filler = ''
+		if(params == "reassigned"){			
+			filler = " WHERE returned = FALSE AND to_orgunitid in (SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,`references_tblorganizationunit` AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.orgunitid = 'ac299664-82c7-45a1-a096-194844656ea3' ORDER BY parent.lft) "
+		}
+		else if(params == "detailed"){
+			filler = " WHERE returned = FALSE AND to_orgunitid in (SELECT node.orgunitid FROM `references_tblorganizationunit` AS node, `references_tblorganizationunit` AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.orgunitid = 'e448370d-16db-4c58-9c97-ba08138eeac7' ORDER BY parent.lft) or to_orgunitid is null "
+		}
+			def inventory = em.getPersonnel([funnel:filler])
+		data.reportdata = inventory
+
+		// def curdate = dtSvc.getMonths().index(dtSvc.getServerMonth()) + " " + dtSvc.getServerDay() + ", " +  dtSvc.getServerYear()
+		// def thisDay = new java.util.Date(now)
+		data.parameters = [
+			LGUNAME            	: "PROVINCE OF BUKIDNON",
+			LGUADDRESS         	: "Provincial Capiptol 8700",
+			TITLE              	: "DETAIL ORDER",
+			// personnel   		: inventory.persona,
+			// ASOF				: thisDay.toString(),
+			category			: params.toUpperCase(),
+
+		]
+		return data;
 	}
 }

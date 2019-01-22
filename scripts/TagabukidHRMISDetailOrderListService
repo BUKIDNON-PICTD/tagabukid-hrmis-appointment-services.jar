@@ -22,7 +22,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 	public def getNodes(o) {
 		def nodes = [];
 		nodes << [name:'detailed',  caption: 'DETAILED', leaf:true, allowSearch:true, folder:true];
-		nodes << [name:'assigned',  caption: 'ASSIGNED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'reassigned',  caption: 'REASSIGNED', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'returned',  caption: 'RETURNED TO OFFICE', leaf:true, allowSearch:true, folder:true];
 		
 
@@ -37,7 +37,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 		cols <<	[name:'charged', caption:'OFFICE', width:120, resizable:false];
 		cols <<	[name:'destined', caption:'TO', width:150, resizable:false];
 		cols << [name:'effectivity', caption:'EFFECTIVITY', width:130, resizable:false];
-		cols <<	[name:'years', caption:'YEARS REASSIGNED', width:120, resizable:false];
+		cols <<	[name:'years', caption: 'NO. OF YEARS', width:120, resizable:false];
 		cols <<	[name:'remarks', caption:'REMARKS', width:100];
 		// cols <<	[name:'dateissued', caption:'Date Issued', width:130, resizable:false];
 		//cols <<	[name:'assignee.name', caption:'Performed By', width:130, resizable:false];
@@ -68,7 +68,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 					or to_orgunitid is null ''';
 				break;
 
-			case 'assigned':
+			case 'reassigned':
 				o.filter += ''' WHERE returned = 'FALSE' AND to_orgunitid in (
 					SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,
 						`references_tblorganizationunit` AS parent
@@ -89,8 +89,9 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 
 			default:
 				break;
-		}
 
+
+		}
 	// 	if(o.dtfrom && o.dtto){
 	// 		o.filter += '''AND `hrmis_detailorder_list`.`dateissued` BETWEEN $P{dtfrom} AND ADDDATE($P{dtto},1) '''
 	// 	}

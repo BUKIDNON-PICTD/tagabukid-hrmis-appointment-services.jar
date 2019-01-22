@@ -12,6 +12,7 @@
 		<field name="recordlog_dateoflastupdate" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuserid" required="false" searchable="false" visible="false" />
 		<field name="recordlog_lastupdatedbyuser" required="false" searchable="false" visible="false" />	
+		
 		<complex name="pdsq" ref="master_tblpdsq" jointype="many-to-one" required="false">
 			<key field="pdsq_objid" target="objid" />
 		</complex>

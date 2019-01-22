@@ -36,6 +36,19 @@ class TagabukidHRMISPDSReportService
 				
 			}
 			def Familychild = []
+			def continuedfamilychild = false
+			if (pdsentity.familychildInfos.size()>12){
+				continuedfamilychild = true
+				pdsentity.continuedchilddata = pdsentity.familychildInfos
+			}
+				
+			// 	}
+			// 	println pdsentity.continuedchilddata;
+			// 	pdsentity.continuedchilddata.each{ a ->
+			// 		Familychild.add(a)
+			// 	}
+			// }
+			
 			pdsentity.familychildInfos.each{ a ->
 				Familychild.add(a)
 			}
@@ -55,22 +68,85 @@ class TagabukidHRMISPDSReportService
 			]
 
 			def Levels = [
-				[ level : "ELEMENTARY" ],
-				[ level : "SECONDARY" ],
-				[ level : "VOCATIONAL / TRADE COURSE" ],
-				[ level : "COLLEGE" ],
-				[ level : "GRADUATE STUDIES" ],
+				[ level : "ELEMENTARY",position:1 ],
+				[ level : "SECONDARY",position:2  ],
+				[ level : "VOCATIONAL / TRADE COURSE",position:3  ],
+				[ level : "COLLEGE",position:4  ],
+				[ level : "GRADUATE STUDIES",position:5  ],
 			]
-			Levels.each{ b ->
-				if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
-					pdsentity.educationalInfos << b
-					// Levels << pdsentity.educationalInfos
-					
+		
+			pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
+					it.from.toInteger()
 				}
-				 
-				// pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0
-				// pdsentity.educationalInfos << b
+				pdsentity.educationalInfos.each{ y ->
+					if (y.level == "TERTIARY"){
+						y.level = "COLLEGE"
+					}else if (y.level == "PRIMARY"){
+						y.level = "ELEMENTARY"
+					}
+					Levels.each{ x ->
+						if (y.level == x.level){
+							y.position = x.position
+						}
+					}
+				}
+				Levels.each{ b ->
+					if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
+						pdsentity.educationalInfos << b
+					}
+				
+				}
+				pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
+					it.position
+				}
+			
+			def continuededucation = false
+			if (pdsentity.educationalInfos.size()>5){
+				continuededucation = true
+				pdsentity.continuededucationalInfos = pdsentity.educationalInfos
+
 			}
+			// else{
+			// 	continuededucation = false
+			// 	pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
+			// 	it.from.toInteger()
+			// 	}
+			// 	pdsentity.educationalInfos.each{ y ->
+			// 		if (y.level == "TERTIARY"){
+			// 			y.level = "COLLEGE"
+			// 		}else if (y.level == "PRIMARY"){
+			// 			y.level = "ELEMENTARY"
+			// 		}
+			// 		Levels.each{ x ->
+			// 			if (y.level == x.level){
+			// 				y.position = x.position
+			// 			}
+			// 		}
+
+			// 	}
+			// 	Levels.each{ b ->
+			// 		if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
+			// 			pdsentity.educationalInfos << b
+
+			// 		// Levels << pdsentity.educationalInfos
+					
+			// 	}
+				 
+			// 	// pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0
+			// 	// pdsentity.educationalInfos << b
+			// 	}
+			// 	pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
+			// 		it.position
+			// 	}
+			// }
+
+			//sample
+			
+			// pdsentity.edugt5 = false
+			// if(pdsentity.educationalInfos.size()>4){
+			// 	pdsentity.edugt5 = true
+			// }
+			
 
 			// pdsentity.educationalInfos.each{ b ->
 			// // // 	Levels.findAll{it.level == b.level
@@ -93,6 +169,11 @@ class TagabukidHRMISPDSReportService
 
 
 			def Civilservice = []
+			def continuedcivilservice = false
+			if (pdsentity.civilserviceInfos.size()>7){
+				continuedcivilservice = true
+				pdsentity.continuedcivilserviceInfos = pdsentity.civilserviceInfos
+			}
 			pdsentity.civilserviceInfos.each{c ->
 				Civilservice.add(c)
 			}
@@ -105,6 +186,11 @@ class TagabukidHRMISPDSReportService
 			pdsentity.civilserviceInfos = Civilservice
 
 			def Workexperience = []
+			def continuedworkexperience = false
+			if (pdsentity.workexperienceInfos.size()>28){
+				continuedworkexperience = true
+				pdsentity.continuedworkexperienceInfos = pdsentity.workexperienceInfos
+			}
 			pdsentity.workexperienceInfos.each{ d ->
 				Workexperience.add(d)
 			}
@@ -117,6 +203,11 @@ class TagabukidHRMISPDSReportService
 			pdsentity.workexperienceInfos = Workexperience
 
 			def Voluntary = []
+			def continuedvoluntarywork = false
+			if (pdsentity.voluntaryworks.size()>7){
+				continuedvoluntarywork = true
+				pdsentity.continuedvoluntaryworks = pdsentity.voluntaryworks
+			}
 			pdsentity.voluntaryworks.each{c ->
 				Voluntary.add(c)
 			}
@@ -129,6 +220,11 @@ class TagabukidHRMISPDSReportService
 			pdsentity.voluntaryworks = Voluntary
 
 			def Training = []
+			def continuedtraining = false
+			if (pdsentity.trainings.size()>22){
+				continuedtraining = true
+				pdsentity.continuedtrainings = pdsentity.trainings
+			}
 			pdsentity.trainings.each{ e ->
 				Training.add(e)
 			}
@@ -179,8 +275,6 @@ class TagabukidHRMISPDSReportService
 			}
 			pdsentity.organizations = Membership
 
-
-
 			if (pdsentity.references.size > 0){
 				pdsentity.references.each{
 					it.reference = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.reference.objid])
@@ -188,9 +282,24 @@ class TagabukidHRMISPDSReportService
 			}else{
 				
 			}
+
+
+			// def Pdsqstatic = []
+			pdsentity.pdsquestions = pdsentity.pdsquestions.sort { 
+				it.pdsq.position
+			}
+			pdsentity.Pdsqstatic = [:]
+			pdsentity.pdsquestions.each{ f ->
+				pdsentity.Pdsqstatic["position"+ f.pdsq.position] = f.pdsq.position
+				pdsentity.Pdsqstatic["answer"+ f.pdsq.position] = f.answer
+				// Pdsqstatic.add(f)
+			}
+			// println "MAO NA NI"+ Pdsqstatic;
+			
+
 			def Reference = []
-			pdsentity.references.each{f ->
-				Reference.add(f)
+			pdsentity.references.each{g ->
+				Reference.add(g)
 			}
 			int referencesx = 3 - Reference.size();
 			for (def referencesi = 1; referencesi <= referencesx ; referencesi++){
@@ -207,11 +316,18 @@ class TagabukidHRMISPDSReportService
 			
 
 			data.reportdata = pdsentity
-			println pdsentity
+			println pdsentity.educationalInfos.size();
 			data.parameters = [
 				// LGUNAME  :"PG-BUKIDNON, REGION 10",
 				// LGUADDRESS : "Provincial Capitol, City of Malaybalay",
 				TITLE :"PERSONAL DATA SHEET",
+
+				CONTINUEDFAMILY_CHILD: continuedfamilychild,
+				CONTINUEDEDUCATION: continuededucation,
+				CONTINUEDCIVILSERVICE: continuedcivilservice,
+				CONTINUEDWORKEXPERIENCES: continuedworkexperience,
+				CONTINUEDVOLUNTARYWORK: continuedvoluntarywork,
+				CONTINUEDTRAINING : continuedtraining,
 			]
 		return data;
 	}

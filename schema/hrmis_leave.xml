@@ -1,3 +1,4 @@
+
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_leave">
         <field name="objid" required="true" prefix="LE" visiblel="false"/>
