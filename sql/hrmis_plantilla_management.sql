@@ -27,6 +27,7 @@ INNER JOIN references_tblfinaccounttitle a ON a.`objid` = xx.`accounttitle_objid
 LEFT JOIN references_tblemptpositionserviceclassification c ON c.`objid` = xx.`positionserviceclassification_objid`
 LEFT JOIN references_tblemptpositionservicesubclassification cs ON cs.`objid` = xx.`positionservicesubclassification_objid`
 WHERE xx.`org_orgunitid` = $P{orgunitid} AND xx.type LIKE $P{type} AND j.name LIKE $P{searchtext}
+ORDER BY xx.itemno
 
 [getListDetails]
 SELECT DISTINCT a.* FROM 
