@@ -23,6 +23,7 @@
 		<field name="cutoffreason_objid" required="true" caption="true" searchable="true"/>
 		<field name="cutoffreason_name" required="true" caption="true" searchable="true"/>
 		<field name="cutoffreason_code" required="true" caption="true" searchable="true"/>
+		<field name="signatorygroup_objid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuser" required="true" caption="true" searchable="true"/>
@@ -46,6 +47,9 @@
 		</complex>
 		<complex name="status" ref="master_tblemptemploymentstatus" jointype="many-to-one" required="false">
 			<key field="status_objid" target="objid" />
+		</complex>
+		<complex name="signatorygroup" ref="hrmis_appointment_signatorygrouping" jointype="many-to-one" required="false">
+			<key field="signatorygroup_objid" target="objid" /> 		
 		</complex>
 	</element>
 </schema>
