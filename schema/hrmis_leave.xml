@@ -1,7 +1,7 @@
 
 <schema adapter="tagabukid_hrmis">
 	<element tablename="hrmis_leave">
-        <field name="objid" required="true" prefix="LE" visiblel="false"/>
+        <field name="objid" primary="true" prefix="LE" visiblel="false"/>
         <field name="pds_objid" required="true" visiblel="false"/>
         <field name="datefiled" required="true" caption="Date Filed" searchable="true"/>
         <field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
@@ -10,8 +10,8 @@
         <field name="recordlog_dateupdated" required="true" caption="true" searchable="true"/>
         <field name="recordlog_lastupdatedbyuserid" required="true" caption="true" searchable="true"/>
         <field name="recordlog_lastupdatedbyuser" required="true" caption="true" searchable="true"/>
-        <complex name="pds" ref="hrmis_pds" jointype="many-to-one" required="false">
-            <key field="pds_objid" target="objid" />
-        </complex>
+        <complex name="leavedetails" ref="hrmis_leavedetails" jointype="one-to-many">
+			<key field="objid" target="parentid" /> 		
+		</complex>
     </element>
 </schema>
