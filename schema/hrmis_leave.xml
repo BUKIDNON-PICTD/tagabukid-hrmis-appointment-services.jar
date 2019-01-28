@@ -11,7 +11,7 @@
         <field name="recordlog_lastupdatedbyuserid" required="true" caption="true" searchable="true"/>
         <field name="recordlog_lastupdatedbyuser" required="true" caption="true" searchable="true"/>
         <complex name="leavedetails" ref="hrmis_leavedetails" jointype="one-to-many">
-			<key field="objid" target="parentid" /> 		
-		</complex>
+          <key field="objid" target="parentid" /> 		
+        </complex>
     </element>
 </schema>

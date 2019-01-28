@@ -64,7 +64,7 @@ class TagabukidHRMISPermanentAppointmentListService extends ActiveCrudListServic
 		// o.userorgid = userorgid;
 
 		
-		o.filter += ''' AND (`pds`.`person_name` LIKE '%'
+		o.filter += ''' AND (`pds`.`person_name` LIKE $P{searchtext}
 		OR `org`.`name` LIKE $P{searchtext}
 		OR `org`.`code` LIKE $P{searchtext}) 
 		'''

@@ -1,21 +1,23 @@
 <schema adapter="tagabukid_hrmis">
-	<element tablename="hrmis_leaveitems">
+	<element tablename="hrmis_leavedetails">
         <field name="objid" primary="true" prefix="LEI" visible="false"/>
         <field name="leavetype_objid" required="true" visible="false"/>
         <field name="leavesubtype_objid" visible="false"/>
         <field name="parentid" required="true" visible="false"/>
-        <field name="fromdate" required="true" caption="From Date" searchable="true"/>
-        <field name="todate" required="true" caption="To Date" searchable="true"/>
-        <field name="fromtime" required="true" caption="From Time" searchable="true"/>
-        <field name="totime" required="true" caption="To Time" searchable="true"/>
-        <field name="ispaid" caption="" searchable="true"/>
+        <field name="fromdate" caption="From Date" searchable="true"/>
+        <field name="todate" caption="To Date" searchable="true"/>
+        <field name="fromtime" caption="From Time" searchable="true"/>
+        <field name="totime" caption="To Time" searchable="true"/>
+        <field name="ispaid" caption="Is Paid" searchable="true"/>
         <!-- <field name="days" required="true" caption="" searchable="true"/> -->
         <field name="comments" caption="" searchable="true"/>
         <field name="status" caption="" searchable="true"/>
+        <field name="leavedate" caption="Leave Date" searchable="true" required="true"/>
+        <field name="leaveduration" caption="Leave Duration" searchable="true" required="true"/>
         <complex name="parent" ref="hrmis_leave" jointype="many-to-one" required="false">
 			<key field="parentid" target="objid" /> 		
 		</complex>
-         <complex name="leavetype" ref="master_leave_type" jointype="many-to-one" required="false">
+        <complex name="leavetype" ref="master_leave_type" jointype="many-to-one" required="false">
             <key field="leavetype_objid" target="objid" />
         </complex>
          <complex name="leavesubtype" ref="master_leave_subtype" jointype="many-to-one" required="false">

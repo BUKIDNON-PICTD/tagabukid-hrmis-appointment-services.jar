@@ -40,7 +40,6 @@ class TagabukidHRMISLeaveCaptureService
 		
 		def entity = [:];
 		entity.objid = 'LE' + new java.rmi.server.UID()
-		entity.state = "DRAFT"
 		entity.recordlog = [:]
 		entity.recordlog.datecreated = dtSvc.serverDate
         entity.recordlog.createdbyuserid = env.USERID
