@@ -15,14 +15,20 @@
 		<field name="paygradeandstepincrement_objid" required="true" visible="false"/>
 		<field name="compensation" required="true" caption="Compensation" searchable="true"/>
 		<field name="positionpublishedlocation" required="true" caption="Publish Location" searchable="true"/>
-		<field name="positionpublisheddate" required="true" caption="Publish Date" searchable="true"/>
+		<field name="positionpublishedlocationdatefrom" required="true" caption="Publish Date From" searchable="true"/>
+		<field name="positionpublishedlocationdateto" required="true" caption="Publish Date To" searchable="true"/>
+		<field name="positionpostedlocation" required="true" caption="Post Location" searchable="true"/>
+		<field name="positionpostedlocationdatefrom" required="true" caption="Post Date From" searchable="true"/>
+		<field name="positionpostedlocationdateto" required="true" caption="Post Date To" searchable="true"/>
+		<field name="assessmentdatestart" required="true" caption="Assessment Date" searchable="true"/>
+		<field name="deliberationdate" required="true" caption="Deliberation Date" searchable="true"/>
 		<field name="succeededperson" caption="Succeeded Person" searchable="true"/>
 		<field name="causeofsuccession" caption="Cause of Succession" searchable="true"/>
-		<field name="remarks" required="true" caption="true" searchable="true"/>
-		<field name="cutoffdate" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_objid" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_name" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_code" required="true" caption="true" searchable="true"/>
+		<field name="remarks" caption="true" searchable="true"/>
+		<field name="cutoffdate" caption="true" searchable="true"/>
+		<field name="cutoffreason_objid" caption="true" searchable="true"/>
+		<field name="cutoffreason_name" caption="true" searchable="true"/>
+		<field name="cutoffreason_code" caption="true" searchable="true"/>
 		<field name="signatorygroup_objid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
