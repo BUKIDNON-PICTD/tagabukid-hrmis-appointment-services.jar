@@ -7,9 +7,9 @@ import java.rmi.server.UID;
 /* 
 	This interceptor posts to the service records after post. 
 */
-class BTACSServiceInterceptor { 
+class EntitytoPdsInterceptor { 
 
-@ActiveDB(value='hrmis_pdstobtacs', em='btacs')
+@ActiveDB(value='hrmis_pds', em='tagabukid_hrmis')
 def em;
 
 // @ActiveDB(value='hrmis_servicerecords', em='tagabukid_hrmis')
@@ -30,9 +30,18 @@ def persistenceSvc;
 @Service('QueryService')
 def querySvc
 
-@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
-	public void postpdstobtacs( def evt ) {
-	// def r = evt.result;
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'entityindividual'}" ) 
+	public void postentitytopds( def evt ) {
+	def r = evt.result;
+
+	// def entity = persistenceSvc.read([ _schemaname: 'entityindividual', objid: r.objid])
+	persistenceSvc.update([ _schemaname: 'hrmis_pds', objid: entity.objid]))
+
+	// r.person._schemaname = 'hrmis_pds'
+    //     // entity.person.putAll(persistenceSvc.read([ _schemaname: 'hrmis_pds', objid: entity.person.objid])) 
+    // persistenceSvc.update(r.person)
+    // maincontroller.reloadSections('open');
+
 	// // Integer x = 1, y = 0, z = 0;
 	// def btacsuserid = em.findbtacsid();
 	// def x = btacsuserid.btacsid + 1
