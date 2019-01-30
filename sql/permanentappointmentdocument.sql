@@ -97,6 +97,6 @@ FROM
      INNER JOIN `references_tblappointmententrycode` natureofappointment ON `hrmis_appointmentpermanent`.`natureofappointment_objid` = `natureofappointment`.`objid`
      INNER JOIN `hrmis_tblemploymentplantilla` plantilla ON `hrmis_appointmentpermanent`.`plantilla_objid` = `plantilla`.`objid`
      INNER JOIN `references_tblpaygradeandstepincrement` paygradeandstepincrement ON `hrmis_appointmentpermanent`.`paygradeandstepincrement_objid` = `paygradeandstepincrement`.`objid`
-     INNER JOIN `references_tblorganizationunit` org ON org.`orgunitid` = plantilla.`org_orgunitid`
+     INNER JOIN `references_tblorganizationunit` org ON org.`orgunitid` = hrmis_appointmentpermanent.`org_orgunitid`
 WHERE `hrmis_appointmentpermanent`.`objid` IS NOT NULL
 ${filter}

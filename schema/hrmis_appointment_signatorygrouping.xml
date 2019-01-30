@@ -2,8 +2,8 @@
 	<element tablename="hrmis_appointment_signatorygrouping">
 		<field name="objid" primary="true" prefix="SG" searchable="false" />
 		<field name="state" required="true" searchable="false" caption="STATE"/>
-		<field name="code" required="true" searchable="false" />
-		<field name="signatorygroupname" required="true" searchable="false" caption="Group Name"/>
+		<field name="code" required="true" searchable="true" />
+		<field name="signatorygroupname" required="true" searchable="true" caption="Group Name"/>
 		<field name="remarks" required="true" searchable="false"/>
 		<field name="signatorytype" required="true" searchable="false" caption="Type"/>
 		<field name="recordlog_datecreated" required="true" searchable="false"/>

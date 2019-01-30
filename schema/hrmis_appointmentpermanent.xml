@@ -5,12 +5,13 @@
 		<field name="status_objid" required="true" visible="false"/>
 		<field name="pds_objid" required="true" visible="false"/>
 		<field name="effectivefrom" required="true" caption="Effective From" searchable="true"/>
-		<field name="effectiveuntil" required="true" caption="Effective Until" searchable="true"/>
+		<field name="effectiveuntil" caption="Effective Until" searchable="true"/>
 		<field name="natureofappointment_objid" required="true" visible="false"/>
 		<field name="dateissued" required="true" caption="Date Issued" searchable="true"/>
 		<field name="dateapproved" caption="Date Approved" searchable="true"/>
 		<field name="datedisapproved" caption="Date Disapproved" searchable="true"/>
 		<field name="disapprovalreason" caption="Disapproval Reason" searchable="true"/>
+		<field name="org_orgunitid" required="true" visible="false"/>
 		<field name="plantilla_objid" required="true" visible="false"/>
 		<field name="paygradeandstepincrement_objid" required="true" visible="false"/>
 		<field name="compensation" required="true" caption="Compensation" searchable="true"/>
@@ -42,9 +43,9 @@
 		<complex name="natureofappointment" ref="master_tblappointmententrycode" jointype="many-to-one" required="false">
 			<key field="natureofappointment_objid" target="objid" />
 		</complex>
-		<!-- <complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
+		<complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
 			<key field="org_orgunitid" target="orgunitid" />
-		</complex> -->
+		</complex>
 		<complex name="plantilla" ref="hrmis_plantilla_management" jointype="many-to-one" required="false">
 			<key field="plantilla_objid" target="objid" />
 		</complex>
