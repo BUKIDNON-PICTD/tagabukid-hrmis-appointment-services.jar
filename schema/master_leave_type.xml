@@ -1,0 +1,24 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_leave_type">
+        <field name="objid" primary="true" prefix="LT" visible="false"/>
+        <field name="name" required="true" caption="name" searchable="true"/>
+        <field name="code" required="true" caption="code" searchable="true"/>
+        <field name="iscommutative" required="true" caption="commutative_flg" searchable="true"/>
+        <field name="iscomulative" required="true" caption="comulative_flg" searchable="true"/>
+        <field name="isleavewitoutpayasactualservice" required="true" caption="leave_wo_pay_as_actual_srvc" searchable="true"/>
+        <field name="allocationindd" required="true" caption="allocation_in_dd" searchable="true"/>
+        <field name="allocationunitperiod" required="true" caption="allocation_unit_period" searchable="true"/>
+        <field name="daysperapplicaiton" required="true" caption="days_per_application" searchable="true"/>
+        <field name="expiration" required="true" caption="expiration" searchable="true"/>
+        <field name="expirationunit" required="true" caption="expiration_unit" searchable="true"/>
+        <field name="comments" required="true" caption="comments" searchable="true"/>
+        <field name="isconstantearning" required="true" caption="constant_earning" searchable="true"/>
+        <field name="parttimeearningflag" required="true" caption="parttime_earning_flg" searchable="true"/>
+        <field name="canleavewithoutpay" required="true" caption="can_lv_wo_pay" searchable="true"/>
+        <field name="freezconstantearningleavetype" required="true" caption="freez_cnst_earng_lv_typ" searchable="true"/>
+        <field name="eotensevenseven" required="true" caption="eo_ten_seven_seven" searchable="true"/>
+        <field name="eocharge" required="true" caption="eo_charge" searchable="true"/>
+        <field name="withpay" required="true" caption="w_pay" searchable="true"/>
+        <field name="withoutpay" required="true" caption="wo_pay" searchable="true"/>
+    </element>
+</schema>

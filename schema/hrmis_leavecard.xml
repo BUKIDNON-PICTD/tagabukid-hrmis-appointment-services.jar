@@ -1,0 +1,21 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_leavecard" >
+		<field name="objid" primary="true"/>
+		<field name="state" caption="State" required="true"/>
+		<field name="code" caption="Code"  required="true"/>
+		<field name="title" caption="Title"  required="true"/>
+		<field name="description" caption="Description"  required="true"/>
+		<field name="pds_objid" visible="false"  required="true"/>
+		<field name="leavetype_objid" visible="false"  required="true"/>
+		<field name="totaldr" caption="Total DR"  required="true"/>
+		<field name="totalcr" caption="Total CR"  required="true"/>
+		<field name="endbalance" caption="Ending Balance"  required="true"/>
+		<field name="currentlineno" caption="Line No."  required="true"/>
+        <complex name="leavecarddetails" ref="hrmis_leavecard_entry" jointype="one-to-many">
+          <key field="objid" target="parentid" /> 		
+        </complex>
+        <complex name="leavetype" ref="master_leave_type" jointype="many-to-one" required="false">
+            <key field="leavetype_objid" target="objid" />
+        </complex>
+	</element>
+</schema>

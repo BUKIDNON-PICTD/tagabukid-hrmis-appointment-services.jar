@@ -1,0 +1,106 @@
+import com.rameses.annotations.*;
+import com.rameses.util.*;
+import com.rameses.common.*
+import com.rameses.services.extended.*
+import java.rmi.server.UID;
+
+class TagabukidHRMISLeaveCardPostService {
+
+	@ActiveDB(value='hrmis_leavecard', em='tagabukid_hrmis')
+	def em;
+	@ActiveDB(value='hrmis_leavecard_entry', em='tagabukid_hrmis')
+	def emd;
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Env
+	def env;
+	
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+
+	@ProxyMethod
+	public def postDR( def o ) { 
+		if ( !o.pdsid ) o.pdsid = o.pds?.objid; 
+		if ( !o.leavetypeid ) o.leavetypeid = o.leavetype?.objid; 
+
+		if ( !o.pdsid ) throw new Exception("pdsid is required in leave card posting");
+		if ( !o.leavetypeid ) throw new Exception("fundid is required in leave card posting");
+		if ( o.dr == 0 ) throw new Exception("DR is equal to 0");
+		
+
+		def lb = persistenceSvc.read( [_schemaname:'hrmis_leavecard', objid:o.objid] );
+		if ( !lb ) { 
+			throw new Exception("Posting failed. There is no associated leave card for leave type: " + o.leavetype.name + ". Please contact pictd"); 				
+		}
+		
+		def balance = lb.endbalance;
+		lb.totaldr += o.dr;
+		lb.endbalance = lb.totaldr - lb.totalcr;
+		
+		def detail = [:];
+		detail.objid = "LCD"+new UID();
+		detail.parentid = lb.objid;
+		detail.state = "DRAFT"
+		detail.txndate = dateSvc.serverDate
+		detail.refid = env.USERID
+		detail.reftype = "Manual Capture"
+		detail.refno = env.FULLNAME
+		detail.refdate = dateSvc.serverDate
+		detail.particulars = o.particulars;
+		detail.dr = o.dr
+		detail.cr = 0
+		detail.runbalance = lb.endbalance
+		detail.lineno = lb.currentlineno;
+
+		emd.create(detail);
+		
+		lb.currentlineno += 1;
+		em.update( lb );
+		return true;
+	}
+
+	@ProxyMethod
+	public def postCR( o ) { 
+			if ( !o.pdsid ) o.pdsid = o.pds?.objid; 
+		if ( !o.leavetypeid ) o.leavetypeid = o.leavetype?.objid; 
+
+		if ( !o.pdsid ) throw new Exception("pdsid is required in leave card posting");
+		if ( !o.leavetypeid ) throw new Exception("fundid is required in leave card posting");
+		if ( o.cr == 0 ) throw new Exception("CR is equal to 0");
+		
+
+		def lb = persistenceSvc.read( [_schemaname:'hrmis_leavecard', objid:o.objid] );
+		if ( !lb ) { 
+			throw new Exception("Posting failed. There is no associated leave card for leave type: " + o.leavetype.name + ". Please contact pictd"); 				
+		}
+		
+		def balance = lb.endbalance;
+		lb.totalcr += o.cr;
+		lb.endbalance = lb.totaldr - lb.totalcr;
+		
+		def detail = [:];
+		detail.objid = "LCD"+new UID();
+		detail.parentid = lb.objid;
+		detail.state = "DRAFT"
+		detail.txndate = dateSvc.serverDate
+		detail.refid = env.USERID
+		detail.reftype = "Manual Capture"
+		detail.refno = env.FULLNAME
+		detail.refdate = dateSvc.serverDate
+		detail.particulars = o.particulars;
+		detail.dr = 0
+		detail.cr = o.cr
+		detail.runbalance = lb.endbalance
+		detail.lineno = lb.currentlineno;
+
+		emd.create(detail);
+		
+		lb.currentlineno += 1;
+		em.update( lb );
+		return true;
+	}
+	
+}

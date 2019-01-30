@@ -1,0 +1,7 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="references_leave_subtype">
+        <field name="objid" primary="true" prefix="LST" visible="false" />
+        <field name="leavetype_objid" required="true" visible="false" />
+        <field name="name" required="true" caption="name" searchable="true"/>
+    </element>
+</schema>

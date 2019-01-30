@@ -1,0 +1,330 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+class TagabukidHRMISAppointmentPermanentReportService 
+{
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@ActiveDB(value='hrmis_appointmentcasual', em='tagabukid_hrmis')
+	def em;
+
+	@Service('TagabukidLookupService')
+    def tgbkdSvc
+
+	@Service('NumberService')
+	def numSvc
+
+	@Service('QueryService')
+	def querySvc
+
+	@Service('RPTUtil')
+	def util
+
+	@Env
+	def env;
+	// @ProxyMethod
+	// public def getPages(params){
+	// 	params._schemaname = 'hrmis_appointmentcasual'
+	// 	def appointment = persistenceSvc.read(params)
+	// 	def pages       = appointment.appointmentitems.size()
+	// 	def pagelist    = []
+	// 	def pagecount   = 0
+	// 	for(def x=1;x<=pages;x++){
+			
+	// 		if(x % 15 == 0){
+	// 			def y = [
+	// 				title: "Items " + (x - 14) + " to "  + x,
+	// 				start: (x - 14),
+	// 				end  : x,
+	// 				page : pagecount += 1
+	// 			]
+	// 			pagelist.add(y)
+	// 		}
+	// 	}
+	// 	if (pages % 15 != 0){
+	// 		def y = [
+	// 				title: "Items " + ((pages.intdiv(15) * 15) + 1) + " to "  + ((pages.intdiv(15) * 15) + pages % 15),
+	// 				start: ((pages.intdiv(15) * 15) + 1),
+	// 				end  : ((pages.intdiv(15) * 15) + pages % 15),
+	// 				page : pagecount += 1
+	// 			]
+	// 		pagelist.add(y)
+	// 	}
+	// 	return pagelist
+	// }
+
+	@ProxyMethod
+	public def getAppointmentPermanentById(params){
+		def data = [:]
+		
+		params._schemaname = 'hrmis_appointmentpermanent'
+		def appointment = persistenceSvc.read(params)
+		appointment.formalname = (appointment.pds.prenametitle?.trim()?  appointment.pds.prenametitle : "") + " " + appointment.pds.person.firstname + " " + appointment.pds.person.middlename.substring(0,1) +". " + appointment.pds.person.lastname + (appointment.pds.nameextension?.trim()?  ", " + appointment.pds.nameextension : "") + (appointment.pds.postnametitle?.trim()?  ", " + appointment.pds.postnametitle : "")
+
+		appointment.compensationword = numSvc.doubleToWords( appointment.compensation).toUpperCase()
+
+		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
+
+		appointment.signatoryappointing = appointment.signatorygroup.signatoryGroupItems.find{it.level==1}
+		appointment.signatoryphrmo = appointment.signatorygroup.signatoryGroupItems.find{it.level==2}
+		appointment.signatorypsb = appointment.signatorygroup.signatoryGroupItems.find{it.level==3}
+		
+		data.reportdata = appointment;
+		
+		data.parameters = [
+			LGUNAME           : "PROVINCE OF BUKIDNON",
+			LGUADDRESS        : "Capitol Compound",
+			LGUCITY			  : "Malaybalay City",
+			TITLE             : ""
+		]
+		return data
+	}
+
+	@ProxyMethod
+	public def getAppointmentCasualRaiById(params,page,pagelist){
+		def data = [:]
+		def title = "REPORT ON APPOINTMENT ISSUED (RAI)"
+		
+	//    println params.signatorygroup
+		params._schemaname = 'hrmis_appointmentcasual'
+		def appointment = persistenceSvc.read(params)
+		appointment.appointmentitems.each{
+			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.personnel.objid]);
+			it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
+			// it.plantilla.Id = it.plantilla.Id.toString()
+		}.sort{it.personnel.lastname}
+
+		def pagesize                     = appointment.appointmentitems.size()
+		def list                         = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
+		    appointment.appointmentitems = []
+		list.each{
+			appointment.appointmentitems.add(it)
+		}
+
+		if (list.size() < 15){
+			appointment.appointmentitems.add([
+					personnel:[lastname:"**NOTHING FOLLOWS**"]
+				])
+			for (int i = 1; i < 15 - list.size(); i++) {
+				appointment.appointmentitems.add([])
+			}
+		}
+
+		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:params.signatorygroup.objid] );
+		// println appointment
+		data.reportdata = appointment;
+
+		//change title
+		// if (params.changetitle){
+			title = 'APPOINTMENT TRANSMITTAL AND ACTION FORM'
+		// }
+		
+		data.parameters = [
+			LGUNAME            : "PG-BUKIDNON, REGION 10",
+			LGUADDRESS         : "Provincial Capiptol, City of Malaybalay",
+			TITLE              : title,
+			appointmentforms   : params.appointmentforms,
+			casualappointment  : params.casualappointment,
+			pds                : params.pds,
+			eligibility        : params.eligibility,
+			positiondescription: params.positiondescription,
+			oathofoffice       : params.oathofoffice,
+			assumptionofduty   : params.assumptionofduty,
+			START              : page.start,
+			LASTPAGE           : page.end == pagesize,
+			PAGENUMBER         : page.page - 1,
+			PAGECOUNT          : pagelist.size(),
+			HIDENOA            : params.hidenoa,
+		]
+		return data
+
+
+	}
+
+	
+
+
+	def buildTitle(params) {
+		if (params.period == 'quarterly') return 'Quarterly'
+        if (params.period == 'monthly') return 'Monthly'
+        if (params.period == 'daily') return 'Daily'
+        if (params.period == 'asofqtr') return 'Quarterly'
+        if (params.period == 'asofmonth') return 'Monthly'
+        if (params.period == 'asofday') return 'Daily'
+	}
+
+	@ProxyMethod
+	public List getNumDays( year, month ) {
+		if ( !month && month < 0 ) return []
+		
+		Calendar cal = Calendar.getInstance()
+        cal.set( year, month, 1)
+        int maxday  = cal.getActualMaximum(cal.DAY_OF_MONTH)
+        def numdays = []
+		1.upto( maxday ) { numdays.add( it ) }
+		return numdays 
+	}
+
+	@ProxyMethod
+	public List getDocumentStates() {
+		return [
+		[name:'idle', title:'IDLE'],
+		[name:'enroute', title:'ENROUTE'],
+		[name:'received', title:'RECEIVED'],
+		[name:'processing', title:'PROCESSING'],
+		[name:'sent', title:'SENT'],
+		[name:'closed', title:'CLOSED'],
+		[name:'archive', title:'ARCHIVE'],
+		[name:'attached', title:'ATTACHED'],
+		[name:'archived', title:'ARCHIVED'],
+		[name:'offline', title:'OFFLINE'],
+		[name:'outgoing', title:'OUTGOING'],
+		[name:'redflag', title:'REDFLAG'],
+		[name:'linked', title:'LINKED']
+		];
+	
+	}
+
+	@ProxyMethod
+	public Boolean getReportPermission() {
+		return userRoleSvc.getUsers( [domain:'SUBAY', roles:'MASTER'] ).collect {it.objid}.contains(env.USERID)
+	
+	}
+
+	void buildParams( params ) {
+		params.filter = '';
+		params.period = '';
+		if(!params.asof){
+			if(!params.month ){
+				params.period = 'quarterly'
+			}else if(!params.day){
+				params.period = 'monthly'
+			}else{
+				params.period = 'daily'
+				params.date   = params.year +'-'+ params.month.index + '-' + params.day;
+			}
+		}else{
+			if(!params.month ){
+				params.period = 'asofqtr'
+			}else if(!params.day){
+				params.period = 'asofmonth'
+			}else{
+				params.period = 'asofday'
+				params.date   = params.year +'-'+ params.month.index + '-' + params.day;
+			}
+		}
+
+		def period  = new StringBuffer();
+		def rundate = dtSvc.getServerDate();
+		if ( params.period == 'quarterly' ) {
+			if ( !params.year ) throw new Exception('year is required');
+			if ( !params.qtr ) throw new Exception('qtr is required');
+
+			def months           = dtSvc.getMonthsByQtr( params.qtr );
+			def monthindex       = months[0].index;
+			def strmonth         = (monthindex > 9? monthindex: '0'+monthindex);
+			    params.startdate = params.year +'-'+ strmonth +'-01';
+			    params.enddate   = dtSvc.getQtrEndDate( params.qtr, params.year );
+			period.append( months[0].caption +' - '+ months[-1].caption +' '+ params.year ); 
+
+		} else if ( params.period == 'asofqtr' ) {
+			if ( !params.year ) throw new Exception('year is required');
+			if ( !params.qtr ) throw new Exception('qtr is required');
+
+			def months = dtSvc.getMonths();
+			period.append( months[0].caption );
+			params.startdate = params.year +'-01-01';
+			params.enddate   = dtSvc.getQtrEndDate( params.qtr, params.year );
+
+			months = dtSvc.getMonthsByQtr( params.qtr );
+			period.append(' - '+ months[-1].caption +' '+ params.year ); 
+
+		} else if ( params.period == 'monthly' ) {
+			if ( !params.year ) throw new Exception('year is required');
+			if ( !params.month ) throw new Exception('month is required');
+
+			def monthindex       = params.month.index;
+			def strmonth         = (monthindex > 9? monthindex: '0'+monthindex);
+			def dtstart          = java.sql.Date.valueOf(''+ params.year +'-'+ strmonth +'-01');
+			def dtend            = dtSvc.getMonthEndDate( dtstart );
+			def months           = dtSvc.getMonths();
+			    params.startdate = dtstart;
+			    params.enddate   = dtend;
+			period.append( months[monthindex-1].caption +' '+ params.year ); 
+		
+		} else if ( params.period == 'asofmonth' ) {
+			if ( !params.year ) throw new Exception('year is required');
+			if ( !params.month ) throw new Exception('month is required');
+
+			def monthindex = params.month.index;
+			def strmonth   = (monthindex > 9? monthindex: '0'+monthindex);
+			def dtstart    = java.sql.Date.valueOf(''+ params.year +'-01-01');
+			def dtend      = java.sql.Date.valueOf(''+ params.year +'-'+ strmonth +'-01');
+			    dtend      = dtSvc.getMonthEndDate( dtend );
+
+			def months           = dtSvc.getMonths();
+			    params.startdate = dtstart;
+			    params.enddate   = dtend;
+			if ( months[0].index != months[monthindex-1].index ) { 
+				period.append( months[0].caption ).append(' - '); 
+			} 
+			period.append( months[monthindex-1].caption ).append(' '+ params.year); 
+		
+		} else {
+			if ( !params.date ) throw new Exception('date is required');
+
+			def syear = params.date.toString().split('-')[0];
+			if ( params.period == 'asofday' ) {
+				period.append("As of "); 	
+				params.startdate = syear +'-01-01';
+			} else {
+				params.startdate = params.date;
+			}
+
+			params.enddate = params.date;
+			params.year    = syear;
+
+			def formatter = new java.text.SimpleDateFormat('MMMMM dd, yyyy');
+			if ( params.date instanceof java.util.Date ) {
+				period.append(formatter.format( params.date ));
+			} else {
+				period.append(formatter.format( java.sql.Date.valueOf( params.date ) )); 
+			} 
+		}
+		params.strperiod = period.toString();
+		
+	}
+
+
+	def toInteger(paramvalue){
+		if (paramvalue == null) 
+			return 0
+
+		try{
+			return 
+			new java.math.BigDecimal(paramvalue.toString()).intValue()
+		}
+		catch(e){
+			return 0
+		}
+	}
+
+	def toDecimal(paramvalue){
+		if (paramvalue == null) 
+			return 0.0
+
+		try{
+			return new java.math.BigDecimal(paramvalue.toString())
+		}
+		catch(e){
+			return 0.0 
+		}
+	}
+
+
+}

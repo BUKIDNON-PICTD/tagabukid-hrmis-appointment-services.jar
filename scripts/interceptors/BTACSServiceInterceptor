@@ -30,23 +30,23 @@ def persistenceSvc;
 @Service('QueryService')
 def querySvc
 
-@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
-	public void postpdstobtacs( def evt ) {
-	// def r = evt.result;
-	// // Integer x = 1, y = 0, z = 0;
-	// def btacsuserid = em.findbtacsid();
-	// def x = btacsuserid.btacsid + 1
+// @After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
+// 	public void postpdstobtacs( def evt ) {
+// 	def r = evt.result;
+// 	// Integer x = 1, y = 0, z = 0;
+// 	def btacsuserid = em.findbtacsid();
+// 	def x = btacsuserid.btacsid + 1
 
-	// em.insertPersonalData();
-	// // // println btacsuserid();
-	// // // Integer btacsuserid em.findbtacsid();
-	// // // z = btacsuserid
-	// // // y = z + x;
-	// println em.insertPersonalData();
-	// println x;
-	// println r.objid;
+// 	em.insertPersonalData();
+// 	// // println btacsuserid();
+// 	// // Integer btacsuserid em.findbtacsid();
+// 	// // z = btacsuserid
+// 	// // y = z + x;
+// 	println em.insertPersonalData();
+// 	// println x;
+// 	// println r.objid;
 
-	}
+// 	}
 }
 // 	// def appointment = persistenceSvc.read([_schemaname : 'hrmis_appointmentjoborder',objid: r.objid])
 

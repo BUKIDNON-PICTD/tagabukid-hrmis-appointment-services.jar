@@ -5,24 +5,31 @@
 		<field name="status_objid" required="true" visible="false"/>
 		<field name="pds_objid" required="true" visible="false"/>
 		<field name="effectivefrom" required="true" caption="Effective From" searchable="true"/>
-		<field name="effectiveuntil" required="true" caption="Effective Until" searchable="true"/>
+		<field name="effectiveuntil" caption="Effective Until" searchable="true"/>
 		<field name="natureofappointment_objid" required="true" visible="false"/>
 		<field name="dateissued" required="true" caption="Date Issued" searchable="true"/>
 		<field name="dateapproved" caption="Date Approved" searchable="true"/>
 		<field name="datedisapproved" caption="Date Disapproved" searchable="true"/>
 		<field name="disapprovalreason" caption="Disapproval Reason" searchable="true"/>
+		<field name="org_orgunitid" required="true" visible="false"/>
 		<field name="plantilla_objid" required="true" visible="false"/>
 		<field name="paygradeandstepincrement_objid" required="true" visible="false"/>
 		<field name="compensation" required="true" caption="Compensation" searchable="true"/>
 		<field name="positionpublishedlocation" required="true" caption="Publish Location" searchable="true"/>
-		<field name="positionpublisheddate" required="true" caption="Publish Date" searchable="true"/>
+		<field name="positionpublishedlocationdatefrom" required="true" caption="Publish Date From" searchable="true"/>
+		<field name="positionpublishedlocationdateto" required="true" caption="Publish Date To" searchable="true"/>
+		<field name="positionpostedlocation" required="true" caption="Post Location" searchable="true"/>
+		<field name="positionpostedlocationdatefrom" required="true" caption="Post Date From" searchable="true"/>
+		<field name="positionpostedlocationdateto" required="true" caption="Post Date To" searchable="true"/>
+		<field name="assessmentdatestart" required="true" caption="Assessment Date" searchable="true"/>
+		<field name="deliberationdate" required="true" caption="Deliberation Date" searchable="true"/>
 		<field name="succeededperson" caption="Succeeded Person" searchable="true"/>
 		<field name="causeofsuccession" caption="Cause of Succession" searchable="true"/>
-		<field name="remarks" required="true" caption="true" searchable="true"/>
-		<field name="cutoffdate" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_objid" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_name" required="true" caption="true" searchable="true"/>
-		<field name="cutoffreason_code" required="true" caption="true" searchable="true"/>
+		<field name="remarks" caption="true" searchable="true"/>
+		<field name="cutoffdate" caption="true" searchable="true"/>
+		<field name="cutoffreason_objid" caption="true" searchable="true"/>
+		<field name="cutoffreason_name" caption="true" searchable="true"/>
+		<field name="cutoffreason_code" caption="true" searchable="true"/>
 		<field name="signatorygroup_objid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
@@ -36,9 +43,9 @@
 		<complex name="natureofappointment" ref="master_tblappointmententrycode" jointype="many-to-one" required="false">
 			<key field="natureofappointment_objid" target="objid" />
 		</complex>
-		<!-- <complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
+		<complex name="org" ref="master_tblorganizationunit" jointype="many-to-one" required="false">
 			<key field="org_orgunitid" target="orgunitid" />
-		</complex> -->
+		</complex>
 		<complex name="plantilla" ref="hrmis_plantilla_management" jointype="many-to-one" required="false">
 			<key field="plantilla_objid" target="objid" />
 		</complex>

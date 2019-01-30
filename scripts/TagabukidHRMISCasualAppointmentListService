@@ -94,7 +94,7 @@ class TagabukidHRMISCasualAppointmentListService extends ActiveCrudListService  
 				
 				o.state = 'APPROVED';
 				o.filter += ''' AND `hrmis_appointmentcasual`.`state` = $P{state} 
-				AND DATEDIFF(`hrmis_appointmentcasual`.`effectiveuntil`,NOW()) BETWEEN -7 AND 60 ''';
+				AND DATEDIFF(`hrmis_appointmentcasual`.`effectiveuntil`,NOW()) BETWEEN -30 AND 60 ''';
 				break;
 
 			case 'expired':
