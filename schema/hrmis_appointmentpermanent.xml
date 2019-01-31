@@ -26,10 +26,6 @@
 		<field name="succeededperson" caption="Succeeded Person" searchable="true"/>
 		<field name="causeofsuccession" caption="Cause of Succession" searchable="true"/>
 		<field name="remarks" caption="true" searchable="true"/>
-		<field name="cutoffdate" caption="true" searchable="true"/>
-		<field name="cutoffreason_objid" caption="true" searchable="true"/>
-		<field name="cutoffreason_name" caption="true" searchable="true"/>
-		<field name="cutoffreason_code" caption="true" searchable="true"/>
 		<field name="signatorygroup_objid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
