@@ -33,7 +33,7 @@ def querySvc
 @After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'entityindividual'}", index=101)
 	public void beforeUpdate( evt ) {
 		def entity = evt.args[0];
-		println entity
+		// println entity
 		def p = [_schemaname: 'hrmis_pds'];
 		p.findBy = [ 'person_objid': entity.objid];
 		def pds = querySvc.findFirst( p )
