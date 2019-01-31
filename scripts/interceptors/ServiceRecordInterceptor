@@ -224,6 +224,8 @@ public void postCasualtoServicerecord( def evt ) {
 	 		ems.create(individual)
  		}
 	}
+
+	}
 	
 
 	
@@ -279,8 +281,77 @@ public void postCasualtoServicerecord( def evt ) {
 		
 			
 	// 	//println entry
+
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentpermanent' && result.state=='APPROVED'}" ) 
+public void postPermanenttoServicerecord( def evt ) {
+	def r = evt.result;
+
+	println r 
+	println "+++++++++++++++++++++++++++"
+	def appointment = persistenceSvc.read([_schemaname : 'hrmis_appointmentpermanent',objid: r.objid])
 		
+	appointment.each{
+		def p = [_schemaname: 'hrmis_servicerecords'];
+	    p.findBy = [ 'appointmentitemid':it.objid];
+
+		def sr =  querySvc.findFirst( p );
+		if (sr){
+			sr.dateto = it.cutoffdate
+			sr.recordlog.dateoflastupdate = dateSvc.getServerDate()
+			sr.recordlog.lastupdatedbyuserid = env.USERID
+			sr.recordlog.lastupdatedbyuser  = env.FULLNAME
+			sr._schemaname = 'hrmis_servicerecords'
+			persistenceSvc.update(sr)
+		}else{	
+
+			println it
+
+			def individual = [
+
+		 	objid : 'SR-PID' + new java.rmi.server.UID(),
+		 	appointmentitemid : appointment.objid,
+		 	pdsid : appointment.pds.objid,
+		 	personnelaction : [
+		 					    objid : appointment.natureofappointment.objid,
+		 						name  : em.findNatureofAppointmentName([objid: appointment.natureofappointment.objid]).name,
+		 						code  : em.findNatureofAppointmentCode([objid: appointment.natureofappointment.objid]).code,
+		 					  ],
+		 	datefrom : appointment.effectivefrom,
+		 	dateto : appointment.effectiveuntil,
+		 	jobposition : [objid : em.findJobPositionId([objid: appointment.plantilla.objid]).jobid],
+		 	otherjobposition : null,
+		 	tranche : [objid : appointment.currentsalarystep.objid],
+		 	paygradestepincrement : [objid : em.findPayGradeId([objid: em.findJobPositionId([objid: appointment.plantilla.objid]).jobid]).paygradeid],
+		 	employmentstatus : [objid : 'e4c79101-5eae-4321-b25b-08f04aa809dc'],
+		 	wage : appointment.compensation,
+		 	compensationtype : [objid :'c965ba41-993f-11e8-ae92-8cec4b1ea771'],
+		 	monthlysalary : it.monthlywage,
+		 	reportdisplay : 'MONTHLY',
+		 	org : [orgunitid : appointment.org.orgunitid],
+		 	branch : [objid :'TEB0003'],
+		 	lawop : 0.0000,
+		 	separationtype : [objid : null],
+		 	separationdate : null,
+		 	isgovservice : 1,
+		 	recordlog : [
+		 					datecreated : dateSvc.getServerDate(),
+		 					createdbyuserid : env.USERID,
+		 					createdbyuser : env.FULLNAME,
+		 					dateoflastupdate : dateSvc.getServerDate(),
+		 					lastupdatedbyuserid : env.USERID,
+		 					lastupdatedbyuser : env.FULLNAME, 
+		 				],
+		 	old : null,
+
+		 	]
+	 		//entry.add(individual)
+	 		//ems.create(individual)
+ 		}
 	}
+
+	}
+		
+	
 
 
 }
