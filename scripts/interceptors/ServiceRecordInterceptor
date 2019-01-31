@@ -30,7 +30,7 @@ def persistenceSvc;
 @Service('QueryService')
 def querySvc
 
-	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentjoborder' && result.state=='APPROVED'}" ) 
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentjoborder' && 	result.state=='APPROVED'}" ) 
 	public void postJobOrdertoServicerecord( def evt ) {
 	def r = evt.result;
 
@@ -96,45 +96,7 @@ def querySvc
 			ems.create(individual)
 		}
 
-		@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_servicerecords' && result.separationtype.objid}" ) 
-		public void updatePermanentCutoff( def evt ) {
-			def r = evt.result;
-			//joborder
-			def appointment = [:]
-			if (r.employmentstatus_objid == 'b51adf40-7dcc-426a-adac-941657b7f9f9'){
-				def p = [_schemaname: 'hrmis_appointmentjoborderitems'];
-				p.findBy = [ 'objid': r.appointmentitemid];
-				appointment = querySvc.findFirst( p )
-				if(appointment){
-					appointment.separationdate = r.dateto
-					appointment.separationtype.objid = r.separationtype.objid
-					appointment._schemaname = 'hrmis_appointmentjoborderitems'
-					persistenceSvc.update(appointment)
-				}
-			}else if(r.employmentstatus_objid == 'e1a17cb8-6595-440c-b90d-0f13137a86c6'){
-				def p = [_schemaname: 'hrmis_appointmentcasualitems'];
-				p.findBy = [ 'objid': r.appointmentitemid];
-				appointment = querySvc.findFirst( p )
-				if(appointment){
-					appointment.separationdate = r.dateto
-					appointment.separationtype.objid = r.separationtype.objid
-					appointment._schemaname = 'hrmis_appointmentcasualitems'
-					persistenceSvc.update(appointment)
-				}
-			}else{
-				def p = [_schemaname: 'hrmis_appointmentpermanent'];
-				p.findBy = [ 'objid': r.appointmentitemid];
-				appointment = querySvc.findFirst( p )
-				if(appointment){
-					appointment.effectiveuntil = r.dateto
-					appointment._schemaname = 'hrmis_appointmentpermanent'
-					persistenceSvc.update(appointment)
-				}
-
-			}
-			
-			
-		}
+		
 		//println r 
 		// println "+++++++++++++++++++++++++++"
 
@@ -196,6 +158,45 @@ def querySvc
 
 }
 
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_servicerecords' && result.separationtype.objid}" ) 
+		public void updatePermanentCutoff( def evt ) {
+			def r = evt.result;
+			//joborder
+			def appointment = [:]
+			if (r.employmentstatus_objid == 'b51adf40-7dcc-426a-adac-941657b7f9f9'){
+				def p = [_schemaname: 'hrmis_appointmentjoborderitems'];
+				p.findBy = [ 'objid': r.appointmentitemid];
+				appointment = querySvc.findFirst( p )
+				if(appointment){
+					appointment.separationdate = r.dateto
+					appointment.separationtype.objid = r.separationtype.objid
+					appointment._schemaname = 'hrmis_appointmentjoborderitems'
+					persistenceSvc.update(appointment)
+				}
+			}else if(r.employmentstatus_objid == 'e1a17cb8-6595-440c-b90d-0f13137a86c6'){
+				def p = [_schemaname: 'hrmis_appointmentcasualitems'];
+				p.findBy = [ 'objid': r.appointmentitemid];
+				appointment = querySvc.findFirst( p )
+				if(appointment){
+					appointment.separationdate = r.dateto
+					appointment.separationtype.objid = r.separationtype.objid
+					appointment._schemaname = 'hrmis_appointmentcasualitems'
+					persistenceSvc.update(appointment)
+				}
+			}else{
+				def p = [_schemaname: 'hrmis_appointmentpermanent'];
+				p.findBy = [ 'objid': r.appointmentitemid];
+				appointment = querySvc.findFirst( p )
+				if(appointment){
+					appointment.effectiveuntil = r.dateto
+					appointment._schemaname = 'hrmis_appointmentpermanent'
+					persistenceSvc.update(appointment)
+				}
+
+			}
+			
+			
+		}
 
 @After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentcasual' && result.state=='APPROVED'}" ) 
 public void postCasualtoServicerecord( def evt ) {
