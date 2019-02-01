@@ -1,0 +1,60 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentseparation">
+		<field name="objid" primary="true" prefix="SEP"/>
+		<field name="pds_objid" required="true" visible="false"/>
+		<field name="effectivedate" required="true" caption="Effective Date" searchable="true"/>
+		<field name="separationtype_objid" required="true" visible="false"/>
+		<field name="remarks" caption="Remarks" searchable="true"/>
+		<field name="dateprepared" required="true" caption="Date Prepared" searchable="true"/>
+		<field name="dateapproved" caption="Date Approved" searchable="true"/>
+		<field name="datedisapproved"  caption="Date Disapproved" searchable="true"/>
+		<field name="reasonfordisapproval"  caption="Reason for Disapproval" searchable="true"/>
+		<field name="offense_objid" visible="false"/>
+		<field name="appointment_objid" required="true" visible="false"/>
+		<field name="appointmentitem_objid" visible="false"/>
+		<field name="servicerecord_objid" visible="false"/>
+		<field name="state" required="true" caption="State" searchable="true"/>
+		<field name="recordlog_datecreated" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_createdbyuser" required="false" visible="false" searchable="false" />
+		<field name="recordlog_dateoflastupdate" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuserid" required="false" visible="false" searchable="false" />
+		<field name="recordlog_lastupdatedbyuser" required="false" visible="false" searchable="false" />
+
+		<complex name="pds" ref="hrmis_pds" jointype="many-to-one" required="false">
+			<key field="pds_objid" target="objid" />
+		</complex>
+		<complex name="separationtype" ref="master_tblemploymentseparationtype" jointype="many-to-one" required="false">
+			<key field="separationtype_objid" target="objid" />
+		</complex>
+	</element>
+</schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

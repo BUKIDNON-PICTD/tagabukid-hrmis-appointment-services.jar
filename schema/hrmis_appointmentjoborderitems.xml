@@ -14,7 +14,9 @@
 		<field name= "cutoffreason_objid" required="false" visible="false" />
 		<field name= "cutoffreason_name" required="false" visible="false" />
 		<field name= "cutoffreason_code" required="false" visible="false" />
-
+		<field name= "separationdate" required="false" visible="false" />
+		<field name= "separationtype_objid" required="false" visible="false" />
+		
 		<complex name="parent" ref="hrmis_appointmentjoborder" jointype="many-to-one" includefields="objid,appointmentgroupname,state,natureofappointment,signatorygroupid,recordlog_datecreated,recordlog_createdbyuserid,recordlog_createdbyuser" required="false">
 			<key field="parentid" target="objid" />
 		</complex>

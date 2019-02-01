@@ -1,0 +1,48 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.util.*;
+import com.rameses.services.extended.*;
+import java.rmi.server.UID;
+
+/* 
+	This interceptor posts to the service records after post. 
+*/
+class EntitytoPdsInterceptor { 
+
+@ActiveDB(value='hrmis_pds', em='tagabukid_hrmis')
+def em;
+
+// @ActiveDB(value='hrmis_servicerecords', em='tagabukid_hrmis')
+// def ems;
+
+// // @Service("ServiceRecordPostService")
+// // def SrpSvc;
+
+@Service("DateService")
+def dateSvc;
+
+@Env
+def env;
+
+@Service("PersistenceService")
+def persistenceSvc;
+
+@Service('QueryService')
+def querySvc
+
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'entityindividual'}", index=101)
+	public void beforeUpdate( evt ) {
+		def entity = evt.args[0];
+		// println entity
+		def p = [_schemaname: 'hrmis_pds'];
+		p.findBy = [ 'person_objid': entity.objid];
+		def pds = querySvc.findFirst( p )
+
+		if(pds){
+			pds.person.putAll(entity)
+			pds._schemaname = 'hrmis_pds'
+			persistenceSvc.update(pds)
+		}
+	}
+
+}
