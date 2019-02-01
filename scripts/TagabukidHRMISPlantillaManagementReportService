@@ -1,0 +1,44 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+class TagabukidHRMISPlantillaManagementReportService 
+{
+	@ActiveDB(value='plantilla_management', em='tagabukid_hrmis')
+	def em
+
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getPlantilla(params){
+		println params
+		def data = [:]
+		def items = em.getResult([funnel:params.orgunitid])
+		// items.each{
+		// 	println it
+		// }
+		data.reportdata = items
+
+		// def curdate = dtSvc.getMonths().index(dtSvc.getServerMonth()) + " " + dtSvc.getServerDay() + ", " +  dtSvc.getServerYear()
+		// def thisDay = new java.util.Date(now)
+		
+		data.parameters = [
+			TITLE          	: "PERSONNEL SCHEDULE",
+			YEAR         	: dtSvc.getServerYear().toString(),
+			PROVINCE       	: "Bukidnon",
+			OFFICE			: params.name,
+			// personnel   		: inventory.persona,
+			// ASOF				: thisDay.toString(),
+			// category			: params.toUpperCase(),
+
+		]
+		return data;
+	}
+}
