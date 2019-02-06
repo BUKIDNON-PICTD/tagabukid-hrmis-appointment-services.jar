@@ -4,7 +4,7 @@
 		<field name="state" required="true" caption="State" searchable="true"/>
 		<field name="appointment_objid" required="true" searchable="true"/>
 		<field name="tranche_objid" required="true" searchable="true"/>
-		<field name="paygradestep_pobjid" required="true" searchable="true"/>
+		<field name="paygradestep_objid" required="true" searchable="true"/>
 		<field name="effectivefrom" required="true" searchable="true"/>
 		<field name="dateissued" required="true" searchable="true"/>
 		<field name="amount" required="true" searchable="true"/>

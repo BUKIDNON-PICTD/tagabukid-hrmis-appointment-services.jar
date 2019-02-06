@@ -33,4 +33,4 @@ INNER JOIN hrmis_tblpayrollsalaryscheduleitem i ON i.`paygradeandstepincrementid
 INNER JOIN references_tblpaygradeandstepincrement gs ON gs.objid = i.`paygradeandstepincrementid`
 INNER JOIN hrmis_tblpayrollsalarytranche t ON i.`salarytrancheid` = t.objid 
 WHERE (p.`effectivefrom` BETWEEN t.`effectivefromdate` AND t.`effectivetodate`)
-AND gs.`step` = 1) AND p.objid = $P{objid}
+AND gs.`step` = 1 AND p.objid = $P{objid}

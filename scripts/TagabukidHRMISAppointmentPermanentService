@@ -24,7 +24,7 @@ class TagabukidHRMISAppointmentPermanentService
 
 	@ProxyMethod
 	def initCreate(){
-		
+
 		def entity = [:];
 		entity.objid = 'AP' + new java.rmi.server.UID() +"-"+ dtSvc.getServerDate().year
 		entity.state = "PENDING"
@@ -35,6 +35,7 @@ class TagabukidHRMISAppointmentPermanentService
         entity.recordlog.dateupdated =  dtSvc.serverDate
         entity.recordlog.lastupdatedbyuserid = env.USERID
         entity.recordlog.lastupdatedbyuser = env.FULLNAME
+	
         return entity;
 
 	}

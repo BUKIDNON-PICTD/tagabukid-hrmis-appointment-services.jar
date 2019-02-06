@@ -26,6 +26,7 @@ class HRMISAppointmentInterceptor {
 
 	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentpermanent' && result.state=='APPROVED'}" ) 
 	public void postNOSAHistory( def evt ) {
+		def r = evt.result;
 		def p = [_schemaname: 'hrmis_appointmentpermanent_nosa'];
 	    p.findBy = [ 'appointment_objid':r.objid];
 		def nosa =  querySvc.findFirst( p );
