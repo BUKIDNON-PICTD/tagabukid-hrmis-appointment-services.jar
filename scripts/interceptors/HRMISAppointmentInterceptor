@@ -31,7 +31,11 @@ class HRMISAppointmentInterceptor {
 	    p.findBy = [ 'appointment_objid':r.objid];
 		def nosa =  querySvc.findFirst( p );
 		if (!nosa){
-			def log = em.getOriginalAppointment([objid:r.objid])
+			def log = em.findOriginalAppointment([objid:r.objid])
+			log.recordlog = [:]
+			log.recordlog.datecreated = dateSvc.serverDate
+			log.recordlog.createdbyuserid = env.USERID
+			log.recordlog.createdbyuser = env.FULLNAME
 			log._schemaname = 'hrmis_appointmentpermanent_nosa'
 			persistenceSvc.create(log)
 		}

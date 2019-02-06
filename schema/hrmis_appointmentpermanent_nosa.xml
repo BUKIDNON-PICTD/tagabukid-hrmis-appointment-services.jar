@@ -7,9 +7,9 @@
 		<field name="paygradestep_objid" required="true" searchable="true"/>
 		<field name="effectivefrom" required="true" searchable="true"/>
 		<field name="dateissued" required="true" searchable="true"/>
-		<field name="amount" required="true" searchable="true"/>
-		<field name="grade" required="true" searchable="true"/>
-		<field name="step" required="true" searchable="true"/>
+		<field name="amount" required="true" />
+		<field name="grade" required="true" />
+		<field name="step" required="true" />
 		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
 		<field name="recordlog_createdbyuser" required="true" caption="true" searchable="true"/>

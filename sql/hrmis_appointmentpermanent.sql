@@ -17,14 +17,14 @@ INNER JOIN etracs254_bukidnon.entityindividual i ON i.objid = xx.personnel_objid
 WHERE xx.`parentid` = $P{parentid}
 ORDER BY i.lastname
 
-[getOriginalAppointment]
+[findOriginalAppointment]
 SELECT 
-"ISSUED" as status,
+"ISSUED" as state,
 p.`objid` AS appointment_objid,
 t.`objid` AS tranche_objid,
 i.`objid` AS paygradestep_objid,
 p.`effectivefrom`,
-p.`effectivefrom`,
+p.`effectivefrom` as dateissued,
 i.`amount`,
 gs.`grade`,
 gs.`step`
