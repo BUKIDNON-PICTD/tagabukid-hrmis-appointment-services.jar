@@ -1,0 +1,46 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.util.*;
+import com.rameses.services.extended.*;
+import java.rmi.server.UID;
+
+/* 
+	This interceptor posts to the service records after post. 
+*/
+class HRMISLeaveInterceptor { 
+
+	@ActiveDB(value='hrmis_appointmentpermanent', em='tagabukid_hrmis')
+	def em;
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Env
+	def env;
+
+	@Service("PersistenceService")
+	def persistenceSvc;
+
+	@Service('QueryService')
+	def querySvc
+
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentpermanent' && result.state=='APPROVED'}" ) 
+	public void postNOSAHistory( def evt ) {
+		def r = evt.result;
+		def p = [_schemaname: 'hrmis_appointmentpermanent_nosa'];
+	    p.findBy = [ 'appointment_objid':r.objid];
+		def nosa =  querySvc.findFirst( p );
+		if (!nosa){
+			def log = em.findOriginalAppointment([objid:r.objid])
+			log.recordlog = [:]
+			log.recordlog.datecreated = dateSvc.serverDate
+			log.recordlog.createdbyuserid = env.USERID
+			log.recordlog.createdbyuser = env.FULLNAME
+			log._schemaname = 'hrmis_appointmentpermanent_nosa'
+			persistenceSvc.create(log)
+		}
+
+		
+	}
+
+}
