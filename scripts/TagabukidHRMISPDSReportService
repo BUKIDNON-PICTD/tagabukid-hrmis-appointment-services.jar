@@ -310,13 +310,21 @@ class TagabukidHRMISPDSReportService
 			pdsentity.references = Reference
 
 			pdsentity.referenceperson = [
+				goviddata : pdsentity.govids[0],
 				referencedata : pdsentity.references
+				
 			]
 
-			
+			// def Govid = []
+			// pdsentity.family = [
+			// 	fatherdata : pdsentity.familyfatherInfos[0],
+			// 	motherdata : pdsentity.familymotherInfos[0],
+			// 	spousedata : pdsentity.familyspouseInfos[0],
+			// 	childdata : pdsentity.familychildInfos
+			// ]
 
 			data.reportdata = pdsentity
-			println pdsentity.educationalInfos.size();
+			println pdsentity.referenceperson;
 			data.parameters = [
 				// LGUNAME  :"PG-BUKIDNON, REGION 10",
 				// LGUADDRESS : "Provincial Capitol, City of Malaybalay",

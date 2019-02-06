@@ -73,7 +73,7 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 	// }
 	
 	public void beforeList( def p ) {
-		println p
+		// println p
 
 		if(p.name == "search") {
 			p._listMethod = "getSearch";
