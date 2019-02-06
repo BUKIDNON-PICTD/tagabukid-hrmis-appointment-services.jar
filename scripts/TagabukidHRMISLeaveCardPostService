@@ -38,7 +38,7 @@ class TagabukidHRMISLeaveCardPostService {
 		
 		def balance = lb.endbalance;
 		lb.totaldr += o.dr;
-		lb.endbalance = lb.totaldr - lb.totalcr;
+		lb.endbalance =  lb.totalcr - lb.totaldr;
 		
 		def detail = [:];
 		detail.objid = "LCD"+new UID();
@@ -79,7 +79,7 @@ class TagabukidHRMISLeaveCardPostService {
 		
 		def balance = lb.endbalance;
 		lb.totalcr += o.cr;
-		lb.endbalance = lb.totaldr - lb.totalcr;
+		lb.endbalance =  lb.totalcr - lb.totaldr;
 		
 		def detail = [:];
 		detail.objid = "LCD"+new UID();
