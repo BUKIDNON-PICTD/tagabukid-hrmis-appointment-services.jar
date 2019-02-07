@@ -5,6 +5,7 @@
 		<field name="idtype" required="true" searchable="true"/>
 		<field name="idno" required="true" searchable="false"/>
 		<field name="issuance" required="false" searchable="true"/>
+		<field name="isused" required="false" searchable="true"/>
 		<field name="recordlog_datecreated" required="true" searchable="false" visible="false"/>
 		<field name="recordlog_createdbyuserid" required="true" searchable="false" visible="false" />
 		<field name="recordlog_createdbyuser" required="true" searchable="false" visible="false" />
