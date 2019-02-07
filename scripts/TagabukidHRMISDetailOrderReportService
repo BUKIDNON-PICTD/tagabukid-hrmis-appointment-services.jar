@@ -28,7 +28,7 @@ class TagabukidHRMISDetailOrderReportService
 			LGUADDRESS         	: "Provincial Capiptol 8700",
 			TITLE              	: "DETAIL ORDER",
 			personnel   		: params.personnel,
-			prevdate  			: params.prevdate,
+			// prevdate  			: params.prevdate.toShortDate(),
 			effectivity			: params.effectivity,
 			details             : params.details,
 			signatoryname      	: params.signatory.signatoryname,
