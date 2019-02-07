@@ -48,3 +48,9 @@ where objid = $P{objid}
 [findPayGradeId]
 select paygrade_objid as paygradeid from references_tbljobposition
 where objid = $P{objid}
+
+[findPrevAppointmentPermanent]
+select * from hrmis_appointmentpermanent where pds_objid =  $P{objid}
+and state = 'APPROVED'
+and now() between effectivefrom and effectiveuntil
+order by effectivefrom desc LIMIT 1 offset 1
