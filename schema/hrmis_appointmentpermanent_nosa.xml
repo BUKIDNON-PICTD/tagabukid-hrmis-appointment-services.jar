@@ -1,0 +1,47 @@
+<schema adapter="tagabukid_hrmis">
+	<element tablename="hrmis_appointmentpermanent_nosa">
+		<field name="objid" primary="true" searchable="flase"/>
+		<field name="state" required="true" caption="State" searchable="true"/>
+		<field name="appointment_objid" required="true" searchable="true"/>
+		<field name="tranche_objid" required="true" searchable="true"/>
+		<field name="paygradestep_objid" required="true" searchable="true"/>
+		<field name="effectivefrom" required="true" searchable="true"/>
+		<field name="dateissued" required="true" searchable="true"/>
+		<field name="amount" required="true" />
+		<field name="grade" required="true" />
+		<field name="step" required="true" />
+		<field name="recordlog_datecreated" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_createdbyuserid" required="true" caption="true" searchable="true"/>
+		<field name="recordlog_createdbyuser" required="true" caption="true" searchable="true"/>
+		
+	</element>
+</schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
