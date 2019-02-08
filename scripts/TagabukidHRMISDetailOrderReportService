@@ -38,8 +38,6 @@ class TagabukidHRMISDetailOrderReportService
 			supervisortitle     : params.supervisortitle,
 		]
 		return data
-		
-		println data
 	}
 
 	@ProxyMethod

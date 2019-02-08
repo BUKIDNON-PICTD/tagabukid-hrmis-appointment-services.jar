@@ -24,7 +24,6 @@ class TagabukidHRMISEmployeeRetirementReportService
 		data.parameters = [
 			AS_OF	: dtSvc.getServerDate()
 		]
-		println data.parameters
 		return data;
 
 	}

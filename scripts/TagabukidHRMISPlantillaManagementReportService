@@ -18,14 +18,12 @@ class TagabukidHRMISPlantillaManagementReportService
 
 	@ProxyMethod
 	public def getPlantilla(params){
-		println params
 		def data = [:]
 		def items = em.getResult([funnel:params.orgunitid])
 		// items.each{
 		// 	println it
 		// }
 		def tranchename = em.getTrancheName(selector:dtSvc.getServerYear().toString())
-		println "tranche name: " + tranchename
 		data.reportdata = items
 
 		// def curdate = dtSvc.getMonths().index(dtSvc.getServerMonth()) + " " + dtSvc.getServerDay() + ", " +  dtSvc.getServerYear()
