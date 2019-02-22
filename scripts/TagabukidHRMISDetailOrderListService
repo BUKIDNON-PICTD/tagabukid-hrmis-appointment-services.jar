@@ -23,7 +23,8 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 		def nodes = [];
 		nodes << [name:'detailed',  caption: 'DETAILED', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'reassigned',  caption: 'REASSIGNED', leaf:true, allowSearch:true, folder:true];
-		nodes << [name:'returned',  caption: 'RETURNED TO OFFICE', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'expired',  caption: 'EXPIRED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'recalled',  caption: 'RECALLED', leaf:true, allowSearch:true, folder:true];
 		
 
 		return nodes;
@@ -59,13 +60,12 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 			// 	break;
 					
 			case 'detailed':
-				o.filter += ''' WHERE returned = 'FALSE' AND to_orgunitid in (
+				o.filter += ''' WHERE effectivity > NOW() AND returned = 'FALSE' AND to_orgunitid in (
 					SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,
 						`references_tblorganizationunit` AS parent
 					WHERE node.lft BETWEEN parent.lft AND parent.rgt
 					AND parent.orgunitid = 'e448370d-16db-4c58-9c97-ba08138eeac7'
-					ORDER BY parent.lft)
-					or to_orgunitid is null ''';
+					ORDER BY parent.lft) ''';
 				break;
 
 			case 'reassigned':
@@ -74,12 +74,16 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 						`references_tblorganizationunit` AS parent
 					WHERE node.lft BETWEEN parent.lft AND parent.rgt
 					AND parent.orgunitid = 'ac299664-82c7-45a1-a096-194844656ea3'
-					ORDER BY parent.lft) ''';
+					ORDER BY parent.lft) 
+					AND effectivity > NOW() ''';
 				break;
 
-			case 'returned':
+			case 'recalled':
 				o.filter += ''' WHERE returned = 'TRUE' ''';
 				break;
+
+			case 'expired':
+				o.filter += ''' WHERE effectivity < NOW() ''';
 
 			case 'all':
 				if( !o.searchtext || o.searchtext == '%' ){

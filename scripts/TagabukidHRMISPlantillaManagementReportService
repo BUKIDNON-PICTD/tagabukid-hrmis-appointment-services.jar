@@ -18,8 +18,16 @@ class TagabukidHRMISPlantillaManagementReportService
 
 	@ProxyMethod
 	public def getPlantilla(params){
+		println params
 		def data = [:]
-		def items = em.getResult([funnel:params.orgunitid])
+		def items
+		if (params.type == "permanent") {
+			items = em.getPermanentPlantilla([funnel:params.orgunitid])
+		}
+		if (params.type == "casual") {
+			items = em.getCasualPlantilla([funnel:params.orgunitid])
+		}
+		
 		// items.each{
 		// 	println it
 		// }
@@ -38,7 +46,6 @@ class TagabukidHRMISPlantillaManagementReportService
 			TRANCHE_CODE	: tranchename[0].circular,
 			TRANCHE_PREVYEAR: tranchename[0].prevyear.toString()
 		]
-
 		return data;
 	}
 }
