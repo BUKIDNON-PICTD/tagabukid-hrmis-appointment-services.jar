@@ -23,8 +23,8 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 		def nodes = [];
 		nodes << [name:'detailed',  caption: 'DETAILED', leaf:true, allowSearch:true, folder:true];
 		nodes << [name:'reassigned',  caption: 'REASSIGNED', leaf:true, allowSearch:true, folder:true];
-		nodes << [name:'expired',  caption: 'EXPIRED', leaf:true, allowSearch:true, folder:true];
-		nodes << [name:'recalled',  caption: 'RECALLED', leaf:true, allowSearch:true, folder:true];
+		nodes << [name:'expired',  caption: 'EXPIRED', leaf:true, allowSearch:true, allowCreate:false, folder:true];
+		nodes << [name:'recalled',  caption: 'RECALLED', leaf:true, allowCreate:false, allowSearch:true, folder:true];
 		
 
 		return nodes;
@@ -38,10 +38,11 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 		cols <<	[name:'charged', caption:'OFFICE', width:120, resizable:false];
 		cols <<	[name:'destined', caption:'TO', width:150, resizable:false];
 		cols << [name:'effectivity', caption:'EFFECTIVITY', width:130, resizable:false];
+		cols << [name:'effectivityuntil', caption:'EXPIRY', width:130, resizable:false];
 		cols <<	[name:'years', caption: 'NO. OF YEARS', width:120, resizable:false];
 		cols <<	[name:'remarks', caption:'REMARKS', width:100];
 		// cols <<	[name:'dateissued', caption:'Date Issued', width:130, resizable:false];
-		//cols <<	[name:'assignee.name', caption:'Performed By', width:130, resizable:false];
+		// cols <<	[name:'assignee.name', caption:'Performed By', width:130, resizable:false];
 		// cols <<	[name:'locationorg.name', caption:'Doc. Location', width:140, resizable:true];
 		return cols;
 	}
@@ -60,7 +61,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 			// 	break;
 					
 			case 'detailed':
-				o.filter += ''' WHERE effectivity > NOW() AND returned = 'FALSE' AND to_orgunitid in (
+				o.filter += ''' WHERE effectivityuntil > NOW() AND returned = 'FALSE' AND to_orgunitid in (
 					SELECT node.orgunitid FROM `references_tblorganizationunit` AS node,
 						`references_tblorganizationunit` AS parent
 					WHERE node.lft BETWEEN parent.lft AND parent.rgt
@@ -75,7 +76,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 					WHERE node.lft BETWEEN parent.lft AND parent.rgt
 					AND parent.orgunitid = 'ac299664-82c7-45a1-a096-194844656ea3'
 					ORDER BY parent.lft) 
-					AND effectivity > NOW() ''';
+					AND effectivityuntil > NOW() ''';
 				break;
 
 			case 'recalled':
@@ -83,7 +84,7 @@ class TagabukidHRMISDetailOrderListService extends ActiveCrudListService  {
 				break;
 
 			case 'expired':
-				o.filter += ''' WHERE effectivity < NOW() ''';
+				o.filter += ''' WHERE effectivityuntil < NOW() ''';
 
 			case 'all':
 				if( !o.searchtext || o.searchtext == '%' ){
