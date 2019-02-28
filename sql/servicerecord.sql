@@ -63,3 +63,26 @@ INNER JOIN references_tbljobposition jp ON jp.objid = sr.jobposition_objid
 LEFT JOIN references_tblorganizationunit org ON org.orgunitid = sr.org_orgunitid
 WHERE hp.objid = $P{objid}
 ORDER BY sr.datefrom ASC
+
+-- samples --
+[getServiceCardPermanent]
+SELECT hp.objid 
+FROM hrmis_pds hp
+INNER JOIN hrmis_appointmentpermanent app ON app.pds_objid = hp.objid AND NOW() BETWEEN app.effectivefrom AND app.effectiveuntil
+WHERE app.org_orgunitid = $P{objid}
+
+[getServiceCardCasual]
+SELECT hp.objid 
+FROM hrmis_pds hp
+INNER JOIN hrmis_appointmentcasual apc ON NOW() BETWEEN apc.effectivefrom AND apc.effectiveuntil
+INNER JOIN hrmis_appointmentcasualitems apci ON apci.parentid = apc.objid AND apci.pds_objid = hp.objid
+WHERE apc.org_orgunitid = $P{objid}
+AND apc.state = 'APPROVED'
+
+[getServiceCardJobOrder]
+SELECT hp.objid 
+FROM hrmis_pds hp
+INNER JOIN hrmis_appointmentjoborder apj ON NOW() BETWEEN apj.effectivefrom AND apj.effectiveuntil
+INNER JOIN hrmis_appointmentjoborderitems apji ON apji.parentid = apj.objid AND apji.pdsid = hp.objid
+WHERE apj.org_orgunitid = $P{objid}
+AND apj.state = 'APPROVED'

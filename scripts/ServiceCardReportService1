@@ -2,7 +2,7 @@ import com.rameses.annotations.*
 import com.rameses.common.*
 import com.rameses.services.extended.*;
 
-class ServiceCardReportService
+class ServiceCardReportService1
 {
 
 	@Service("PersistenceService")
@@ -31,27 +31,11 @@ class ServiceCardReportService
 
     	def data = [:]
     	println o
-		// def x = []
-		def list = []
+    	def x = em.getServiceCard([objid:o.pds.objid])
 
-		// list = em.getSamplePermanent([objid:o.org.orgunitid])
-		// list.each{
-		// 	it.item.putAll(getServiceCard(it.objid))
-		// }
- 		
-		if(o.status == "Permanent"){
-			 list = em.getServiceCardPermanent([objid:o.org.orgunitid])
-		}else if(o.status == "Casual"){
-			 list = em.getServiceCardCasual([objid:o.org.orgunitid])
-		}else if(o.status == "Job Order"){
-			 list = em.getServiceCardJobOrder([objid:o.org.orgunitid])
-		}
-    	
-    	list.each{
-			it.servicecard = em.getServiceCard([objid:it.objid])
-		}
-		println list
-    	data.reportdata = list
+    	println x
+
+    	data.reportdata = x
 
     	data.parameters = [
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
