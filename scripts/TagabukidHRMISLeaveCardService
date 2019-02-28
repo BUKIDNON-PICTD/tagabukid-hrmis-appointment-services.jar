@@ -4,7 +4,7 @@ import java.rmi.server.*;
 import com.rameses.common.*
 import com.rameses.services.extended.*
 
-class CashBookService extends ActiveCrudListService {
+class TagabukidHRMISLeaveCardService extends ActiveCrudListService {
 
 	@ActiveDB("cashbook")
 	def em;
@@ -12,6 +12,20 @@ class CashBookService extends ActiveCrudListService {
 	@Env 
 	def env; 
 
+	@Service("DateService")
+	def dateSvc;
+
+	@Service("PersistenceService")
+	def persistenceSvc;
+
+	@Service('TagabukidHRMISLeaveCardPostService')
+	def leavecardentry
+
+	@Service('LogService')
+	def logSvc
+
+	@Service('QueryService')
+	def querySvc
 
 
 	@ProxyMethod
@@ -70,4 +84,90 @@ class CashBookService extends ActiveCrudListService {
 	public def findBySubAcctFund( params ) {
 		return em.findBySubAcctFund( params ); 
 	} 		
+
+	@Async
+	@ProxyMethod 
+	public def postearnedleave(monthend) {
+		def p = [_schemaname: 'master_leave_type'];
+		p.findBy = [ 'iscommutative':"yes"];
+		def commutativeleavetype =  querySvc.getList( p );
+
+		commutativeleavetype.each{ lt ->
+			def o = [_schemaname: 'hrmis_leavecard'];
+			o.findBy = [ 'leavetype_objid':lt.objid];
+			def leavecards =  querySvc.getList( o );
+			try {
+				leavecards.each{
+						if(!isearnleaveposted(it,monthend)){
+							it.dr = 0
+							it.cr = 1.250
+							it.refid = "EARNED LEAVE"
+							it.reftype = "EARNED LEAVE"
+							it.refno = "EARNED LEAVE"
+							it.refdate = dateSvc.serverDate
+							it.particulars = "SYSTEM GENERATED: MONTHLY EARNED LEAVE:" + it.leavetype.name
+							leavecardentry.postCR(it)
+						}
+				}
+				logSvc.logA( 'success', "earnedleave", "earnedleave", "SYSTEM GENERATED: MONTHLY EARNED LEAVE for the month of (" + monthend.toString() + ")" )
+				println "SYSTEM GENERATED: MONTHLY EARNED LEAVE PROCESSING FINISHED"
+			}catch(e) {
+				logSvc.logA( 'error', "earnedleave", "earnedleave", e.getMessage() )
+			}
+		}
+		
+	} 
+
+	@Async
+	@ProxyMethod 
+	public def postspl(january) {
+		def p = [_schemaname: 'master_leave_type'];
+		p.findBy = [ 'allocationunitperiod':"annual"];
+		def spls =  querySvc.getList( p ).findall{it.allocationindd != 0};
+
+			spls.each{slp->
+				def o = [_schemaname: 'hrmis_leavecard'];
+				o.findBy = [ 'leavetype_objid':slp.objid];
+				def leavecards =  querySvc.getList( o );
+				try {
+					leavecards.each{
+							if(!issplposted(it,january)){
+								it.dr = 0
+								it.cr = spl.allocationiddd
+								it.refid = "SPL"
+								it.reftype = "SPL"
+								it.refno = "SPL"
+								it.refdate = dateSvc.serverDate
+								it.particulars = "SYSTEM GENERATED: SPL : "  + it.leavetype.name
+								leavecardentry.postCR(it)
+							}
+					}
+					logSvc.logA( 'success', "spl", "spl", "SYSTEM GENERATED: SPL : (" + january.toString() + ")" )
+				}catch(e) {
+					logSvc.logA( 'error', "spl", "spl", e.getMessage() )
+				}
+			}
+	}
+
+	private boolean isearnleaveposted( o,monthend ) {
+		def x = [_schemaname: 'hrmis_leavecard_entry'];
+		x.findBy = [ 'refdate':monthend,'reftype':"EARNED LEAVE",'parentid':o.objid];
+		def entry =  querySvc.findFirst( x );
+		if(entry) return true
+
+		return false
+	}
+
+	private boolean issplposted( o,january ) {
+		def x = [_schemaname: 'hrmis_leavecard_entry'];
+		x.findBy = [ 'refdate':january,'reftype':"SPL",'parentid':o.objid];
+		def entry =  querySvc.findFirst( x );
+		if(entry) return true
+
+		return false
+	}
+
+	
+
+	
 }

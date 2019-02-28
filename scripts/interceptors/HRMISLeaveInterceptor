@@ -70,12 +70,16 @@ class HRMISLeaveInterceptor {
 					if(leavebalance < 0){
 						throw new Exception("Insufficient leave balance for leave type :" + leavedetail.leavetype.name );
 					}
+
+					// if(!empHasSched(leavedetail)){
+					// 	throw new Exception("Employee has no schedule for - " leavedetail.leavedate );
+					// }
 				}
 			}
 		
 	}
 
-	@Before(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_leavedetails' && args[0].status == 'APPROVED'}" ) 
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_leavedetails' && args[0].status == 'APPROVED'}" ) 
 	public void postDRonapprove( def evt ) {
 		def r = evt.args[0];
 
@@ -94,12 +98,14 @@ class HRMISLeaveInterceptor {
 					leavecard.refdate = leavedetail.leavedate
 					leavecard.particulars = (!leavedetail.comments ? "SYSTEM GENERATED": leavedetail.comments)
 					leavecardentry.postDR(leavecard)
+
+
 				}
 			}
 		
 	}
 
-	@Before(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_leavedetails' && args[0].status == 'CANCELLED'}" ) 
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_leavedetails' && args[0].status == 'CANCELLED'}" ) 
 	public void postCRoncancel( def evt ) {
 		def r = evt.args[0];
 
@@ -121,6 +127,14 @@ class HRMISLeaveInterceptor {
 				}
 			}
 		
+	}
+
+	private boolean empHasSched(leavedetail){
+		
+		def sched = em.findEmpSched([pdsid:leavedetail.parent.pds.objid,leavedate:leavedetail.leavedate])
+		if(sched) return true;
+		
+		return false;
 	}
 
 }

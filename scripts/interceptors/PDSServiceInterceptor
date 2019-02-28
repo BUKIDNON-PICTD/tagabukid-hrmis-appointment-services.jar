@@ -1,0 +1,48 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.util.*;
+import com.rameses.services.extended.*;
+import java.rmi.server.UID;
+
+
+class PDSServiceInterceptor { 
+
+	@Service("PersistenceService")
+	def persistenceSvc;
+
+	@Service('QueryService')
+	def querySvc
+
+	@Service('TagabukidHRMISPDSService')
+	def pdsSvc
+
+	@ActiveDB(value='USERINFO', em='btacs')
+	def emu;
+
+	@After(pattern="PersistenceService.(create)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
+	public void postPDStoATT( def evt ) {
+		def r = evt.args[0];
+		pdsSvc.createATTUserInfo(r)
+		
+	}
+
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
+	public void updatePDStoATT( def evt ) {
+		def r = evt.args[0];
+
+		def p = [_schemaname: 'USERINFO'];
+		p.findBy = [ 'pdsdid':r.objid];
+		def userinfo =  querySvc.findFirst( p );
+
+		userinfo.NAME = r.person.name
+		userinfo.GENDER = r.person.gender
+	
+		userinfo.lname =r.person.lastname
+		userinfo.fname =r.person.firstname
+		userinfo.mname =r.person.middlename
+
+		emu.update(userinfo)
+
+	}
+
+}
