@@ -20,22 +20,11 @@ class TagabukidHRMISPersonnelPlantillaReportService
 
 	@ProxyMethod
 	public def getPersonnelPlantilla(params){
-		// println params
 		def data = [:]
-		// def items = []
 		def items = em.getResult([funnel:params.org.orgunitid])
 		
-		// params.funnel = params.orgunitid
-		// items = em.getResult(params)
-		// def PlantillaPersonnels = []
-		// 	items.plantillapersonnel.each{g ->
-		// 		PlantillaPersonnels.add(g)
-		// 	}
-		// items.plantillapersonnel = items
-		
 		data.reportdata = items;
-		println items
-		
+
 		data.parameters = [
 			TITLE          	: "PERSONNEL PLANTILLA",
 			YEAR         	: dtSvc.getServerYear().toString(),
