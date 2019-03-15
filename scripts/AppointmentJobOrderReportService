@@ -29,6 +29,10 @@ class AppointmentJobOrderReportService
 		def appointment = persistenceSvc.read(params)
 		appointment.appointmentMemberItems.each{
 			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.entityid]);
+			
+			def personnelpds = persistenceSvc.read([_schemaname:'hrmis_pds', objid: it.pdsid])
+			it.formalname = (personnelpds.prenametitle?.trim()?  personnelpds.prenametitle : "") + " " + personnelpds.person.firstname + " " + personnelpds.person.middlename.substring(0,1) +". " + personnelpds.person.lastname + (personnelpds.nameextension?.trim()?  ", " + personnelpds.nameextension : "") + (personnelpds.postnametitle?.trim()?  ", " + personnelpds.postnametitle : "")
+			
         	//it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
 			//it.plantilla.Id = it.plantilla.Id.toString()
 			it.position = persistenceSvc.read( [_schemaname:'master_tbljobposition', objid:it.positionid] );
