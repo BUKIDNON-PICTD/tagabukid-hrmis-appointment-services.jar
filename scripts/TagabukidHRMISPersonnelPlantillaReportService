@@ -21,8 +21,14 @@ class TagabukidHRMISPersonnelPlantillaReportService
 	@ProxyMethod
 	public def getPersonnelPlantilla(params){
 		def data = [:]
-		def items = em.getResult([funnel:params.org.orgunitid])
+		def items = []
 		
+		if(params.status == "Permanent"){
+			items = em.getResult([funnel:params.org.orgunitid])
+		}else if(params.status == "Casual"){
+			items = em.getCasualResult([funnel:params.org.orgunitid])
+		}
+
 		data.reportdata = items;
 
 		data.parameters = [
