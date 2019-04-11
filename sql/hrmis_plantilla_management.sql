@@ -12,6 +12,7 @@ xx.`objid`,
 xx.`itemno`,
 xx.`isfunded`,
 j.`name` AS jobposition_name,
+pds.person_name AS person_name,
 f.`name` AS fund_name,
 a.`name` AS accounttitle_name,
 i.`name` AS incrementtype_name,
@@ -19,6 +20,11 @@ c.`name` AS positionserviceclassification_name,
 cs.`name` AS positionservicesubclassification_name,
 xx.type
 FROM hrmis_tblemploymentplantilla xx
+
+-- Added Personnel
+LEFT JOIN hrmis_appointmentpermanent ap ON ap.plantilla_objid = xx.objid
+LEFT JOIN hrmis_pds pds ON pds.objid = ap.pds_objid
+
 INNER JOIN references_tblorganizationunit o ON o.`orgunitid` =  xx.`org_orgunitid`
 INNER JOIN references_tbljobposition j ON j.`objid` = xx.`jobposition_objid`
 LEFT JOIN references_tblemptincrementtype i ON i.`objid` = xx.`incrementtype_objid`
