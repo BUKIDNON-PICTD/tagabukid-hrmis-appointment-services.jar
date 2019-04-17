@@ -144,5 +144,17 @@ public class ServiceRecordService extends ActiveCrudListService
 	}
 
 
+	@ProxyMethod
+    public def getServiceCardById(o) {
+    	println o
+    	def x = em.getServiceCard([objid:o.pds.objid])
+
+    	println x
+
+    	return x
+    	
+    }
+
+
 
 }

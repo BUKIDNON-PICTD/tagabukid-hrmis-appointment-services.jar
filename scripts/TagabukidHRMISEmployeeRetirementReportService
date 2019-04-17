@@ -1,0 +1,30 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+class TagabukidHRMISEmployeeRetirementReportService
+{
+	@ActiveDB(value='employee_retirement', em='tagabukid_hrmis')
+	def em
+
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Env
+	def env;	
+
+	@ProxyMethod
+	public def generateList(){
+		def data = [:]
+		def employees = em.getEmployeeList()
+		data.reportdata = employees
+		data.parameters = [
+			AS_OF	: dtSvc.getServerDate()
+		]
+		return data;
+
+	}
+}

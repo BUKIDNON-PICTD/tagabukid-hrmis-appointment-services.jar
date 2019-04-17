@@ -1,0 +1,46 @@
+import com.rameses.annotations.*
+import com.rameses.common.*
+import com.rameses.services.extended.*;
+
+
+class TagabukidHRMISPersonnelPlantillaReportService
+{
+	
+	@ActiveDB(value='hrmis_personnel_plantilla', em='tagabukid_hrmis')
+	def em
+
+	@Service("PersistenceService")
+    def persistenceSvc;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Env
+	def env;
+
+	@ProxyMethod
+	public def getPersonnelPlantilla(params){
+		def data = [:]
+		def items = []
+		
+		if(params.status == "Permanent"){
+			items = em.getResult([funnel:params.org.orgunitid])
+		}else if(params.status == "Casual"){
+			items = em.getCasualResult([funnel:params.org.orgunitid])
+		}
+
+		data.reportdata = items;
+
+		data.parameters = [
+			TITLE          	: "PERSONNEL PLANTILLA",
+			YEAR         	: dtSvc.getServerYear().toString(),
+			PROVINCE       	: "Bukidnon",
+			OFFICE			: params.name,
+			// TRANCHE_NAME	: tranchename[0].name,
+			// TRANCHE_CODE	: tranchename[0].circular,
+			// TRANCHE_PREVYEAR: tranchename[0].prevyear.toString()
+		]
+
+		return data
+	}
+}

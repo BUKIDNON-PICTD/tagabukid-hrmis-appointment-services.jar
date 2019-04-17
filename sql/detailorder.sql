@@ -6,6 +6,7 @@ SELECT
 `charges`.`code` AS charged,
 `hrmis_detailorder_list`.`to_code` AS destined,
 `hrmis_detailorder_list`.`effectivity`,
+`hrmis_detailorder_list`.`effectivityuntil`,
 `hrmis_detailorder_list`.`years`,
 `hrmis_detailorder_list`.`remarks`
 
@@ -34,6 +35,7 @@ SELECT
 `charges`.`code` AS charged,
 `hrmis_detailorder_list`.`to_code` AS destined,
 `hrmis_detailorder_list`.`effectivity`,
+`hrmis_detailorder_list`.`effectivityuntil`,
 `hrmis_detailorder_list`.`years`,
 `hrmis_detailorder_list`.`remarks`
 

@@ -31,7 +31,7 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
         entity.recordlog.lastupdatebyuser = env.FULLNAME
         entity.previtemnos = []
         return entity;
-
+ 
 	}
 
 	public void afterNode( def selectedNode, def list ) {
@@ -64,6 +64,7 @@ class TagabukidHRMISPlantillaManagementService extends ActiveCrudNodeService {
 			[name:'positionserviceclassification.name', caption:'Position Service Classification' ],
 			[name:'positionservicesubclassification.name', caption:'Position Service Sub Classification' ],
 			[name:'type', caption:'Type' ],
+			[name:'person.name', caption:'Personnel']
 		];
 		return cols;
 	}

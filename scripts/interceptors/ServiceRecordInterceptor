@@ -96,62 +96,6 @@ def querySvc
 			ems.create(individual)
 		}
 
-		
-		//println r 
-		// println "+++++++++++++++++++++++++++"
-
-		// def churvs = em.getResultFromJobOrderAppointment([objid: r.objid])
-		// /*println churvs
-		// println "======================================="*/
-
-		// //def entry = []
-
-		// churvs.each{it ->
-		// 	def individual = [
-
-		// 	objid : 'SR-JOI' + new java.rmi.server.UID(),
-		// 	pdsid : it.pdsid,
-		// 	personnelaction : [
-		// 					    objid : it.natureofappointment.objid,
-		// 						name  : em.findNatureofAppointmentName([objid: it.natureofappointment.objid]).name,
-		// 						code  : em.findNatureofAppointmentCode([objid: it.natureofappointment.objid]).code,
-		// 					  ],
-		// 	datefrom : it.effectivefrom,
-		// 	dateto : it.effectiveuntil,
-		// 	jobposition : [objid : it.positionid],
-		// 	otherjobposition : null,
-		// 	tranche : [objid : it.currentsalarystep.objid],
-		// 	paygradestepincrement : [objid : em.findPayGradeId([objid: it.positionid]).paygradeid],
-		// 	employmentstatus : [objid : 'b51adf40-7dcc-426a-adac-941657b7f9f9'],
-		// 	wage : it.dailysalary,
-		// 	compensationtype : [objid :'bb75ac3e-993f-11e8-ae92-8cec4b1ea771'],
-		// 	monthlysalary : it.dailysalary * 22,
-		// 	reportdisplay : 'DAILY',
-		// 	org : [orgunitid : it.org.orgunitid],
-		// 	branch : [objid :'TEB0003'],
-		// 	lawop : 0.0000,
-		// 	separationtype : [objid : null],
-		// 	separationdate : null,
-		// 	isgovservice : 0,
-		// 	recordlog : [
-		// 					datecreated : dateSvc.getServerDate(),
-		// 					createdbyuserid : env.USERID,
-		// 					createdbyuser : env.FULLNAME,
-		// 					dateoflastupdate : dateSvc.getServerDate(),
-		// 					lastupdatedbyuserid : env.USERID,
-		// 					lastupdatedbyuser : env.FULLNAME, 
-		// 				],
-		// 	old : null,
-
-		// 	]
-		// 	//entry.add(individual)
-		// 	ems.create(individual)
-		// }
-		
-			
-		//println entry
-		//SrpSvc.postJOServiceRecord( entry );
-
 		 
 
 	}
@@ -264,6 +208,8 @@ public void postCasualtoServicerecord( def evt ) {
 	 		ems.create(individual)
  		}
 	}
+
+	}
 	
 
 	
@@ -319,8 +265,142 @@ public void postCasualtoServicerecord( def evt ) {
 		
 			
 	// 	//println entry
-		
+
+@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentpermanent' && result.state=='APPROVED'}" ) 
+public void postPermanenttoServicerecord( def evt ) {
+	def r = evt.result;
+
+	//println r 
+	//println "+++++++++++++++++++++++++++"
+	def appointment = persistenceSvc.read([_schemaname : 'hrmis_appointmentpermanent',objid: r.objid])
+
+			//println it
+
+	def individual = [
+
+		 	objid : 'SR-PID' + new java.rmi.server.UID(),
+		 	appointmentitemid : appointment.objid,
+		 	pdsid : appointment.pds.objid,
+		 	personnelaction : [
+		 					    objid : appointment.natureofappointment.objid,
+		 						name  : em.findNatureofAppointmentName([objid: appointment.natureofappointment.objid]).name,
+		 						code  : em.findNatureofAppointmentCode([objid: appointment.natureofappointment.objid]).code,
+		 					  ],
+		 	datefrom : appointment.effectivefrom,
+		 	dateto : appointment.effectiveuntil,
+		 	jobposition : [objid : em.findJobPositionId([objid: appointment.plantilla.objid]).jobid],
+		 	otherjobposition : null,
+		 	//tranche : [objid : appointment.currentsalarystep.objid],
+		 	//paygradestepincrement : [objid : em.findPayGradeId([objid: em.findJobPositionId([objid: appointment.plantilla.objid])])],
+		 	paygradestepincrement : [objid : appointment.paygradeandstepincrement.objid],
+		 	employmentstatus : [objid : 'e4c79101-5eae-4321-b25b-08f04aa809dc'],
+		 	wage : appointment.compensation,
+		 	compensationtype : [objid :'c965ba41-993f-11e8-ae92-8cec4b1ea771'],
+		 	monthlysalary : appointment.compensation,
+		 	reportdisplay : 'MONTHLY',
+		 	org : [orgunitid : appointment.org.orgunitid],
+		 	branch : [objid :'TEB0003'],
+		 	lawop : 0.0000,
+		 	separationtype : [objid : null],
+		 	separationdate : null,
+		 	isgovservice : 1,
+		 	recordlog : [
+		 					datecreated : dateSvc.getServerDate(),
+		 					createdbyuserid : env.USERID,
+		 					createdbyuser : env.FULLNAME,
+		 					dateoflastupdate : dateSvc.getServerDate(),
+		 					lastupdatedbyuserid : env.USERID,
+		 					lastupdatedbyuser : env.FULLNAME, 
+		 				],
+		 	old : null,
+
+	]
+	println "lusot"
+	println individual
+	 		//entry.add(individual)
+	 		ems.create(individual)
+ 		//}
+
+
+ 	def prevappointment = em.findPrevAppointmentPermanent([objid: appointment.pds.objid]);
+
+ 	if(prevappointment){
+
+ 		def p = [_schemaname: 'hrmis_appointmentpermanent'];
+	    p.findBy = [ 'objid':prevappointment.objid];
+
+		def pa =  querySvc.findFirst( p );
+		if (pa){
+
+			pa.effectiveuntil = appointment.effectivefrom - 1
+			pa.state = "ARCHIVED"
+			pa.recordlog.dateoflastupdate = dateSvc.getServerDate()
+			pa.recordlog.lastupdatedbyuserid = env.USERID
+			pa.recordlog.lastupdatedbyuser  = env.FULLNAME
+			pa._schemaname = 'hrmis_appointmentpermanent'
+			persistenceSvc.update(pa)
+			
+
+			// sr.dateto = appointment.effectivefrom - 1
+			// sr.recordlog.dateoflastupdate = dateSvc.getServerDate()
+			// sr.recordlog.lastupdatedbyuserid = env.USERID
+			// sr.recordlog.lastupdatedbyuser  = env.FULLNAME
+			// sr._schemaname = 'hrmis_servicerecords'
+			// persistenceSvc.update(sr)
+			
+			println "nisulod dri nga method"
+ 		}
+
+
+ 		def q = [_schemaname: 'hrmis_servicerecords'];
+	    q.findBy = [ 'appointmentitemid':prevappointment.objid];
+
+		def sr =  querySvc.findFirst( q );
+		if (sr){
+			sr.dateto = appointment.effectivefrom - 1
+			sr.recordlog.dateoflastupdate = dateSvc.getServerDate()
+			sr.recordlog.lastupdatedbyuserid = env.USERID
+			sr.recordlog.lastupdatedbyuser  = env.FULLNAME
+			sr._schemaname = 'hrmis_servicerecords'
+			persistenceSvc.update(sr)
+
+
+ 			println "nisulod pud dri nga method"
+
+ 		}
+ 	}
+
+
+
+
+
+
 	}
+
+	//}
+
+
+// @Before(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentpermanent' && result.state=='APPROVED'}" ) 
+// public void postCutEffectiveDatePermanent( def evt ) {
+// 	def r = evt.result;
+
+// 	def appointment = persistenceSvc.read([_schemaname : 'hrmis_appointmentpermanent',objid: r.objid])
+
+// 	def prevappointment =  em.findPrevAppointmentPermanent([objid: appointment.pds.objid]);
+
+// 	if (prevappointment){
+
+// 		// def appointment = persistenceSvc.read([_schemaname : 'hrmis_appointmentpermanent',objid: r.objid])
+
+
+
+
+// 		//println pa
+		
+
+// 	}
+
+	//}
 
 
 }

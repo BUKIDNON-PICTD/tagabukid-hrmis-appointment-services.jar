@@ -2,8 +2,9 @@ import com.rameses.annotations.*
 import com.rameses.common.*
 import com.rameses.services.extended.*;
 
-class AppointmentJobOrderReportService 
+class ServiceCardReportService1
 {
+
 	@Service("PersistenceService")
     def persistenceSvc;
 
@@ -19,40 +20,34 @@ class AppointmentJobOrderReportService
 	@Service('RPTUtil')
 	def util
 
+	@ActiveDB(value='servicerecord', em='tagabukid_hrmis')
+	def em
+
 	@Env
 	def env;
 
 	@ProxyMethod
-	public def getAppointmentJobOrderById(params){
-		def data = [:]
-	    //println params
-		def appointment = persistenceSvc.read(params)
-		appointment.appointmentMemberItems.each{
-			it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.entityid]);
-			
-			def personnelpds = persistenceSvc.read([_schemaname:'hrmis_pds', objid: it.pdsid])
-			it.formalname = (personnelpds.prenametitle?.trim()?  personnelpds.prenametitle : "") + " " + personnelpds.person.firstname + " " + personnelpds.person.middlename.substring(0,1) +". " + personnelpds.person.lastname + (personnelpds.nameextension?.trim()?  ", " + personnelpds.nameextension : "") + (personnelpds.postnametitle?.trim()?  ", " + personnelpds.postnametitle : "")
-			
-        	//it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
-			//it.plantilla.Id = it.plantilla.Id.toString()
-			it.position = persistenceSvc.read( [_schemaname:'master_tbljobposition', objid:it.positionid] );
-			it.fund = persistenceSvc.read( [_schemaname:'master_tblfinfund', objid:it.fundid] );
-            it.account = persistenceSvc.read( [_schemaname:'master_tblfinaccounttitle', objid:it.accountid] );
-		}.sort{it.personnel.lastname}
-		//appointment.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:appointment.org.objid] );
-		//appointment.natureofappointment = persistenceSvc.read( [_schemaname:'master_tblappointmententrycode', objid:appointment.natureofappointmentid] );
-		appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
-		//println appointment
-		data.reportdata = appointment;
-		data.parameters = [
+    public def getServiceCardById(o) {
+
+    	def data = [:]
+    	println o
+    	def x = em.getServiceCard([objid:o.pds.objid])
+
+    	println x
+
+    	data.reportdata = x
+
+    	data.parameters = [
 			LGUNAME  :"PG-BUKIDNON, REGION 10",
 			LGUADDRESS : "Provincial Capitol, City of Malaybalay",
-			TITLE :"JOB ORDER APPOINTMENT",
+			TITLE :"SERVICE CARD",
+			ORGNAME :"PROVINCIAL HUMAN RESOURCE MANAGEMENT OFFICE",
 		]
 		return data
 
+    	
+    }
 
-	}
 
 	
 

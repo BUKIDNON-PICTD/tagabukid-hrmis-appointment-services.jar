@@ -32,7 +32,8 @@ class TagabukidHRMISPDSReportService
 				pdsentity.familychildInfos.each{
 					it.child = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.child.objid])
 				}
-			}else{
+			}
+			else{
 				
 			}
 			def Familychild = []
@@ -63,8 +64,8 @@ class TagabukidHRMISPDSReportService
 			pdsentity.family = [
 				fatherdata : pdsentity.familyfatherInfos[0],
 				motherdata : pdsentity.familymotherInfos[0],
-				spousedata : pdsentity.familyspouseInfos[0],
-				childdata : pdsentity.familychildInfos
+				spousedata : pdsentity.familyspouseInfos[0]
+				// childdata : pdsentity.familychildInfos
 			]
 
 			def Levels = [
@@ -76,29 +77,29 @@ class TagabukidHRMISPDSReportService
 			]
 		
 			pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
-					it.from.toInteger()
+				it.from.toInteger()
+			}
+			pdsentity.educationalInfos.each{ y ->
+				if (y.level == "TERTIARY"){
+					y.level = "COLLEGE"
+				}else if (y.level == "PRIMARY"){
+					y.level = "ELEMENTARY"
 				}
-				pdsentity.educationalInfos.each{ y ->
-					if (y.level == "TERTIARY"){
-						y.level = "COLLEGE"
-					}else if (y.level == "PRIMARY"){
-						y.level = "ELEMENTARY"
-					}
-					Levels.each{ x ->
-						if (y.level == x.level){
-							y.position = x.position
-						}
+				Levels.each{ x ->
+					if (y.level == x.level){
+						y.position = x.position
 					}
 				}
-				Levels.each{ b ->
-					if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
-						pdsentity.educationalInfos << b
-					}
+			}
+			Levels.each{ b ->
+				if (pdsentity.educationalInfos.findAll{it.level == b.level}.size()==0){
+					pdsentity.educationalInfos << b
+				}
 				
-				}
-				pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
-					it.position
-				}
+			}
+			pdsentity.educationalInfos = pdsentity.educationalInfos.sort{
+				it.position
+			}
 			
 			def continuededucation = false
 			if (pdsentity.educationalInfos.size()>5){
@@ -275,14 +276,6 @@ class TagabukidHRMISPDSReportService
 			}
 			pdsentity.organizations = Membership
 
-			if (pdsentity.references.size > 0){
-				pdsentity.references.each{
-					it.reference = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.reference.objid])
-				}
-			}else{
-				
-			}
-
 
 			// def Pdsqstatic = []
 			pdsentity.pdsquestions = pdsentity.pdsquestions.sort { 
@@ -296,6 +289,13 @@ class TagabukidHRMISPDSReportService
 			}
 			// println "MAO NA NI"+ Pdsqstatic;
 			
+			if (pdsentity.references.size > 0){
+				pdsentity.references.each{
+					it.reference = persistenceSvc.read( [_schemaname:'entityindividual',objid:it.reference.objid])
+				}
+			}else{
+				
+			}
 
 			def Reference = []
 			pdsentity.references.each{g ->
@@ -312,19 +312,10 @@ class TagabukidHRMISPDSReportService
 			pdsentity.referenceperson = [
 				goviddata : pdsentity.govids[0],
 				referencedata : pdsentity.references
-				
 			]
 
-			// def Govid = []
-			// pdsentity.family = [
-			// 	fatherdata : pdsentity.familyfatherInfos[0],
-			// 	motherdata : pdsentity.familymotherInfos[0],
-			// 	spousedata : pdsentity.familyspouseInfos[0],
-			// 	childdata : pdsentity.familychildInfos
-			// ]
-
 			data.reportdata = pdsentity
-			println pdsentity.referenceperson;
+			println pdsentity.references;
 			data.parameters = [
 				// LGUNAME  :"PG-BUKIDNON, REGION 10",
 				// LGUADDRESS : "Provincial Capitol, City of Malaybalay",
