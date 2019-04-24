@@ -86,3 +86,27 @@ INNER JOIN hrmis_appointmentjoborder apj ON NOW() BETWEEN apj.effectivefrom AND 
 INNER JOIN hrmis_appointmentjoborderitems apji ON apji.parentid = apj.objid AND apji.pdsid = hp.objid
 WHERE apj.org_orgunitid = $P{objid}
 AND apj.state = 'APPROVED'
+
+[getServicetypeGovt]
+SELECT * 
+FROM hrmis_servicerecords
+WHERE isgovservice = $P{isgovservice}
+AND pdsid = $P{objid}
+
+[getServiceRecordBoth]
+select * from hrmis_pds p
+inner join hrmis_servicerecords sr on sr.`pdsid` = p.`objid`
+where p.objid = $P{objid}
+
+[getServiceRecordNG]
+select * from hrmis_pds p
+inner join hrmis_servicerecords sr on sr.`pdsid` = p.`objid`
+where p.objid = $P{objid}
+and sr.`isgovservice` = 0
+
+[getServiceRecordG]
+SELECT * 
+FROM hrmis_pds p
+INNER JOIN hrmis_servicerecords sr ON sr.`pdsid` = p.`objid`
+WHERE p.objid = $P{objid}
+AND sr.`isgovservice` = 1
