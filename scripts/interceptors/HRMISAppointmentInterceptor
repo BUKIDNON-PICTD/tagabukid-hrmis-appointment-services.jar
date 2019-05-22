@@ -43,4 +43,41 @@ class HRMISAppointmentInterceptor {
 		
 	}
 
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_appointmentjoborder' && result.state=='APPROVED'}" ) 
+	public void postDetailOrderForJO( def evt ) {
+		def r = evt.result;
+		r.appointmentMemberItems.each{
+			def p = [_schemaname: 'hrmis_detailorder_list'];
+			p.findBy = [ 'pdsid':it.pdsid,'effectivity': r.effectivefrom];
+			
+			def  existingDO = querySvc.findFirst( p );
+			if(!existingDO){
+				def newDO = [:]
+
+				// newDO.objid  = new
+				newDO.pdsid = it.pdsid
+				def pds = persistenceSvc.rea([_schemaname:'hrmis_pds',objid:it.pdsid])
+				newDO.personnel = pds.person
+				newDO.personnel.position
+				//tiwas
+				
+			}
+		}
+		
+		// def detailorder = [:];
+
+		// def nosa =  querySvc.findFirst( p );
+		// if (!nosa){
+		// 	def log = em.findOriginalAppointment([objid:r.objid])
+		// 	log.recordlog = [:]
+		// 	log.recordlog.datecreated = dateSvc.serverDate
+		// 	log.recordlog.createdbyuserid = env.USERID
+		// 	log.recordlog.createdbyuser = env.FULLNAME
+		// 	log._schemaname = 'hrmis_appointmentpermanent_nosa'
+		// 	persistenceSvc.create(log)
+		// }
+
+		
+	}
+
 }

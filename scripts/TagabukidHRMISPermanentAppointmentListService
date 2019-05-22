@@ -57,6 +57,7 @@ class TagabukidHRMISPermanentAppointmentListService extends ActiveCrudListServic
 	}
 
 	public void beforeList(o) {
+		// println o;
 		o._pagingKeys = "`hrmis_appointmentpermanent`.`objid`";
 		o.filter = '';
 		//int activeyear = dateSvc.getServerYear();
