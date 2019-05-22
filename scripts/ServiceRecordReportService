@@ -25,18 +25,80 @@ class ServiceRecordReportService
 	@Env
 	def env;
 
+	@Service('QueryService')
+	def querySvc
+
+
 	@ProxyMethod
 	public def getServiceRecordById(params){
 		def data = [:]
+	    //println params.servicetype.isgovservice
+	    //def sr = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+	   // println sr
 	    //println params
-		def servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
-		//println "*************************************************************"
-		//println servicerecord.servicerecordInfos
-		//println	servicerecord.objid
-		//println servicerecord
-		//println "*************************************************************"
-		//println params.forretirement
+
+	     def servicerecord
+
+	     if(params.servicetype.isgovservice == 2){
+
+	     	 servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+
+	     }else{
+
+	     	 // servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid, findBy : [servicerecordInfos_isgovservice: params.servicetype.isgovservice]])
+	     	 //servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+	         //servicerecord = [_schemaname: 'hrmis_servicerecords'];
+	    	 // p.findBy = [ 'appointmentitemid':it.objid];
+	    	 //servicerecord.servicerecordInfos.findBy = ['isgovservice':params.servicetype.isgovservice];
+	    	 //servicerecord.servicerecordInfos.isgovservice = params.servicetype.isgovservice;
+	     	 servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+	     	 //println servicerecord.servicerecordInfos
+	     	 servicerecord.servicerecordInfos?.removeAll( servicerecord.servicerecordInfos.findAll{it.isgovservice!=util.toBoolean(params.servicetype.isgovservice, false)} );
+
+	     	 //println servicerecord.servicerecordInfos
+	    	 // def p = [:]
+	    	 // p._schemaname = 'hrmis_pds'
+	    	 // p.findBy = [ objid:params.objid];
+	    	 // p.where = ["servicerecordInfos.isgovservice = :isgovservice" , [isgovservice : params.servicetype.isgovservice]]
+	    	 // def x = querySvc.getList( p );
+	    	 // println x;
+	    	 // servicerecord = x;
+	     }
+
+	    //def servicerecord = persistenceSvc.read([_schemaname: 'hrmis_pds', objid:params.objid])
+
+	    // def servicerecord = sr
+	    // servicerecord.findBy = [ 'pdsid':servicerecord.servicerecordInfos.pdsid, 'isgovservice':params.servicetype.isgovservice];
+	    // def xxx =  querySvc.getList( servicerecord );
+	    // println xxx
+	 //    def p = [_schemaname: 'hrmis_servicerecords'];
+  //   	p.findBy = [ 'pdsid':servicerecord.servicerecordInfos.pdsid, 'isgovservice':params.servicetype.isgovservice];
+  //   	def sr =  querySvc.findFirst( p );
+  		// println "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  		// println params.objid
+	   //  if (params.servicetype.isgovservice == 1) {
+	   //   def servicerecord = em.getServiceRecordG()
+	   		// def servicerecord = em.getServiceRecordG(params.objid)
+	   		// def servicerecord = em.getServiceRecordG([params.objid])
+	   		// def servicerecord = em.getServiceRecordG([objid:params.objid])
+	   //   println servicerecord
+	   //   }
+		// // }else if(params.servicetype.isgovservice == 0){
+		// // 	def servicerecord = em.getServiceRecordNG([objid: params.objid])
+		// // }else{
+		// // 	def servicerecord = em.getServiceRecordG([objid: params.objid])		
+		// // }
+		// //println "*************************************************************"
+		// //println servicerecord.servicerecordInfos
+		// //println	servicerecord.objid
+		// //println servicerecord
+		// //println "*************************************************************"
+		// //println params.forretirement
+		// //println params.servicetype
+		// //if (params.servicetype == 'Government'){
+		// if(sr){
 		servicerecord.servicerecordInfos.each{
+		//servicerecord.each{
 			//it.personnel = tgbkdSvc.getEntityByObjid([entityid:it.entityid]);
         	//it.plantilla = tgbkdSvc.getPlantillaById([plantillaid:it.plantilla.Id]);
 			//it.plantilla.Id = it.plantilla.Id.toString()
@@ -44,6 +106,8 @@ class ServiceRecordReportService
 			//it.employmentstatus = persistenceSvc.read( [_schemaname:'master_tblemptemploymentstatus', objid:it.employmentstatus.objid] );
             //it.org = persistenceSvc.read( [_schemaname:'master_tblorganizationunit', orgunitid:it.org.orgunitid] );
             //it.branch = persistenceSvc.read( [_schemaname:'master_tblemploymentbranch', objid:it.branch.objid] );
+            //println "xxxxx"
+            //println it.pdsid
             it.monthlysalary = (it.reportdisplay == 'DAILY') ? it.monthlysalary/22 : (it.reportdisplay == 'MONTHLY') ? it.monthlysalary : (it.reportdisplay == 'ANNUALLY') ? it.monthlysalary*12 : (it.reportdisplay == 'HONORARIUM') ? it.monthlysalary : 'NA'
             it.reportdisplay = (it.reportdisplay == 'DAILY') ? "/d" : (it.reportdisplay == 'MONTHLY') ? "/m" : (it.reportdisplay == 'ANNUALLY') ? "/a" :  (it.reportdisplay == 'HONORARIUM') ? "/h" : 'NA'
             it.employmentstatus.name = (it.employmentstatus.name == 'CASUAL') ? "C" : (it.employmentstatus.name == 'PERMANENT') ? "P" : (it.employmentstatus.name == 'JOB ORDER') ? "JO" : it.employmentstatus.name
@@ -53,8 +117,12 @@ class ServiceRecordReportService
             //println currdate.currdate
             it.dateto = currdate.currdate < it.dateto  ? null : it.dateto
             it.datestr = it.date == null ? 'TO DATE' : null
+            //it.isgovservice = em.getServicetypeGovt([isgovservice: params.servicetype.isgovservice, objid: it.pdsid]) 
+            //it.isgovservice = persistenceSvc.read([_schemaname: 'hrmis_servicerecords', pdsid:it.pdsid, isgovservice: params.servicetype.isgovservice])
             //println it.personnelaction
-		}//.sort{it.datefrom}
+		//}//.sort{it.datefrom}
+	
+	}
 
 		//def currdate = em.getCurrDate()
 		//def str = 'TO DATE'
@@ -80,6 +148,8 @@ class ServiceRecordReportService
 		//servicerecord.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:appointment.signatorygroup.objid] );
 		//println appointment
 		data.reportdata = servicerecord;
+
+
 		def d = dtSvc.getServerDate()
 		def x = em.findServiceRecordReceiptData([objid:servicerecord.objid])
 

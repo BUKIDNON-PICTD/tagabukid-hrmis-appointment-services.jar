@@ -22,7 +22,7 @@
 		<field name="lawop" required="false" visible="false" searchable="false"/>
 		<field name="separationtype_objid" required="false" visible="false" searchable="false"/>
 		<field name="separationdate" visible="true" searchable="true"/>
-		<field name="isgovservice" required="false" searchable="false" visible="true" />
+		<field name="isgovservice" required="false" searchable="true" visible="true" />
 
 		<field name="recordlog_datecreated" required="true" visible="false" searchable="false" />
 		<field name="recordlog_createdbyuserid" required="true" visible="false" searchable="false" />
