@@ -86,6 +86,49 @@ class TagabukidHRMISAppointmentPermanentReportService
 	}
 
 	@ProxyMethod
+	public def getAppointmentPermanentTransmittalByDateIssued(params){
+		def data = [:]
+
+		def m = [:]; 
+		def o = [_schemaname: 'hrmis_appointmentpermanent'];
+		m.put('dateissued', params.dtissued);
+		m.put('state', 'APPROVED');
+		o.findBy = m;
+		def appointments =  querySvc.getList( o ); 
+		appointments.each{
+			
+			def a = [:]
+			a._schemaname = 'hrmis_appointmentpermanent'
+			a.objid = it.objid
+			def appointment = persistenceSvc.read(a)
+			appointment.formalname = (appointment.pds.prenametitle?.trim()?  appointment.pds.prenametitle : "") + " " + appointment.pds.person.firstname + " " + appointment.pds.person.middlename.substring(0,1) +". " + appointment.pds.person.lastname + (appointment.pds.nameextension?.trim()?  ", " + appointment.pds.nameextension : "") + (appointment.pds.postnametitle?.trim()?  ", " + appointment.pds.postnametitle : "")
+			
+			appointment.compensationword = numSvc.doubleToWords( appointment.compensation).toUpperCase()
+
+			appointment.signatorygroup = persistenceSvc.read( [_schemaname:'hrmis_appointment_signatorygrouping', objid:it.signatorygroup.objid] );
+			
+			appointment.signatoryappointing = appointment.signatorygroup.signatoryGroupItems.find{it.level==1}
+			appointment.signatoryphrmo = appointment.signatorygroup.signatoryGroupItems.find{it.level==2}
+			appointment.signatorypsb = appointment.signatorygroup.signatoryGroupItems.find{it.level==3}
+			
+			it.putAll(appointment);
+			// println it.plantilla.jobposition.paygrade.grade
+		}
+		def transmittal = [:];
+		transmittal.appointmentitems = appointments
+		
+		data.reportdata = transmittal
+		
+		data.parameters = [
+			LGUNAME           : "PROVINCE OF BUKIDNON",
+			LGUADDRESS        : "Capitol Compound",
+			LGUCITY			  : "Malaybalay City",
+			TITLE             : "APPOINTMENT TRANSMITTAL  AND ACTION FORM"
+		]
+		return data
+	}
+
+	@ProxyMethod
 	public def getAppointmentCasualRaiById(params,page,pagelist){
 		def data = [:]
 		def title = "REPORT ON APPOINTMENT ISSUED (RAI)"
