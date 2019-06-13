@@ -308,7 +308,7 @@ class TagabukidHRMISPDSService
 		//     .execute()
 		def userinfo = [
            USERID: embtacs.findMaxUserID().USERID,
-           BADGENUMBER: new java.rmi.server.UID().toString(),
+           BADGENUMBER: embtacs.findMaxUserID().USERID,
            NAME : o.person.name,
            GENDER : o.person.gender,
            BIRTHDAY : o.person.birthdate,
