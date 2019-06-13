@@ -306,35 +306,35 @@ class TagabukidHRMISPDSService
         //     .setParameter('mname',  o.person.middlename)
         //     .setParameter('pdsid', o.objid)
 		//     .execute()
-		def userinfo = [
-            USERID: embtacs.findMaxUserID().USERID,
-            BADGENUMBER: new java.rmi.server.UID().toString(),
-            NAME : o.person.name,
-            GENDER : o.person.gender,
-            BIRTHDAY : o.person.birthdate,
-            DEFAULTDEPTID : 1,
-            ATT : 1,
-            INLATE : 1,
-            OUTEARLY : 1,
-            OVERTIME : 1,
-            SEP : 1,
-            HOLIDAY : 1,
-            MINZU : 1,
-            LUNCHDURATION : 1,
-            privilege : 0,
-            InheritDeptSch : 1,
-            InheritDeptSchClass : 1,
-            AutoSchPlan : 1,
-            MinAutoSchInterval : 24,
-            RegisterOT : 1,
-            InheritDeptRule : 1, 
-            EMPRIVILEGE : 0,
-            lname :  o.person.lastname,
-            fname :  o.person.firstname,
-            mname :  o.person.middlename,
-            pdsid : o.objid
-        ]
-    	embtacs.insertUser(userinfo);
+		//def userinfo = [
+        //    USERID: embtacs.findMaxUserID().USERID,
+        //    BADGENUMBER: new java.rmi.server.UID().toString(),
+        //    NAME : o.person.name,
+        //    GENDER : o.person.gender,
+        //    BIRTHDAY : o.person.birthdate,
+        //    DEFAULTDEPTID : 1,
+        //    ATT : 1,
+        //    INLATE : 1,
+        //    OUTEARLY : 1,
+        //    OVERTIME : 1,
+        //    SEP : 1,
+        //    HOLIDAY : 1,
+        //    MINZU : 1,
+        //    LUNCHDURATION : 1,
+        //    privilege : 0,
+        //    InheritDeptSch : 1,
+        //    InheritDeptSchClass : 1,
+        //    AutoSchPlan : 1,
+        //    MinAutoSchInterval : 24,
+         //   RegisterOT : 1,
+         //   InheritDeptRule : 1, 
+        //    EMPRIVILEGE : 0,
+        //    lname :  o.person.lastname,
+        //    fname :  o.person.firstname,
+        //    mname :  o.person.middlename,
+        //    pdsid : o.objid
+        //]
+    	//embtacs.insertUser(userinfo);
      
 	}
 
