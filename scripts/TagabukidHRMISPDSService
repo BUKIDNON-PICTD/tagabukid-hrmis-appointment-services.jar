@@ -250,7 +250,7 @@ class TagabukidHRMISPDSService
 		// userinfo.mname =r.person.middlename
         // INSERT INTO [dbo].[USERINFO]([USERID], [BADGENUMBER], [SSN], [NAME], [GENDER], [TITLE], [PAGER], [BIRTHDAY], [HIREDDAY], [STREET], [CITY], [STATE], [ZIP], [OPHONE], [FPHONE], [VERIFICATIONMETHOD], [DEFAULTDEPTID], [SECURITYFLAGS], [ATT], [INLATE], [OUTEARLY], [OVERTIME], [SEP], [HOLIDAY], [MINZU], [PASSWORD], [LUNCHDURATION], [MVerifyPass], [PHOTO], [Notes], [privilege], [InheritDeptSch], [InheritDeptSchClass], [AutoSchPlan], [MinAutoSchInterval], [RegisterOT], [InheritDeptRule], [EMPRIVILEGE], [CardNo], [Pin1], [FaceGroup], [AccGroup], [UseAccGroupTZ], [VerifyCode], [Expires], [ValidCount], [ValidTimeBegin], [ValidTimeEnd], [TimeZone1], [TimeZone2], [TimeZone3], [hrmisid], [lname], [fname], [mname], [pdsid]) VALUES (5000, '5000', NULL, 'RUFINO JOHN E. AGUILAR', 'MALE', 'CP II', NULL, '1989-08-04 00:00:00.000', NULL, 'fb27fd74-e9ec-4454-ac01-21de81a5f795', 'VALIDID', NULL, NULL, NULL, NULL, NULL, 2, 15, 1, 1, 1, 1, 1, 1, NULL, '	fDFnNz53', 1, '19178',NULL, NULL, 3, 1, 1, 1, 24, 1, 1, 0, '2141298163', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pgb_employee19703', 'AGUILAR', 'RUFINO JOHN', 'Ecaldre', NULL);
 
-        // em22.sqlContext.createExecutor('''
+        // emu.sqlContext.createExecutor('''
 		// 	INSERT INTO [dbo].[USERINFO](BADGENUMBER,
         //     NAME,GENDER,BIRTHDAY,DEFAULTDEPTID,ATT,INLATE,OUTEARLY,OVERTIME,SEP,HOLIDAY,MINZU,LUNCHDURATION,privilege,InheritDeptSch,InheritDeptSchClass,AutoSchPlan,MinAutoSchInterval,RegisterOT,InheritDeptRule,EMPRIVILEGE,lname,fname,mname,pdsid)
         //     VALUES (
@@ -306,35 +306,35 @@ class TagabukidHRMISPDSService
         //     .setParameter('mname',  o.person.middlename)
         //     .setParameter('pdsid', o.objid)
 		//     .execute()
-		//def userinfo = [
-        //    USERID: embtacs.findMaxUserID().USERID,
-        //    BADGENUMBER: new java.rmi.server.UID().toString(),
-        //    NAME : o.person.name,
-        //    GENDER : o.person.gender,
-        //    BIRTHDAY : o.person.birthdate,
-        //    DEFAULTDEPTID : 1,
-        //    ATT : 1,
-        //    INLATE : 1,
-        //    OUTEARLY : 1,
-        //    OVERTIME : 1,
-        //    SEP : 1,
-        //    HOLIDAY : 1,
-        //    MINZU : 1,
-        //    LUNCHDURATION : 1,
-        //    privilege : 0,
-        //    InheritDeptSch : 1,
-        //    InheritDeptSchClass : 1,
-        //    AutoSchPlan : 1,
-        //    MinAutoSchInterval : 24,
-         //   RegisterOT : 1,
-         //   InheritDeptRule : 1, 
-        //    EMPRIVILEGE : 0,
-        //    lname :  o.person.lastname,
-        //    fname :  o.person.firstname,
-        //    mname :  o.person.middlename,
-        //    pdsid : o.objid
-        //]
-    	//embtacs.insertUser(userinfo);
+		def userinfo = [
+           USERID: embtacs.findMaxUserID().USERID,
+           BADGENUMBER: new java.rmi.server.UID().toString(),
+           NAME : o.person.name,
+           GENDER : o.person.gender,
+           BIRTHDAY : o.person.birthdate,
+           DEFAULTDEPTID : 1,
+           ATT : 1,
+           INLATE : 1,
+           OUTEARLY : 1,
+           OVERTIME : 1,
+           SEP : 1,
+           HOLIDAY : 1,
+           MINZU : 1,
+           LUNCHDURATION : 1,
+           privilege : 0,
+           InheritDeptSch : 1,
+           InheritDeptSchClass : 1,
+           AutoSchPlan : 1,
+           MinAutoSchInterval : 24,
+           RegisterOT : 1,
+           InheritDeptRule : 1, 
+           EMPRIVILEGE : 0,
+           lname :  o.person.lastname,
+           fname :  o.person.firstname,
+           mname :  o.person.middlename,
+           pdsid : o.objid
+        ]
+    	embtacs.insertUser(userinfo);
      
 	}
 
