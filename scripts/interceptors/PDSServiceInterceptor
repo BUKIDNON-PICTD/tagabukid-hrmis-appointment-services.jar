@@ -26,23 +26,23 @@ class PDSServiceInterceptor {
 		
 	}
 
-	// @After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
-	// public void updatePDStoATT( def evt ) {
-	// 	def r = evt.args[0];
+	@After(pattern="PersistenceService.(update)", eval="#{args[0]._schemaname == 'hrmis_pds'}" ) 
+	public void updatePDStoATT( def evt ) {
+		def r = evt.args[0];
 
-	// 	def p = [_schemaname: 'USERINFO'];
-	// 	p.findBy = [ 'pdsdid':r.objid];
-	// 	def userinfo =  querySvc.findFirst( p );
+		def p = [_schemaname: 'USERINFO'];
+		p.findBy = [ 'pdsdid':r.objid];
+		def userinfo =  querySvc.findFirst( p );
 
-	// 	userinfo.NAME = r.person.name
-	// 	userinfo.GENDER = r.person.gender
+		userinfo.NAME = r.person.name
+		userinfo.GENDER = r.person.gender
 	
-	// 	userinfo.lname =r.person.lastname
-	// 	userinfo.fname =r.person.firstname
-	// 	userinfo.mname =r.person.middlename
+		userinfo.lname =r.person.lastname
+		userinfo.fname =r.person.firstname
+		userinfo.mname =r.person.middlename
 
-	// 	emu.update(userinfo)
+		emu.update(userinfo)
 
-	// }
+	}
 
 }
