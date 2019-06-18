@@ -24,7 +24,7 @@ class TagabukidHRMISDashReportService
 
     @ActiveDB(value='hrmis_appointmentdash', em='tagabukid_hrmis')
 	def em;
-
+ 
 	@Env
 	def env;
 
@@ -39,6 +39,13 @@ class TagabukidHRMISDashReportService
 		return dashtiles
 
 
+	}
+
+	@ProxyMethod
+	public def getDash(params){
+		def dashdata = em.getDashData()
+		
+        return dashdata
 	}
 
 	@ProxyMethod
