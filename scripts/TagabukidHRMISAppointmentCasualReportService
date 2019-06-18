@@ -78,6 +78,7 @@ class TagabukidHRMISAppointmentCasualReportService
 			it.plantilla = tgbkdSvc.findPlantillaById([plantillaid:it.plantilla.objid]);
 			// it.plantilla.Id = it.plantilla.Id.toString()
 		}.sort{it.personnel.lastname}
+		println appointment;
 		def pagesize                     = appointment.appointmentitems.size()
 		def list                         = appointment.appointmentitems[(page.start - 1)..(page.end - 1)]
 		appointment.appointmentitems = []

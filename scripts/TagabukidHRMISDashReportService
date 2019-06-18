@@ -29,7 +29,7 @@ class TagabukidHRMISDashReportService
 	def env;
 
 	@ProxyMethod
-	public def getCountByQuery(params){
+	public def getDash(params){
         def dashtiles = em.getTiles()
         dashtiles.each{
 			if(it.query){
@@ -37,8 +37,12 @@ class TagabukidHRMISDashReportService
 			}
         }
 		return dashtiles
+	}
 
-
+	@ProxyMethod
+	public def getHello(params){
+		println params;
+		return params.message
 	}
 
 	@ProxyMethod
@@ -70,9 +74,6 @@ class TagabukidHRMISDashReportService
 
 
 	}
-
-	
-
 
 	def buildTitle(params) {
 		if (params.period == 'quarterly') return 'Quarterly'

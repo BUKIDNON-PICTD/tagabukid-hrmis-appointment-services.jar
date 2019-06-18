@@ -53,4 +53,38 @@ class TagabukidHRMISLeaveCaptureService
 
 	}
 
+	@ProxyMethod
+    public void postLeaveToBTACS(){
+	}
+	@ProxyMethod
+    public void processReconciliationFromHrmistask(entity,reconciliationitems){
+    	def rec = createReconciliation(entity)
+    	
+    	reconciliationitems.each{
+    		// println it.leave_type
+    		def lc = em.findHrmisLeaveClass([hrmisid:it.leave_type])
+	    	if(lc){
+
+	    		def cio = reconcileleaveclass(rec,it,lc)
+	    		if(cio){
+					def x = [
+						leaveid : entity.leaveid,
+						leavedetailid : it.brn,
+						remarks: "RECONCILED LEAVE TO ATT DATABASE"
+					]
+					emreclog.create(x)
+					def l = [
+						leaveid : entity.leaveid,
+						leavedetailid : it.brn,
+						remarks : "RECONCILED LEAVE TO ATT DATABASE",
+					]
+					emlog.create(l)	
+	    		}
+	    		
+	    	}
+    	}
+    	// println entity
+    	// println "RECONCILED LEAVE NO :"+ entity.leave.assgn.no
+    }
+
 }

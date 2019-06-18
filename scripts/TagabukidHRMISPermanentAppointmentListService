@@ -57,6 +57,7 @@ class TagabukidHRMISPermanentAppointmentListService extends ActiveCrudListServic
 	}
 
 	public void beforeList(o) {
+		// println o;
 		o._pagingKeys = "`hrmis_appointmentpermanent`.`objid`";
 		o.filter = '';
 		//int activeyear = dateSvc.getServerYear();
@@ -119,9 +120,9 @@ class TagabukidHRMISPermanentAppointmentListService extends ActiveCrudListServic
 				break;
 		}
 
-		// if(o.dtfrom && o.dtto){
-		// 	o.filter += '''AND `hrmis_appointmentpermanent`.`dateissued` BETWEEN $P{dtfrom} AND ADDDATE($P{dtto},1) '''
-		// }
+		if(o.dtissued){
+			o.filter += '''AND `hrmis_appointmentpermanent`.`dateissued` = $P{dtissued} '''
+		}
 		o.filter += '''ORDER BY `hrmis_appointmentpermanent`.`dateissued` DESC, `pds`.`person_lastname` ASC '''
 		
 	}

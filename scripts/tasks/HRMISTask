@@ -1,0 +1,71 @@
+import com.rameses.annotations.*;
+
+class BTACSATTHRMISMapper {
+	
+	@Service("BTACSReconciliationService")
+	def svc;
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Service("PersistenceService")
+	def persistenceSvc;
+
+	@Service('TagabukidHRMISLeaveCardService')
+	def leavecardSvc
+
+	@Service('LogService')
+	def logSvc
+
+	@Service('QueryService')
+	def querySvc
+
+	@Schedule(interval=1)
+	public void postearnedleave(def taskInfo) {
+		def monthend = new java.sql.Date(dateSvc.getMonthEndDate(dateSvc.serverDate).getTime())
+		def curdate =  dateSvc.getBasicServerDate()
+		def curtime = new java.sql.Time(dateSvc.serverDate.getTime())
+		// println curtime
+		// if( curtime.toString() == '13:53:30'){
+		if( monthend == curdate && curtime.toString() == '13:34:30'){
+			leavecardSvc.postearnedleave(monthend)
+		}
+		
+	}
+
+	@Schedule(interval=1)
+	public void postSLP(def taskInfo) {
+		def cal = Calendar.getInstance();
+		cal.set( dateSvc.parseCurrentDate().year, Calendar.JANUARY, 1,  0, 0, 0  );
+        def firstday = toSqlDate( cal.getTime()); 
+
+		def january = new java.sql.Date(firstday.getTime())
+		def curdate =  dateSvc.getBasicServerDate()
+
+		def curtime = new java.sql.Time(dateSvc.serverDate.getTime())
+
+		if( january == curdate && curtime.toString() == '13:00:00'){
+			leavecardSvc.postspl(january)
+		}
+	}
+	
+	Date toSqlDate( Date value ) { 
+    	if ( value == null ) return null; 
+
+		def cal = Calendar.getInstance();
+		cal.setTime( value );
+
+		int hour = cal.get( Calendar.HOUR_OF_DAY );
+		int minute = cal.get( Calendar.MINUTE );
+		int second = cal.get( Calendar.SECOND );
+		int x = hour + minute + second; 
+		if ( x == 0 ) {
+			return new java.sql.Date( value.time); 
+		} else { 
+			return new java.sql.Timestamp( value.time);
+		} 
+    }
+  	
+
+
+}
