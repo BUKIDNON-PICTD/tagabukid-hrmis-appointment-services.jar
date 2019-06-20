@@ -1,0 +1,31 @@
+import com.rameses.annotations.*;
+import com.rameses.common.*;
+import com.rameses.services.extended.*;
+
+
+class EtracsDashReportService
+{
+	@ActiveDB(value='dashboardreport', em='etracs22')
+	def em;
+
+	@Env
+	def env;
+
+	@Service('DateService')
+	def dtSvc 
+
+	@Service("SequenceService")
+	def seqSvc;
+
+	@Service("QueryService")
+    def querySvc;
+	
+	@Service('NumberService')
+    def numSvc  
+
+	@ProxyMethod
+	public def getRpudash(params){
+		def dashrpu = em.getDashrputypecount()
+		return dashrpu
+	}
+}
