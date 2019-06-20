@@ -46,11 +46,23 @@ class TagabukidHRMISDashReportService
 	}
 
 	@ProxyMethod
-	public def getDash(params){
-		def dashdata = em.getDashData()
-		
+	public def getRPUType(params){
+		def dashtiles = em.getRPUTypeCount()
+	}
+
+	@ProxyMethod
+	public def getMale(params){
+		def dashdata = em.getPDSMale()		
         return dashdata
 	}
+
+	// RPU Queries
+	@ProxyMethod
+	public def getRPUTotalHectare(params){
+		def dashtiles = em.getTotalRPUHectare()
+		return dashtiles
+	}
+	// 
 
 	@ProxyMethod
 	public def getAppointmentCasualRaiById(params){
