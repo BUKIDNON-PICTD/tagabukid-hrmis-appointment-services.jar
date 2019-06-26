@@ -24,6 +24,9 @@ class TagabukidHRMISDashReportService
 
     @ActiveDB(value='hrmis_appointmentdash', em='tagabukid_hrmis')
 	def em;
+
+	@ActiveDB(value='dashboardreport', em='tagabukid_hrmis')
+	def dash
  
 	@Env
 	def env;
@@ -45,23 +48,77 @@ class TagabukidHRMISDashReportService
 		return params.message
 	}
 
-	@ProxyMethod
-	public def getRPUType(params){
-		def dashtiles = em.getRPUTypeCount()
-	}
-
-	@ProxyMethod
-	public def getMale(params){
-		def dashdata = em.getPDSMale()		
-        return dashdata
-	}
+	// @ProxyMethod 
+	// public def getMale(params){
+	// 	def dashdata = em.getPDSMale()		
+ //        return dashdata
+	// }
 
 	// RPU Queries
-	@ProxyMethod
-	public def getRPUTotalHectare(params){
-		def dashtiles = em.getTotalRPUHectare()
-		return dashtiles
-	}
+	@ProxyMethod() 
+	public def dashRPU(params) { 
+		def data = [
+			rpudash : dash.getRPUType(),
+			rpudashtype   : 	dash.getDashrputypecount(),			
+			rpudashtotalhr   : 	dash.getTotalHr(),		
+			rpudashtotalsqm  : 	dash.getTotalSQM(),		
+			rpudashtotalbmv  : 	dash.getTotalBMV(),		
+			rpudashtotalmv  : 	dash.getTotalMV(),		
+			rpudashtotalav  : 	dash.getTotalAV()
+		] 
+		 
+		data.rpudash.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+
+		data.rpudashtotalhr.each{
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  numSvc.format('#,##0.00', it.LAND);
+			it.BLDG =  numSvc.format('#,##0.00', it.BLDG);
+			it.MISC =  numSvc.format('#,##0.00', it.MISC);
+			it.MACH =  numSvc.format('#,##0.00', it.MACH);
+			it.PLANTTREE =  numSvc.format('#,##0.00', it.PLANTTREE);
+		}
+
+		data.rpudashtotalbmv.each{
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		 
+		data.rpudashtotalmv.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		 
+		data.rpudashtotalav.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		
+		return data;
+	} 
 	// 
 
 	@ProxyMethod

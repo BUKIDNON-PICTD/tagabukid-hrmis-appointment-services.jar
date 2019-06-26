@@ -28,4 +28,69 @@ class EtracsDashReportService
 		def dashrpu = em.getDashrputypecount()
 		return dashrpu
 	}
+
+	// RPU Queries
+	@ProxyMethod() 
+	public def dashRPU(params) { 
+		def data = [
+			rpudash : em.getRPUType(),
+			rpudashtype   : 	em.getDashrputypecount(),			
+			rpudashtotalhr   : 	em.getTotalHr(),		
+			rpudashtotalsqm  : 	em.getTotalSQM(),		
+			rpudashtotalbmv  : 	em.getTotalBMV(),		
+			rpudashtotalmv  : 	em.getTotalMV(),		
+			rpudashtotalav  : 	em.getTotalAV()
+		] 
+		 
+		data.rpudash.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+
+		data.rpudashtotalhr.each{
+			it.LGU =  it.LGU;
+			it.LAND =  numSvc.format('#,##0.00', it.LAND);
+			it.BLDG =  numSvc.format('#,##0.00', it.BLDG);
+			it.MISC =  numSvc.format('#,##0.00', it.MISC);
+			it.MACH =  numSvc.format('#,##0.00', it.MACH);
+			it.PLANTTREE =  numSvc.format('#,##0.00', it.PLANTTREE);
+		}
+
+		data.rpudashtotalbmv.each{
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		 
+		data.rpudashtotalmv.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		 
+		data.rpudashtotalav.each{ 
+			it.LGU =  it.LGU;
+			it.BARANGAY =  it.BARANGAY;
+			it.LAND =  it.LAND;
+			it.BLDG =  it.BLDG;
+			it.MISC =  it.MISC;
+			it.MACH =  it.MACH;
+			it.PLANTTREE =  it.PLANTTREE;
+		}
+		
+		return data;
+	} 
 }
