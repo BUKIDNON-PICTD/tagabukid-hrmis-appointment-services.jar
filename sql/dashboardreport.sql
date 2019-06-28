@@ -80,7 +80,7 @@ INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
 INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
 
 WHERE fl.`state` = 'CURRENT'
-GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+GROUP BY lgu.`name`, bar.`name`
 ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
 ;
 
@@ -105,7 +105,7 @@ INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
 INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
 
 WHERE fl.`state` = 'CURRENT'
-GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+GROUP BY lgu.`name`, bar.`name`
 ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
 ;
 
@@ -130,7 +130,7 @@ INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
 INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
 
 WHERE fl.`state` = 'CURRENT'
-GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+GROUP BY lgu.`name`, bar.`name`
 ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
 ;
 
@@ -155,6 +155,6 @@ INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
 INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
 
 WHERE fl.`state` = 'CURRENT'
-GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+GROUP BY lgu.`name`, bar.`name`
 ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
 ;
