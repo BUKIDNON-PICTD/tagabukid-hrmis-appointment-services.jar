@@ -14,3 +14,47 @@ SELECT * FROM hrmis_dash_widget WHERE state = 'ACTIVE';
 -- WHERE faas.state = "CURRENT"  
 -- GROUP BY mu.name, faas.barangay
 -- ORDER BY mu.name;
+ 
+
+
+[getRPUTotalAV]
+SELECT 
+lgu.name AS LGU, 
+bar.name AS barangay,
+SUM(IF(rpu.rputype='land',rpu.`totalav`,0)) AS LAND, 
+SUM(IF(rpu.rputype='bldg',rpu.`totalav`,0)) AS BLDG,
+SUM(IF(rpu.rputype='misc',rpu.`totalav`,0)) AS MISC,
+SUM(IF(rpu.rputype='mach',rpu.`totalav`,0)) AS MACH,
+SUM(IF(rpu.rputype='planttree',rpu.`totalav`,0)) AS PLANTTREE
+ 
+FROM `faas_list` fl
+
+INNER JOIN municipality lgu ON lgu.objid = fl.`lguid`
+INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
+INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
+
+WHERE fl.`state` = 'CURRENT'
+GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
+;
+
+[getRPUTotalMV]
+SELECT 
+lgu.name AS LGU, 
+bar.name AS barangay,
+SUM(IF(rpu.rputype='land',rpu.`totalmv`,0)) AS LAND, 
+SUM(IF(rpu.rputype='bldg',rpu.`totalmv`,0)) AS BLDG,
+SUM(IF(rpu.rputype='misc',rpu.`totalmv`,0)) AS MISC,
+SUM(IF(rpu.rputype='mach',rpu.`totalmv`,0)) AS MACH,
+SUM(IF(rpu.rputype='planttree',rpu.`totalmv`,0)) AS PLANTTREE
+
+FROM `faas_list` fl
+
+INNER JOIN municipality lgu ON lgu.objid = fl.`lguid`
+INNER JOIN barangay bar ON bar.`objid` = fl.`barangayid`
+INNER JOIN rpu ON rpu.`objid` = fl.`rpuid`
+
+WHERE fl.`state` = 'CURRENT'
+GROUP BY rpu.`rputype`,bar.`name`, lgu.`name`
+ORDER BY lgu.`name`, bar.`name`, rpu.`rputype`
+;
