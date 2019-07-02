@@ -35,7 +35,9 @@ class TagabukidHRMISDashReportService
 			if(it.query){
             	it.data = empx.sqlContext.createQuery(it.query).singleResult;
 			}
+			
         }
+		
 		return dashtiles
 	}
 

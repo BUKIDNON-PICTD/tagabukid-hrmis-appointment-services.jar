@@ -6,7 +6,7 @@ import com.rameses.services.extended.*;
 class EtracsDashReportService
 {
 	@ActiveDB(value='dashboardreport', em='etracs22')
-	def em;
+	def dash;
 
 	@Env
 	def env;
@@ -25,7 +25,18 @@ class EtracsDashReportService
 
 	@ProxyMethod
 	public def getRpudash(params){
-		def dashrpu = em.getDashrputypecount()
-		return dashrpu
+		def data = dash.getDashrputypecount()
+		// def data = [
+        //     rpudash :  dash.getDashrputypecount()
+        // ]
+		// data.each{
+		// 	it.LAND = it.LAND;
+		// 	it.BLDG = it.BLDG;
+		// 	println it.LAND
+		// }
+       
+        // println dashrpu
+		return data
+    
 	}
 }
