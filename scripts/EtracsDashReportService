@@ -21,36 +21,20 @@ class EtracsDashReportService
     def querySvc;
 	
 	@Service('NumberService')
-    def numSvc  
-
-	@ProxyMethod
-	public def getRpudash(params){
-		def data = dash.getDashrputypecount()
-		// def data = [
-        //     rpudash :  dash.getDashrputypecount()
-        // ]
-		// data.each{
-		// 	it.LAND = it.LAND;
-		// 	it.BLDG = it.BLDG;
-		// 	println it.LAND
-		// }
-       
-        // println dashrpu
-		return data
-    
-	}
-
+    def numSvc 
+	
 	// RPU Queries
 	@ProxyMethod() 
 	public def dashRPU(params) { 
 		def data = [
-			rpudash : em.getRPUType(),
-			rpudashtype   : 	em.getDashrputypecount(),			
-			rpudashtotalhr   : 	em.getTotalHr(),		
-			rpudashtotalsqm  : 	em.getTotalSQM(),		
-			rpudashtotalbmv  : 	em.getTotalBMV(),		
-			rpudashtotalmv  : 	em.getTotalMV(),		
-			rpudashtotalav  : 	em.getTotalAV()
+			rpudashdata : dash.getRpuData(),
+			rpudash : dash.getRPUType(),
+			rpudashtype   : 	dash.getDashrputypecount(),			
+			rpudashtotalhr   : 	dash.getTotalHr(),		
+			rpudashtotalsqm  : 	dash.getTotalSQM(),		
+			rpudashtotalbmv  : 	dash.getTotalBMV(),		
+			rpudashtotalmv  : 	dash.getTotalMV(),		
+			rpudashtotalav  : 	dash.getTotalAV()
 		] 
 		 
 		data.rpudash.each{ 
@@ -101,7 +85,7 @@ class EtracsDashReportService
 			it.MACH =  it.MACH;
 			it.PLANTTREE =  it.PLANTTREE;
 		}
-		
+		// println data.rpudashtotalhr;
 		return data;
 	} 
 }
