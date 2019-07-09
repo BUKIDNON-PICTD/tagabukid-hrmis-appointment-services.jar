@@ -31,8 +31,20 @@ class PDSServiceInterceptor {
 		def r = evt.args[0];
 
 		def p = [_schemaname: 'USERINFO'];
-		p.findBy = [ 'pdsdid':r.objid];
+		p.findBy = [ 'pdsid':r.objid];
 		def userinfo =  querySvc.findFirst( p );
+
+		// userinfo.NAME = r.person.name
+		// userinfo.GENDER = r.person.gender
+	
+		// userinfo.lname =r.person.lastname
+		// userinfo.fname =r.person.firstname
+		// userinfo.mname =r.person.middlename
+
+		// emu.update(userinfo)
+		if (!userinfo){
+			pdsSvc.createATTUserInfo(r)
+		}else{
 
 		userinfo.NAME = r.person.name
 		userinfo.GENDER = r.person.gender
@@ -42,6 +54,7 @@ class PDSServiceInterceptor {
 		userinfo.mname =r.person.middlename
 
 		emu.update(userinfo)
+		}
 
 	}
 

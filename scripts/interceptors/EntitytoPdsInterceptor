@@ -36,12 +36,12 @@ def querySvc
 		// println entity
 		def p = [_schemaname: 'hrmis_pds'];
 		p.findBy = [ 'person_objid': entity.objid];
-		def pds = querySvc.findFirst( p )
+		def pds = querySvc.findFirst( p );
 
 		if(pds){
 			pds.person.putAll(entity)
 			pds._schemaname = 'hrmis_pds'
-			persistenceSvc.update(pds)
+			persistenceSvc.update(pds);
 		}
 	}
 
